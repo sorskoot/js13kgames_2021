@@ -4,10 +4,16 @@ import insidePortal from "./scripts/insidePortal";
 import portalScript from "./scripts/portal";
 import rotator from "./scripts/rotator";
 
-(function () {
+(async function () {
 
+    await import('./scripts/rotator.js');
+
+    const tilesTexture = new pc.Asset("tiles","texture",{
+        url:'./Tiles.png',    
+    });
     
-        // create a PlayCanvas application
+    
+    // create a PlayCanvas application
     const canvas = document.getElementById('application');
     const app = new pc.Application(canvas, {
         mouse: new pc.Mouse(canvas),
@@ -15,8 +21,8 @@ import rotator from "./scripts/rotator";
         keyboard: new pc.Keyboard(window),
     });
     app.graphicsDevice.setStencilTest(true);
-    
-
+    app.assets.add(tilesTexture);
+    app.assets.load(tilesTexture);
 
 
 
@@ -33,7 +39,26 @@ import rotator from "./scripts/rotator";
     // create camera
     // create camera parent
     const cameraParent = new pc.Entity();
-    
+
+ // Create a 512x512x24-bit render target with a depth buffer
+ var colorBuffer = new pc.Texture(app.graphicsDevice, {
+    width: 512,
+    height: 512,
+    format: pc.PIXELFORMAT_R8_G8_B8
+});
+var renderTarget = new pc.RenderTarget({
+    colorBuffer: colorBuffer,
+    depth: true
+});
+let camera2 = new pc.Entity();
+camera2.addComponent('camera', {
+});
+/** @type {pc.CameraComponent} */
+var cameraComponent = camera2.camera;
+cameraComponent.renderTarget = renderTarget;
+cameraComponent.clearColor = new pc.Color(1, 0, 0, 1);
+camera2.setLocalPosition(0, 10, 0);
+
 
     // create camera
     const camera = new pc.Entity();
@@ -41,15 +66,23 @@ import rotator from "./scripts/rotator";
         clearColor: new pc.Color(44 / 255, 62 / 255, 80 / 255),
         farClip: 10000
     });
-    cameraParent.addChild(camera);    
+    cameraParent.addChild(camera);
+
+    camera.translate(0, 0, 50);
+    camera.addComponent('script');
+    camera.script.create(portalScript().scriptName, {
+        attributes: { portalCameras: [camera2] }
+    });
 
     const light = new pc.Entity();
     light.addComponent("light", {
-        type: "spot",
+        type: pc.LIGHTTYPE_DIRECTIONAL,
         range: 30
     });
-    light.translate(0, 10, 0);
-    
+    light.translate(1, 2, -2);
+    light.rotate(90, 45, 0);
+
+
 
     //const levelcontroller = new LevelController(app);
 
@@ -66,13 +99,22 @@ import rotator from "./scripts/rotator";
     const outsideMat = new pc.StandardMaterial();
     const portalMat = new pc.StandardMaterial();
     const borderMat = new pc.StandardMaterial();
-    borderMat.emissive.set(1, 0.4, 0);
-    borderMat.update();
+
+    tilesTexture.ready(()=>{
+        
+        borderMat.diffuseMap = tilesTexture.resource;
+        borderMat.diffuseMap.magFilter = 
+        borderMat.diffuseMap.minFilter = pc.FILTER_NEAREST
+        //borderMat.diffuseMapOffset.set(offsetu, offsetv);
+        borderMat.diffuseMapTiling.set(.125*3, 1*3);
+        borderMat.update();
+    });
+    
 
     // Create a root for the graphical scene
     const group = new pc.Entity();
-    group.addComponent('script');
-    group.script.create(rotator().scriptName);
+    // group.addComponent('script');
+    // group.script.create(rotator().scriptName);
 
     // Create a Entity with a Box model component
     const box = new pc.Entity();
@@ -91,33 +133,48 @@ import rotator from "./scripts/rotator";
         velocityGraph: new pc.CurveSet([[0, 3], [0, 3], [0, 3]]),
         velocityGraph2: new pc.CurveSet([[0, -3], [0, -3], [0, -3]])
     });
-    box.addComponent('script');
-    box.script.create(insidePortal().scriptName);
+    // box.addComponent('script');
+    // box.script.create(insidePortal().scriptName);
     box.setLocalPosition(0, 0.5, -1.936);
 
+
+   
     // Create the portal entity
     const portal = new pc.Entity();
     portal.addComponent('model', {
         type: 'plane'
     });
+    // portalMat.diffuseMap = new pc.Texture(app.graphicsDevice, {
+    //     width: 512,
+    //     height: 512,
+    //     format: pc.PIXELFORMAT_R8_G8_B8,
+    //     SourceBuffer:colorBuffer
+    // });
+    // //portalMat.diffuseMap.setSource(colorBuffer);
+    portalMat.diffuseMap = renderTarget.colorBuffer;
+    portalMat.update();
+
+    //renderTarget.colorBuffer;
     portal.model.material = portalMat;
-    portal.addComponent('script');
-    portal.script.create(portalScript().scriptName);
-    portal.setLocalPosition(0, 0, 0);
+
+
+    // portal.addComponent('script');
+    // portal.script.create(portalScript().scriptName);
+    portal.setLocalPosition(0, 0, .1);
     portal.setLocalEulerAngles(90, 0, 0);
-    portal.setLocalScale(4, 1, 6);
+    portal.setLocalScale(3, 1, 3);
 
     // Create the portal border entity
     const border = new pc.Entity();
     border.addComponent('model', {
-        type: 'plane'
+        type: 'plane',
     });
     border.model.material = borderMat;
-    border.addComponent('script');
-    border.script.create(outsidePortal().scriptName);
+    // border.addComponent('script');
+    // border.script.create(outsidePortal().scriptName);
     border.setLocalPosition(0, 0, 0);
     border.setLocalEulerAngles(90, 0, 0);
-    border.setLocalScale(4.68, 1.17, 7.019);
+    border.setLocalScale(4, 1, 4);
 
     // Create an entity with a sphere model component
     const sphere = new pc.Entity();
@@ -125,9 +182,9 @@ import rotator from "./scripts/rotator";
         type: 'sphere'
     });
     sphere.model.material = outsideMat;
-    sphere.addComponent('script');
-    sphere.script.create(outsidePortal().scriptName);
-    sphere.setLocalPosition(0, 0, -2.414);
+    // sphere.addComponent('script');
+    // sphere.script.create(outsidePortal().scriptName);
+    sphere.setLocalPosition(0, 10, -2.414);
     sphere.setLocalEulerAngles(0, 0, 0);
     sphere.setLocalScale(1, 1, 1);
 
@@ -138,10 +195,11 @@ import rotator from "./scripts/rotator";
     group.addChild(box);
     group.addChild(portal);
     group.addChild(border);
-    group.addChild(sphere);
-
+    app.root.addChild(sphere);
+    app.root.addChild(camera2);
+    camera2.enabled = false;
     app.start();
-    
+
     const controllers = [];
     // create controller box
     const createController = function (inputSource) {
@@ -166,8 +224,11 @@ import rotator from "./scripts/rotator";
     if (app.xr.supported) {
         const activate = function () {
             if (app.xr.isAvailable(pc.XRTYPE_VR)) {
+
                 camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCAL, {
                     callback: function (err) {
+                        camera2.enabled = true;
+                        //  app.xr._baseLayer.stencil = true;
                         if (err) message("WebXR Immersive VR failed to start: " + err.message);
                     }
                 });
@@ -184,6 +245,7 @@ import rotator from "./scripts/rotator";
         if (app.touch) {
             app.touch.on("touchend", function (evt) {
                 if (!app.xr.active) {
+
                     // if not in VR, activate
                     activate();
                 } else {
@@ -241,7 +303,7 @@ import rotator from "./scripts/rotator";
                 inputSource = controllers[i].inputSource;
 
                 // should have gamepad
-                if (! inputSource.gamepad)
+                if (!inputSource.gamepad)
                     continue;
 
                 // left controller - for movement
@@ -261,7 +323,7 @@ import rotator from "./scripts/rotator";
 
                         const rad = Math.atan2(tmpVec2B.x, tmpVec2B.y) - (Math.PI / 2);
                         // and rotate our movement vector based on camera yaw
-                        const t =      tmpVec2A.x * Math.sin(rad) - tmpVec2A.y * Math.cos(rad);
+                        const t = tmpVec2A.x * Math.sin(rad) - tmpVec2A.y * Math.cos(rad);
                         tmpVec2A.y = tmpVec2A.y * Math.sin(rad) + tmpVec2A.x * Math.cos(rad);
                         tmpVec2A.x = t;
 
@@ -272,7 +334,7 @@ import rotator from "./scripts/rotator";
                         cameraParent.translate(tmpVec2A.x, 0, tmpVec2A.y);
                     }
 
-                // right controller - for rotation
+                    // right controller - for rotation
                 } else if (inputSource.handedness === pc.XRHAND_RIGHT) {
                     // get rotation from thumbsitck
                     const rotate = -inputSource.gamepad.axes[2];

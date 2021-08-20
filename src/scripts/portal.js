@@ -3,17 +3,14 @@ const scriptName = 'portal';
 export default () => {
     if (Portal) return Portal;
     Portal = pc.createScript(scriptName);
+    Portal.attributes.add('portalCameras', { type: "entity",array:true });
     Portal.scriptName = scriptName;
-    // initialize code called once per entity
-    Portal.prototype.initialize = function () {
-        // We only want to write to the stencil buffer
-        const mat = this.entity.model.meshInstances[0].material;
-        mat.depthWrite = false;
-        mat.redWrite = mat.greenWrite = mat.blueWrite = mat.alphaWrite = false;
-        mat.stencilBack = mat.stencilFront = new pc.StencilParameters({
-            zpass: pc.STENCILOP_INCREMENT
-        });
-        mat.update();
+    
+    Portal.prototype.update = function () {
+        let position = this.entity.getPosition();
+        /** @type {pc.Vec3} */
+        let cameraPosition = this.portalCameras[0].getPosition();
+        this.portalCameras[0].setPosition(position.x*-1, cameraPosition.y, position.z);
     };
     return Portal;
 }
