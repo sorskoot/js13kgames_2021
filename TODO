@@ -4,28 +4,53 @@ Must have:
         ✔ Build pipeline @done(21-08-16 22:19)
     - Enter VR Button
     - Movement in VR
-        - With controller
-    - push cubes to target
+        - teleporting.
+    - Push cubes to target
+    - Level generator
+    - Be very easy to restart levels    
+    - 5 levels.
+    - Menu
+    - Title Screen
 
 
 Should have:
+    - store progress when leaving game
+    - Must have 10 levels.
 
 Could have:
     - Movement by walking
     - Have the game run on the desktop
+    - Step/teleport onto the walls (maybe by rotating the whole world)
+    - Must have 20 levels.
+    - powerups
+    - teleporting
+    - gravity fields
+    - lighting
 
 Would like:
+    - Must have 50 levels.
 
 Story:
-    ~ Janitor on space ship. The space ship has passed through a black hole. Which caused the ship to be messed up.
-    ~ Somehow rooms and corridors lead to unexpected places and even end up on the ceiling. But, the good jenitor that your are,
-    ~ you still feel the urge to clean up the mess of boxes and place then into the right spots.
-    ~ Gravitiy is only working on your boots. The boxes slide forward and only stop when hitting a wall.
+    ~ Janitor on space ship. The ship is a mess, boxes all over the place.
+    ~ You need to clean up the mess of boxes and place then into the right spots.
+    ~ Gravitiy is only working on your boots. The boxes slide forward and only stop when hitting 
+    ~ a wall or column. You can't jump over the boxes. 
+    ~ But, we can jump on the walls.    
+
+Levels:
+    S = Start
+    B - Box
+    T - Target
+    1 - wall type 1, etc
+    0 - empty space
     
-Alternative:
-    -  Maybe something like https://www.babylonjs-playground.com/#QOO0F#16
+    ~ Level 1:
+      [1,1,1,1,1,1,1],
+      [1,S,0,0,0,0,1],
+      [1,0,1,0,0,0,1],
+      [1,0,B,0,0,T,1],
+      [1,0,1,0,0,0,1],
+      [1,0,0,0,0,0,1],
+      [1,1,1,1,1,1,1],
+    ~ Level 2:
 
-
-Maybe this works: 
-    https://github.com/Samsy/glsl-screenspace/blob/master/index.glsl
-    with https://www.youtube.com/watch?v=TkzASwVgnj8 and https://github.com/omer1615/Playable_Lightweight_Portals_Example/tree/master/Assets/Portals
