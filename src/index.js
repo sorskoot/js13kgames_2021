@@ -2,12 +2,12 @@ import { LevelController } from "./classes/levelcontroller";
 import outsidePortal from "./scripts/outsidePortal";
 import insidePortal from "./scripts/insidePortal";
 import portalScript from "./scripts/portal";
-import rotator from "./scripts/rotator";
 
 (async function () {
 
     await import('./scripts/rotator.js');
-
+  
+    
     const tilesTexture = new pc.Asset("tiles","texture",{
         url:'./Tiles.png',    
     });
@@ -23,8 +23,32 @@ import rotator from "./scripts/rotator";
     app.graphicsDevice.setStencilTest(true);
     app.assets.add(tilesTexture);
     app.assets.load(tilesTexture);
+    
+    /** Shader **/
+    const vertShader = await import('./shaders/vertShader.glsl');
+    const fragShader = await import('./shaders/fragShader.glsl');
+    
+    let shaderDefinition = {
+        attributes: {
+            aPosition: pc.gfx.SEMANTIC_POSITION,
+            vertex_texCoord0 : pc.gfx.SEMANTIC_TEXCOORD0
+        },
+        vshader: vertShader.default,
+        fshader: fragShader.default
+    };
+    let shader = new pc.Shader(app.graphicsDevice, shaderDefinition);
 
-
+    
+    const portalVertShader = await import('./shaders/portalVertShader.glsl');
+    const portalFragShader = await import('./shaders/portalFragShader.glsl');
+    let portalShaderDefinition = {
+        attributes: {
+            aPosition: pc.gfx.SEMANTIC_POSITION
+        },
+        vshader: portalVertShader.default,
+        fshader: portalFragShader.default
+    };
+    let portalShader = new pc.Shader(app.graphicsDevice, portalShaderDefinition);
 
     const message = function (msg) {
         console.log(msg);
@@ -57,7 +81,7 @@ camera2.addComponent('camera', {
 var cameraComponent = camera2.camera;
 cameraComponent.renderTarget = renderTarget;
 cameraComponent.clearColor = new pc.Color(1, 0, 0, 1);
-camera2.setLocalPosition(0, 10, 0);
+camera2.setLocalPosition(0, 10, 4);
 
 
     // create camera
@@ -69,10 +93,7 @@ camera2.setLocalPosition(0, 10, 0);
     cameraParent.addChild(camera);
 
     camera.translate(0, 0, 50);
-    camera.addComponent('script');
-    camera.script.create(portalScript().scriptName, {
-        attributes: { portalCameras: [camera2] }
-    });
+   
 
     const light = new pc.Entity();
     light.addComponent("light", {
@@ -97,16 +118,31 @@ camera2.setLocalPosition(0, 10, 0);
 
     const insideMat = new pc.StandardMaterial();
     const outsideMat = new pc.StandardMaterial();
-    const portalMat = new pc.StandardMaterial();
-    const borderMat = new pc.StandardMaterial();
+    
+
+    const borderMat = new pc.Material();
 
     tilesTexture.ready(()=>{
+        tilesTexture.resource.magFilter = 
+        tilesTexture.resource.minFilter = pc.FILTER_NEAREST
+
+        borderMat.setShader(shader);         
+        let tileIndex = 1;
+        // Set the diffuse texture      
+        borderMat.setParameter('index',tileIndex);
+        borderMat.setParameter('DiffuseTexture', tilesTexture.resource);
+        //this.material.setParameter('Lookup', textureLookup);
+        //this.material.setParameter('lookupIndex',lookupIndex);
+        //this.material.setParameter('lookupShift', 0.0);
+        borderMat.setParameter('spriteDimensions', [16.0,1.0]);
+        borderMat.setParameter('repeat', [3, 3]);
+        //this.material.setParameter('color: ',new THREE.Color(color) },
+        //this.material.setParameter('tint: { value: new THREE.Color(255, 255, 255) },
+        //this.material.setParameter('tintAmount: { value: 0 }
+
+        // borderMat.diffuseMap = tilesTexture.resource;
         
-        borderMat.diffuseMap = tilesTexture.resource;
-        borderMat.diffuseMap.magFilter = 
-        borderMat.diffuseMap.minFilter = pc.FILTER_NEAREST
-        //borderMat.diffuseMapOffset.set(offsetu, offsetv);
-        borderMat.diffuseMapTiling.set(.125*3, 1*3);
+        //borderMat.diffuseMapOffset.set(offsetu, offsetv);        
         borderMat.update();
     });
     
@@ -151,8 +187,12 @@ camera2.setLocalPosition(0, 10, 0);
     //     SourceBuffer:colorBuffer
     // });
     // //portalMat.diffuseMap.setSource(colorBuffer);
-    portalMat.diffuseMap = renderTarget.colorBuffer;
+    //portalMat.diffuseMap = renderTarget.colorBuffer;
+    const portalMat = new pc.Material();
+    portalMat.setShader(portalShader);
+    portalMat.setParameter('DiffuseTexture',renderTarget.colorBuffer);
     portalMat.update();
+    
 
     //renderTarget.colorBuffer;
     portal.model.material = portalMat;
@@ -167,15 +207,41 @@ camera2.setLocalPosition(0, 10, 0);
     // Create the portal border entity
     const border = new pc.Entity();
     border.addComponent('model', {
-        type: 'plane',
+        type: 'box'        
     });
     border.model.material = borderMat;
     // border.addComponent('script');
     // border.script.create(outsidePortal().scriptName);
-    border.setLocalPosition(0, 0, 0);
+    border.setLocalPosition(2, 10, -1.6);
     border.setLocalEulerAngles(90, 0, 0);
-    border.setLocalScale(4, 1, 4);
+    border.setLocalScale(3, 3, 3);
+    const border4= new pc.Entity();
+    border4.addComponent('model', {
+        type: 'box'        
+    });
+    border4.model.material = borderMat;    
+    border4.setLocalPosition(-2, 10, -1.6);
+    border4.setLocalEulerAngles(90, 0, 0);
+    border4.setLocalScale(3, 3, 3);
 
+    const border2 = new pc.Entity();
+    border2.addComponent('model', {
+        type: 'box'        
+    });
+    border2.model.material = borderMat;
+    // border.addComponent('script');
+    // border.script.create(outsidePortal().scriptName);
+    border2.setLocalPosition(2, 0, -1.6);
+    border2.setLocalEulerAngles(90, 0, 0);
+    border2.setLocalScale(3, 3, 3);
+    const border3 = new pc.Entity();
+    border3.addComponent('model', {
+        type: 'box'        
+    });
+    border3.model.material = borderMat;    
+    border3.setLocalPosition(-2, 0, -1.6);
+    border3.setLocalEulerAngles(90, 0, 0);
+    border3.setLocalScale(3, 3, 3);
     // Create an entity with a sphere model component
     const sphere = new pc.Entity();
     sphere.addComponent('model', {
@@ -195,9 +261,23 @@ camera2.setLocalPosition(0, 10, 0);
     group.addChild(box);
     group.addChild(portal);
     group.addChild(border);
+    group.addChild(border2);
+    group.addChild(border3);
+    group.addChild(border4);
     app.root.addChild(sphere);
     app.root.addChild(camera2);
+
+    let portalTarget = new pc.Entity();
     camera2.enabled = false;
+    camera2.addComponent('script');
+    camera2.script.create(portalScript().scriptName, {
+        attributes: { 
+            sceneCamera: camera 
+        }
+    });
+    // camera2.camera.viewMatrix.mul(
+    //              portal.getWorldTransform().mul(camera.getLocalTransform()));
+    
     app.start();
 
     const controllers = [];
