@@ -5,13 +5,13 @@ const rotateSpeed = 45;
 const rotateThreshold = 0.5;
 const rotateResetThreshold = 0.25;
 
-        const tmpVec2A = new pc.Vec2();
-        const tmpVec2B = new pc.Vec2();
-        const tmpVec3A = new pc.Vec3();
-        const tmpVec3B = new pc.Vec3();
-        const lineColor = new pc.Color(1, 1, 1);
-        
-export class Game {  
+const tmpVec2A = new pc.Vec2();
+const tmpVec2B = new pc.Vec2();
+const tmpVec3A = new pc.Vec3();
+const tmpVec3B = new pc.Vec3();
+const lineColor = new pc.Color(1, 1, 1);
+
+export class Game {
     /**
      * 
      * @param {pc.Application} app 
@@ -30,15 +30,36 @@ export class Game {
     }
 
     async init() {
+        await import('./pcUtils');
+        await import('./controller');
+        await import('./teleportCamera');
+        await import('./lookCamera');
+
         // create camera parent
         this.cameraParent = new pc.Entity();
+        this.cameraParent.addComponent('script');
+        this.cameraParent.script.create('teleportCamera');
 
         // create camera
         this.camera = new pc.Entity();
         this.camera.addComponent('camera', {
             clearColor: new pc.Color(44 / 255, 62 / 255, 80 / 255),
-            farClip: 10000
+            farClip: 1000
         });
+        let controller = new pc.Entity();
+        controller.addComponent('render', {
+            type: "sphere"
+        });
+        controller.addComponent('script');
+        controller.script.create('controller');
+        
+        this.camera.addComponent('script');
+        this.camera.script.create('lookCamera', {
+            attributes: {
+                controllerTemplate: controller
+            }
+        });
+
         this.cameraParent.addChild(this.camera);
         this.camera.translate(0, 0, 0);
 
@@ -52,7 +73,7 @@ export class Game {
 
         //const levelcontroller = new LevelController(app);
 
-     
+
 
         // Add the new entities to the hierarchy
         this.app.root.addChild(this.cameraParent);
@@ -64,14 +85,14 @@ export class Game {
         let startPosition = this.levelController.init();
 
         this.cameraParent.translate(startPosition.x, startPosition.y, startPosition.z);
-        
+
     }
 
-    update(dt){        
-          this.handleControllers(dt);
+    update(dt) {
+        this.handleControllers(dt);
     }
 
-    handleControllers(dt){
+    handleControllers(dt) {
         let i, inputSource;
         // first we update movement
         for (i = 0; i < this.controllers.length; i++) {
@@ -158,9 +179,9 @@ export class Game {
                 // some controllers cannot be gripped
                 this.controllers[i].model.enabled = false;
             }
-        }      
+        }
     }
-    startXR(){
+    startXR() {
         this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCAL, {
             callback: function (err) {
                 //  app.xr._baseLayer.stencil = true;
@@ -168,15 +189,15 @@ export class Game {
             }
         });
     }
-    endXR(){
+    endXR() {
         this.camera.camera.endXr();
     }
-    
+
     /**
      * 
      * @param {pc.XrInputSource} inputSource 
      */
-    createController (inputSource) {
+    createController(inputSource) {
         const entity = new pc.Entity();
         entity.addComponent('model', {
             type: 'box'
@@ -189,7 +210,7 @@ export class Game {
 
         // destroy input source related entity
         // when input source is removed
-        inputSource.on('remove', ()=>{
+        inputSource.on('remove', () => {
             this.controllers.splice(this.controllers.indexOf(entity), 1);
             entity.destroy();
         });

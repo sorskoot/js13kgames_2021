@@ -2,11 +2,11 @@ Must have:
     Initial:
         - A name
         ✔ Build pipeline @done(21-08-16 22:19)
-    - Enter VR Button
+    ✔ Enter VR Button @done(21-08-27 22:16)
     - Movement in VR
         - teleporting.
     - Push cubes to target
-    - Level generator
+    ✔ Level generator @done(21-08-27 21:20)
     - Be very easy to restart levels    
     - 5 levels.
     - Menu
@@ -16,6 +16,10 @@ Must have:
 Should have:
     - store progress when leaving game
     - Must have 10 levels.
+    - particles:
+        - when you hit a cube
+        - when you hit the target
+        - on the target
 
 Could have:
     - Movement by walking
@@ -58,3 +62,5 @@ Levels:
     ideas:
         - Add transparent textures close to the walls to give it a more 3D look.
         
+
+example project:https://developer.playcanvas.com/en/tutorials/webxr-vr-lab/

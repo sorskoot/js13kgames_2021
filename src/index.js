@@ -55,7 +55,7 @@ import { Game } from "./classes/game";
                 },
                 vshader: vertShader.default,
                 fshader: fragShader.default
-            };            
+            };
             let shader = new pc.Shader(app.graphicsDevice, shaderDefinition);
             resolve(shader);
         });
@@ -68,7 +68,7 @@ import { Game } from "./classes/game";
     await game.init();
 
     app.start();
-    
+
     if (app.xr.supported) {
         const activate = function () {
             if (app.xr.isAvailable(pc.XRTYPE_VR)) {
@@ -79,9 +79,10 @@ import { Game } from "./classes/game";
             }
         };
 
-        app.mouse.on("mousedown", function () {
-            if (!app.xr.active)
+        document.getElementById('enter-vr').addEventListener('click', () => {
+            if (!app.xr.active) {
                 activate();
+            }
         });
 
         if (app.touch) {
@@ -92,7 +93,7 @@ import { Game } from "./classes/game";
                     activate();
                 } else {
                     // otherwise reset camera
-                    game.endXR();                    
+                    game.endXR();
                 }
 
                 evt.event.preventDefault();
@@ -120,11 +121,11 @@ import { Game } from "./classes/game";
         if (!app.xr.isAvailable(pc.XRTYPE_VR)) {
             console.log("Immersive VR is not available");
         }
-        app.xr.input.on('add', function (inputSource) {            
+        app.xr.input.on('add', function (inputSource) {
             game.createController(inputSource);
         });
 
-    
+
     } else {
         console.log("WebXR is not supported");
     }

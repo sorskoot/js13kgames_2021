@@ -1,21 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>PlayCanvas Hello Cube</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' />
+    <meta name='viewport'
+        content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' />
     <style>
         body {
             margin: 0;
             overflow: hidden;
         }
+
+        .button-container {
+            display: flex;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            align-content: flex-end;
+            align-items: flex-end;
+            justify-content: space-around;
+        }
+
+        .button {
+            width: 150px;
+            background-color: #242b4a;
+            text-align: center;
+            line-height: 50px;
+            font-family: monospace;
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 25px;
+            border-radius: 25px;
+            border: 3px solid #dfeded;
+            color:#dfeded;
+            cursor: default;
+        }
+        .button:hover {
+            cursor: pointer;
+            background-color: #4d6a94;
+        }
     </style>
     <!-- <script src="https://js13kgames.com/webxr-src/2021/playcanvas.js"></script> -->
     <script src="https://code.playcanvas.com/playcanvas-1.45.3.js"></script>
-    
+
 </head>
+
 <body>
     <canvas id='application'></canvas>
-    <script src="main.js"></script> 
+    <div class="button-container">
+        <div class="button" id="enter-vr">VR</div>
+    </div>
+    <script src="main.js"></script>
 </body>
+
 </html>

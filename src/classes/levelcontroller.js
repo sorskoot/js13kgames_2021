@@ -78,7 +78,6 @@ export class LevelController {
                             this.createTarget(row - LevelData[this.currentLevel].width / 2, col - LevelData[this.currentLevel].height / 2, layer - 1);
                             break;
                         default:
-                            console.log(tile);
                             this.createCube(row - LevelData[this.currentLevel].width / 2, layer - 1, col - LevelData[this.currentLevel].height / 2, tile);
                             break;
                     }
