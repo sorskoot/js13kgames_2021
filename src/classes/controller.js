@@ -12,8 +12,9 @@ Controller.prototype.initialize = function () {
     this.mouseCoords = new pc.Vec2();
     this.teleportableEntity = null;
     this.hoverEntity = null;
-
-
+    this.color = new pc.Color(1, 1, 1);
+    this.teleportable = true;
+    this.active = true;
 };
 
 Controller.prototype.onSelectStart = function () {
@@ -124,4 +125,31 @@ Controller.prototype.update = function (dt) {
     } else {
         this.app.fire('teleport:hide');
     }
+};
+
+
+Controller.prototype.setInputSource = function(inputSource, asset) {
+    var self = this;
+    
+    this.inputSource = inputSource;
+    this.inputSource.once('remove', this.onRemove, this);
+    
+    this.on('hover', this.onHover, this);
+    this.on('blur', this.onBlur, this);
+    
+    this.inputSource.on('selectstart', this.onSelectStart, this);
+    this.inputSource.on('selectend', this.onSelectEnd, this);
+    
+ 
+};
+
+Controller.prototype.onRemove = function() {
+    // if (this.modelEntity.containerAsset) {
+    //     console.log(this.modelEntity.containerAsset);
+    //     this.modelEntity.containerAsset.unload();
+    //     this.app.assets.remove(this.modelEntity.containerAsset);
+    //     this.modelEntity.containerAsset = null;
+    // }
+    
+    this.entity.destroy();
 };

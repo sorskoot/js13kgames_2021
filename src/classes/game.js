@@ -25,12 +25,13 @@ export class Game {
 
         this.controllers = [];
         this.lastRotateValue = 0;
-        
+
         this.levelController = new LevelController(this.app, this.tilesTexture, this.shader);
     }
 
     async init() {
         await import('./pcUtils');
+        await import('./controllers');
         await import('./controller');
         await import('./teleportCamera');
         await import('./lookCamera');
@@ -40,7 +41,7 @@ export class Game {
 
         this.app.root.addComponent('script');
         this.app.root.script.create('shapeWorld');
-        
+
         // create camera parent
         this.cameraParent = new pc.Entity();
         this.cameraParent.addComponent('script');
@@ -54,23 +55,29 @@ export class Game {
         });
         this.locator = new pc.Entity();
         this.locator.addComponent('render', {
-            type: "sphere"        
-        });        
-        
-        this.locator.setLocalScale(.3,.3,.3);
+            type: "sphere"
+        });
+
+        this.locator.setLocalScale(.3, .3, .3);
         this.locator.addComponent('script');
         this.locator.script.create('teleport');
         this.app.root.addChild(this.locator);
-        
+
         let controller = new pc.Entity();
         // controller.addComponent('render', {
         //     type: "sphere"
         // });
         controller.enabled = false;
         controller.addComponent('script');
-        controller.script.create('controller',{
-            attributes:{
+        controller.script.create('controller', {
+            attributes: {
                 modelEntity: this.locator
+            }
+        });
+
+        this.app.root.script.create('controllers', {
+            attributes: {
+                controllerTemplate: controller
             }
         });
 
@@ -84,7 +91,7 @@ export class Game {
         this.cameraParent.addChild(this.camera);
         this.camera.translate(0, 1.6, 0);
 
-       
+
 
         // const light = new pc.Entity();
         // light.addComponent("light", {
@@ -112,7 +119,7 @@ export class Game {
     }
 
     update(dt) {
-        this.handleControllers(dt);
+        // this.handleControllers(dt);
     }
 
     handleControllers(dt) {
