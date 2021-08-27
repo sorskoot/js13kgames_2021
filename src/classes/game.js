@@ -25,7 +25,7 @@ export class Game {
 
         this.controllers = [];
         this.lastRotateValue = 0;
-
+        
         this.levelController = new LevelController(this.app, this.tilesTexture, this.shader);
     }
 
@@ -34,7 +34,13 @@ export class Game {
         await import('./controller');
         await import('./teleportCamera');
         await import('./lookCamera');
+        await import('./locator');
+        await import('./shapeWorld');
+        await import('./shape');
 
+        this.app.root.addComponent('script');
+        this.app.root.script.create('shapeWorld');
+        
         // create camera parent
         this.cameraParent = new pc.Entity();
         this.cameraParent.addComponent('script');
@@ -46,13 +52,28 @@ export class Game {
             clearColor: new pc.Color(44 / 255, 62 / 255, 80 / 255),
             farClip: 1000
         });
-        let controller = new pc.Entity();
-        controller.addComponent('render', {
-            type: "sphere"
-        });
-        controller.addComponent('script');
-        controller.script.create('controller');
+        this.locator = new pc.Entity();
+        this.locator.addComponent('render', {
+            type: "sphere"        
+        });        
         
+        this.locator.setLocalScale(.3,.3,.3);
+        this.locator.addComponent('script');
+        this.locator.script.create('teleport');
+        this.app.root.addChild(this.locator);
+        
+        let controller = new pc.Entity();
+        // controller.addComponent('render', {
+        //     type: "sphere"
+        // });
+        controller.enabled = false;
+        controller.addComponent('script');
+        controller.script.create('controller',{
+            attributes:{
+                modelEntity: this.locator
+            }
+        });
+
         this.camera.addComponent('script');
         this.camera.script.create('lookCamera', {
             attributes: {
@@ -61,7 +82,9 @@ export class Game {
         });
 
         this.cameraParent.addChild(this.camera);
-        this.camera.translate(0, 0, 0);
+        this.camera.translate(0, 1.6, 0);
+
+       
 
         // const light = new pc.Entity();
         // light.addComponent("light", {
@@ -182,7 +205,7 @@ export class Game {
         }
     }
     startXR() {
-        this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCAL, {
+        this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
             callback: function (err) {
                 //  app.xr._baseLayer.stencil = true;
                 if (err) console.error("WebXR Immersive VR failed to start: " + err.message);

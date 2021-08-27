@@ -4,13 +4,13 @@ const LevelData = [{
     height: 7,
     layer: [{
         data: [
-            [0, 12, 10, 12, 10, 12, 0],
+            [1 ,12, 10, 12, 10, 12,1] ,
             [10, 'S', 0, 0, 0, 1, 0],
             [12, 0, 1, 0, 0, 0, 12],
             [10, 0, 'B', 0, 0, 'T', 10],
             [12, 0, 1, 0, 0, 0, 8],
             [10, 0, 0, 0, 0, 1, 0],
-            [0, 12, 10, 12, 10, 12, 0]
+            [1, 12, 10, 12, 10, 12, 1]
         ]
     },
     {
@@ -41,6 +41,7 @@ export class LevelController {
      */
     init() {
         this.material = [];
+        this.shapes = [];
         this.tilesTexture.resource.magFilter =
                 this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST
         for (let i = 0; i < 16; i++) {
@@ -59,7 +60,20 @@ export class LevelController {
         for (let layer = 0; layer < LevelData[this.currentLevel].layer.length; layer++) {
             for (let row = 0; row < LevelData[this.currentLevel].layer[layer].data.length; row++) {
                 for (let col = 0; col < LevelData[this.currentLevel].layer[layer].data[row].length; col++) {
-                    let tile = LevelData[this.currentLevel].layer[layer].data[row][col];
+                    let tile = LevelData[this.currentLevel].layer[layer].data[row][col];                   
+                    if(layer == 0){
+                        if(tile == 'S' || tile == 0){
+                            let shape = new pc.Entity();
+                            shape.addComponent("script");
+                            shape.script.create('shape');
+                            shape.tags.add("floor");
+                            shape.setLocalPosition(row - LevelData[this.currentLevel].width / 2, -1.5, col - LevelData[this.currentLevel].height / 2);
+                            shape.setLocalScale(1, .01, 1);
+                            
+                            this.app.root.addChild(shape);
+                            this.shapes.push(shape);
+                        }       
+                    }
                     if (tile === 0) {
                         continue;
                     }
@@ -67,7 +81,7 @@ export class LevelController {
                         case 'S':
                             cameraposition = new pc.Vec3(
                                 col - LevelData[this.currentLevel].width / 2,
-                                layer,
+                                -1.5,
                                 row - LevelData[this.currentLevel].height / 2);
 
                             break;
@@ -109,6 +123,7 @@ export class LevelController {
         floorEntity.model.material = floorMaterial;
         floorEntity.setLocalScale(width, 1, height);
         floorEntity.translate(-.5, floor - .5, -.5);
+        
         this.app.root.addChild(floorEntity);
     }
 

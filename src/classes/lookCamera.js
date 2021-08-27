@@ -66,7 +66,7 @@ LookCamera.prototype._onMouseDown = function (event) {
     
     // Attempt to lock the pointer
     if (! pc.Mouse.isPointerLocked()) {
-        if (event.event.target.id && event.event.target.id == 'application-canvas') {
+        if (event.event.target.id && event.event.target.id == 'application') {
             this.app.mouse.enablePointerLock();
         }
     }
