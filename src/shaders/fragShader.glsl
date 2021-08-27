@@ -28,7 +28,10 @@ void main(void)
     //     float y = 1.-(lookupIndex*(1./12.)-(1./24.));        
 	// 	texturedColor = texture2D(Lookup,vec2(ind, y));  
 	// }
-  //  if(texturedColor.a<alphatest)discard;      
+    if(texturedColor.a == 0.0){
+      discard;      
+    }
+
     gl_FragColor=texturedColor;
     //gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
     
