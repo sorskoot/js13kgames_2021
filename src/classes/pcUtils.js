@@ -8,4 +8,7 @@
 
         return Math.atan2(-transformedForward.x, -transformedForward.z) * pc.math.RAD_TO_DEG;
     };
+
+    pc.util.lerp = (a, b, n) => (1 - n) * a + n * b;
+
 })();

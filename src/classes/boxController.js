@@ -1,21 +1,24 @@
+
 var BoxController = pc.createScript('boxController');
 
 // initialize code called once per entity
-BoxController.prototype.initialize = function() {   
-    this.direction = new pc.Vec3(0,0,0);
+BoxController.prototype.initialize = function () {
+    this.direction = new pc.Vec3(0, 0, 0);
 
-    this.entity.on('object:onhover', (e)=>{
-        this.entity.model.material.setParameter("tint",[1,1,.5,1]);
-     //  this.entity.model.material.setParameter("index",0);
+    this.entity.on('object:onhover', (e) => {
+        this.entity.model.material.setParameter("tint", [1, 1, .5, 1]);
+        //  this.entity.model.material.setParameter("index",0);
         this.entity.model.material.update();
     });
-    this.entity.on('object:offhover', (e)=>{
-        this.entity.model.material.setParameter("tint",[0,0,0,0]);;
-      // this.entity.model.material.setParameter("index",2);
+    this.entity.on('object:offhover', (e) => {
+        this.entity.model.material.setParameter("tint", [0, 0, 0, 0]);;
+        // this.entity.model.material.setParameter("index",2);
         this.entity.model.material.update();
     });
-    this.entity.on('object:interact', (e)=>{
-        this.entity.model.material.setParameter("tint",[0,1,0,1]);
+    this.entity.on('object:interact', (e) => {
+        if (this.isMoving) return;
+
+        this.entity.model.material.setParameter("tint", [0, 1, 0, 1]);
         this.entity.model.material.update();
         /**
          * @type {pc.Vec3} 
@@ -26,27 +29,40 @@ BoxController.prototype.initialize = function() {
         dir.normalize();
         let dotForward = dir.dot(pc.Vec3.FORWARD);
         let dotRight = dir.dot(pc.Vec3.RIGHT);
-        if(Math.abs(dotForward) > Math.abs(dotRight)){
-           
-            if(dotForward > 0){
-                this.direction.set(0,0,1);                
-            }else{
-                this.direction.set(0,0,-1);
+        if (Math.abs(dotForward) > Math.abs(dotRight)) {
+            if (dotForward > 0) {
+                this.direction.set(0, 0, 1);
+            } else {
+                this.direction.set(0, 0, -1);
             }
-        }else{            
-            if(dotRight > 0){
-                this.direction.set(-1,0,0);
-            }else{
-                this.direction.set(1,0,0);
+        } else {
+            if (dotRight > 0) {
+                this.direction.set(-1, 0, 0);
+            } else {
+                this.direction.set(1, 0, 0);
             }
-        }                       
+        }
+        this.targetPosition = new pc.Vec3(0, 0, 0);
+        this.lastPosition = this.entity.getPosition().clone();
+        if (this.app.levelController.tryMoveBox(this.lastPosition, this.direction, this.targetPosition)) {
+            this.isMoving = true;
+            this.movementTime = 0;
+            console.log(this.lastPosition, this.targetPosition);
+        }
     });
 }
-let t = 0;
-BoxController.prototype.update = function(dt) {
-    if(t>10)return;
-    t+=dt;
-    let p = this.entity.getPosition();
-    
-    this.entity.setPosition(p.add(this.direction.clone().mulScalar(dt)));
+let vecA = new pc.Vec3();
+
+BoxController.prototype.update = function (dt) {
+    if (this.isMoving) {
+        this.movementTime += dt*8;
+        vecA.set(pc.util.lerp(this.lastPosition.x, this.targetPosition.x, this.movementTime),
+            this.lastPosition.y,
+            pc.util.lerp(this.lastPosition.z, this.targetPosition.z, this.movementTime))
+        this.entity.setPosition(vecA);
+        if (this.movementTime >= 1) {
+            this.entity.setPosition(this.targetPosition);
+            this.isMoving = false;
+        }
+    }
 }

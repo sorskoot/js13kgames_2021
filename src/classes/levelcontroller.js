@@ -1,4 +1,5 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
+
 const LevelData = [{
     width: 7,
     height: 7,
@@ -64,7 +65,7 @@ export class LevelController {
                 for (let col = 0; col < LevelData[this.currentLevel].layer[layer].data[row].length; col++) {
                     let tile = LevelData[this.currentLevel].layer[layer].data[row][col];
                     if (layer == 0) {
-                        if (tile == 'S' ||tile == 'B' || tile == 0) {
+                        if (tile == 'S' || tile == 'B' || tile == 0) {
                             let shape = new pc.Entity();
                             shape.addComponent("script");
                             shape.script.create('shape');
@@ -198,9 +199,9 @@ export class LevelController {
         boxEntity.translate(x, floor - 0.05, y);
         boxEntity.setLocalScale(.9, .9, .9);
         boxEntity.addComponent("script");
-        boxEntity.script.create('shape',{
-            attributes:{
-                keepUpdating:true
+        boxEntity.script.create('shape', {
+            attributes: {
+                keepUpdating: true
             }
         });
         boxEntity.script.create('boxController');
@@ -236,4 +237,25 @@ export class LevelController {
 
         this.app.root.addChild(cube);
     };
+
+    /**
+     * 
+     * @param {pc.Vec3} position current position of the box
+     * @param {pc.Vec3} direction direction of movement
+     * @param {pc.Vec3} targetPosition set to the position of the target
+     * @returns true if the box can move to the destination
+     */
+    tryMoveBox(position, direction, targetPosition) {
+        const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
+        const dir = new pc.Vec2(direction.x, direction.z);
+        const target = pos.add(dir);
+        const targetTile = LevelData[this.currentLevel].layer[0].data[target.x][target.y];
+        if (targetTile === 0) {
+            targetPosition.set(
+                target.x - LevelData[this.currentLevel].width / 2, 
+                position.y, 
+                target.y - LevelData[this.currentLevel].height / 2);
+        }
+        return targetTile === 0;
+    }
 };
