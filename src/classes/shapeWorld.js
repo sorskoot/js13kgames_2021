@@ -44,59 +44,12 @@ ShapeWorld.prototype.raycast = function (ray, intersectPosition, length) {
                         intersectPosition.copy(hitPoint);
                     }
                 }
-
-                //console.log(this._pickableEntities[i].name + " " + distanceSq.toString());
             }
         }
     }  
 
     return hitEntity;
 };
-
-
-ShapeWorld.prototype.containsPoint = function (point, filterFunc) {  
-    //console.log("== Start Contains Point ==");
-
-    var hitEntity = null;
-    for (var i = 0; i < this._pickableShapes.length; ++i) {
-        var pickableShape = this._pickableShapes[i];
-        var entity = this._pickableEntities[i];
-        
-        if (!filterFunc || filterFunc(entity) && entity.enabled) {
-            if (pickableShape.containsPoint(point)) {
-                hitEntity = entity;
-                break;
-            }
-
-            //console.log(this._pickableEntities[i].name);
-        }
-    }
-    
-    return hitEntity;
-};
-
-
-ShapeWorld.prototype.intersectsSphere = function (sphere, filterFunc) {  
-    //console.log("== Start Intersects Sphere ==");
-
-    var hitEntity = null;
-    for (var i = 0; i < this._pickableShapes.length; ++i) {
-        var pickableShape = this._pickableShapes[i];
-        var entity = this._pickableEntities[i];
-        
-        if (!filterFunc || filterFunc(entity) && entity.enabled) {
-            if (pickableShape.intersectsBoundingSphere(sphere)) {
-                hitEntity = entity;
-                break;
-            }
-
-            //console.log(this._pickableEntities[i].name);
-        }
-    }
-    
-    return hitEntity;
-};
-
 
 ShapeWorld.prototype.addItem = function (entity, shape) {
     if (entity) {

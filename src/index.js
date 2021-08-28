@@ -121,9 +121,9 @@ import { Game } from "./classes/game";
         if (!app.xr.isAvailable(pc.XRTYPE_VR)) {
             console.log("Immersive VR is not available");
         }
-        app.xr.input.on('add', function (inputSource) {
-            game.createController(inputSource);
-        });
+        // app.xr.input.on('add', function (inputSource) {
+        //     game.createController(inputSource);
+        // });
 
 
     } else {
