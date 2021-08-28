@@ -33,6 +33,7 @@ export class LevelController {
         this.tilesTexture = tilesTexture;
         this.shader = shader;
         this.currentLevel = 0;
+        this.boxMaterial = new pc.Material();
     }
 
     /**
@@ -51,6 +52,7 @@ export class LevelController {
             mat.setParameter('DiffuseTexture', this.tilesTexture.resource);
             mat.setParameter('spriteDimensions', [16.0, 1.0]);
             mat.setParameter('repeat', [1, 1]);
+            mat.setParameter('tint', [0, 0,0,0]);
             mat.update();
             this.material.push(mat);
         }
@@ -67,6 +69,7 @@ export class LevelController {
                             shape.addComponent("script");
                             shape.script.create('shape');
                             shape.tags.add("floor");
+                            shape.name = 'floory';
                             shape.setLocalPosition(row - LevelData[this.currentLevel].width / 2, -1.5, col - LevelData[this.currentLevel].height / 2);
                             shape.setLocalScale(1, .01, 1);
                             
@@ -114,6 +117,7 @@ export class LevelController {
         floorMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
         floorMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
         floorMaterial.setParameter('repeat', [width, height]);
+        floorMaterial.setParameter('', [0, 0,0,0]);
         floorMaterial.update();
 
         const floorEntity = new pc.Entity();
@@ -137,6 +141,7 @@ export class LevelController {
         ceilingMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
         ceilingMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
         ceilingMaterial.setParameter('repeat', [width, height]);
+        ceilingMaterial.setParameter('tint', [0, 0,0,0]);
         ceilingMaterial.update();
 
         const ceilingEntity = new pc.Entity();
@@ -158,6 +163,7 @@ export class LevelController {
         targetMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
         targetMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
         targetMaterial.setParameter('repeat', [1, 1]);
+        targetMaterial.setParameter('tint', [0, 0,0,0]);
         targetMaterial.update();
 
         const targetEntity = new pc.Entity();
@@ -168,27 +174,36 @@ export class LevelController {
         targetEntity.translate(x, floor - .499, y);
         this.app.root.addChild(targetEntity);
     }
+    
+    
 
     createBox(x, y, floor) {
-        const boxMaterial = new pc.Material();
+      
         this.tilesTexture.resource.magFilter =
             this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST
 
-        boxMaterial.setShader(this.shader);
-        boxMaterial.setParameter('index', 5);
-        boxMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
-        boxMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
-        boxMaterial.setParameter('repeat', [0.9, 0.9]);
-        boxMaterial.update();
-
-        const targetEntity = new pc.Entity();
-        targetEntity.addComponent("model", {
+        this.boxMaterial.setShader(this.shader);
+        this.boxMaterial.setParameter('index', 5);
+        this.boxMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
+        this.boxMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
+        this.boxMaterial.setParameter('repeat', [0.9, 0.9]);
+        this.boxMaterial.setParameter('tint', [0, 1,0,1]);
+        this.boxMaterial.update();
+       
+        const boxEntity = new pc.Entity();
+        boxEntity.addComponent("model", {
             type: "box"
         });
-        targetEntity.model.material = boxMaterial;
-        targetEntity.translate(x, floor - 0.05, y);
-        targetEntity.setLocalScale(.9, .9, .9);
-        this.app.root.addChild(targetEntity);
+        boxEntity.model.material = this.boxMaterial;
+        boxEntity.translate(x, floor - 0.05, y);
+        boxEntity.setLocalScale(.9, .9, .9);
+        boxEntity.addComponent("script");
+        boxEntity.script.create('shape');
+        boxEntity.script.create('boxController');
+
+        boxEntity.tags.add('box');
+        boxEntity.name = 'boxy';
+        this.app.root.addChild(boxEntity);
     }
 
     createCube(x, y, z, tileIndex) {

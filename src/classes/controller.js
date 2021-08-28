@@ -61,11 +61,14 @@ Controller.prototype.pick = function () {
     if (!this.active) hoverEntity = null;
 
     if (this.hoverEntity !== hoverEntity) {
-        if (this.hoverEntity)
+        if (this.hoverEntity){
             this.hoverEntity.fire('object:offhover', this);
-
-        if (hoverEntity)
+            
+        }
+        if (hoverEntity){
             hoverEntity.fire('object:onhover', this);
+            console.log(hoverEntity.name);
+        }
 
         this.hoverEntity = hoverEntity;
     }
@@ -76,9 +79,13 @@ Controller.prototype.pick = function () {
             var dot = this.hoverEntity.up.dot(this.ray.direction);
             if (dot <= 0) validTeleport = true;
         }
-
+        // if (this.hoverEntity.tags.has('box')) {
+        //     var dot = this.hoverEntity.up.dot(this.ray.direction);
+        //     if (dot <= 0) validTeleport = true;
+        // }
+        
     }
-
+    
     if (validTeleport) {
         this.teleportableEntity = this.hoverEntity;
     } else {

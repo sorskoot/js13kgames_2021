@@ -38,6 +38,7 @@ export class Game {
         await import('./locator');
         await import('./shapeWorld');
         await import('./shape');
+        await import('./boxController');
 
         this.app.root.addComponent('script');
         this.app.root.script.create('shapeWorld');
@@ -55,10 +56,13 @@ export class Game {
         });
         this.locator = new pc.Entity();
         this.locator.addComponent('render', {
-            type: "sphere"
+            type: "cylinder"
         });
-
-        this.locator.setLocalScale(.3, .3, .3);
+        let locatorMat = new pc.StandardMaterial();
+        locatorMat.emissive = new pc.Color(0.3, 0.56, 0.51);
+        this.locator.setLocalScale(.125, .01,.125);
+        this.locator.render.material = locatorMat;
+        
         this.locator.addComponent('script');
         this.locator.script.create('teleport');
         this.app.root.addChild(this.locator);

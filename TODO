@@ -1,39 +1,44 @@
 Must have:
     Initial:
-        - A name
+        ☐ A name
         ✔ Build pipeline @done(21-08-16 22:19)
     ✔ Enter VR Button @done(21-08-27 22:16)
-    - Movement in VR
-        - teleporting.
-    - Push cubes to target
+    ✔ Movement in VR @done(21-08-28 20:34)
+        ✔ teleporting. @done(21-08-28 20:34)
+    ☐ Push cubes to target
     ✔ Level generator @done(21-08-27 21:20)
-    - Be very easy to restart levels    
-    - 5 levels.
-    - Menu
-    - Title Screen
+    ☐ Be very easy to restart levels    
+    ☐ 5 levels.
+    ☐ Menu
+    ☐ Title Screen
 
 
 Should have:
-    - store progress when leaving game
-    - Must have 10 levels.
-    - particles:
-        - when you hit a cube
-        - when you hit the target
-        - on the target
+    ☐ store progress when leaving game
+    ☐ Must have 10 levels.
+    ☐ particles:
+        ☐ when you hit a cube
+        ☐ when you hit the target
+        ☐ on the target
 
 Could have:
-    - bigger FOV on desktop
-    - Movement by walking
-    - Have the game run on the desktop
-    - Step/teleport onto the walls (maybe by rotating the whole world)
-    - Must have 20 levels.
-    - powerups
-    - teleporting
-    - gravity fields
-    - lighting
+    ☐ bigger FOV on desktop
+    ☐ Movement by walking
+    ☐ Have the game run on the desktop
+    ☐ Step/teleport onto the walls (maybe by rotating the whole world)
+    ☐ Must have 20 levels.
+    ☐ powerups
+    ☐ teleporting
+    ☐ gravity fields
+    ☐ lighting
 
 Would like:
-    - Must have 50 levels.
+    ☐ Must have 50 levels.
+
+Bugs: 
+    @critical:
+        ☐ reset camera after leaving XR
+
 
 Story:
     ~ Janitor on space ship. The ship is a mess, boxes all over the place.
