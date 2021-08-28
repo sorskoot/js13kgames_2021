@@ -93,7 +93,7 @@ export class Game {
         });
 
         this.cameraParent.addChild(this.camera);
-        this.camera.translate(0, 1.6, 0);
+        this.camera.translate(0, 1.7, 0);
 
 
 

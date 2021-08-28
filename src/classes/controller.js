@@ -67,7 +67,6 @@ Controller.prototype.pick = function () {
         }
         if (hoverEntity){
             hoverEntity.fire('object:onhover', this);
-            console.log(hoverEntity.name);
         }
 
         this.hoverEntity = hoverEntity;

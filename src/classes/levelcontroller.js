@@ -4,7 +4,7 @@ const LevelData = [{
     height: 7,
     layer: [{
         data: [
-            [1 ,12, 10, 12, 10, 12,1] ,
+            [1, 12, 10, 12, 10, 12, 1],
             [10, 'S', 0, 0, 0, 1, 0],
             [12, 0, 1, 0, 0, 0, 12],
             [10, 0, 'B', 0, 0, 'T', 10],
@@ -44,15 +44,15 @@ export class LevelController {
         this.material = [];
         this.shapes = [];
         this.tilesTexture.resource.magFilter =
-                this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST
+            this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST
         for (let i = 0; i < 16; i++) {
-            let mat = new pc.Material();            
-            mat.setShader(this.shader);    
+            let mat = new pc.Material();
+            mat.setShader(this.shader);
             mat.setParameter('index', i);
             mat.setParameter('DiffuseTexture', this.tilesTexture.resource);
             mat.setParameter('spriteDimensions', [16.0, 1.0]);
             mat.setParameter('repeat', [1, 1]);
-            mat.setParameter('tint', [0, 0,0,0]);
+            mat.setParameter('tint', [0, 0, 0, 0]);
             mat.update();
             this.material.push(mat);
         }
@@ -62,9 +62,9 @@ export class LevelController {
         for (let layer = 0; layer < LevelData[this.currentLevel].layer.length; layer++) {
             for (let row = 0; row < LevelData[this.currentLevel].layer[layer].data.length; row++) {
                 for (let col = 0; col < LevelData[this.currentLevel].layer[layer].data[row].length; col++) {
-                    let tile = LevelData[this.currentLevel].layer[layer].data[row][col];                   
-                    if(layer == 0){
-                        if(tile == 'S' || tile == 0){
+                    let tile = LevelData[this.currentLevel].layer[layer].data[row][col];
+                    if (layer == 0) {
+                        if (tile == 'S' ||tile == 'B' || tile == 0) {
                             let shape = new pc.Entity();
                             shape.addComponent("script");
                             shape.script.create('shape');
@@ -72,10 +72,10 @@ export class LevelController {
                             shape.name = 'floory';
                             shape.setLocalPosition(row - LevelData[this.currentLevel].width / 2, -1.5, col - LevelData[this.currentLevel].height / 2);
                             shape.setLocalScale(1, .01, 1);
-                            
+
                             this.app.root.addChild(shape);
                             this.shapes.push(shape);
-                        }       
+                        }
                     }
                     if (tile === 0) {
                         continue;
@@ -117,7 +117,7 @@ export class LevelController {
         floorMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
         floorMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
         floorMaterial.setParameter('repeat', [width, height]);
-        floorMaterial.setParameter('', [0, 0,0,0]);
+        floorMaterial.setParameter('', [0, 0, 0, 0]);
         floorMaterial.update();
 
         const floorEntity = new pc.Entity();
@@ -127,7 +127,7 @@ export class LevelController {
         floorEntity.model.material = floorMaterial;
         floorEntity.setLocalScale(width, 1, height);
         floorEntity.translate(-.5, floor - .5, -.5);
-        
+
         this.app.root.addChild(floorEntity);
     }
 
@@ -141,7 +141,7 @@ export class LevelController {
         ceilingMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
         ceilingMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
         ceilingMaterial.setParameter('repeat', [width, height]);
-        ceilingMaterial.setParameter('tint', [0, 0,0,0]);
+        ceilingMaterial.setParameter('tint', [0, 0, 0, 0]);
         ceilingMaterial.update();
 
         const ceilingEntity = new pc.Entity();
@@ -163,7 +163,7 @@ export class LevelController {
         targetMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
         targetMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
         targetMaterial.setParameter('repeat', [1, 1]);
-        targetMaterial.setParameter('tint', [0, 0,0,0]);
+        targetMaterial.setParameter('tint', [0, 0, 0, 0]);
         targetMaterial.update();
 
         const targetEntity = new pc.Entity();
@@ -174,11 +174,11 @@ export class LevelController {
         targetEntity.translate(x, floor - .499, y);
         this.app.root.addChild(targetEntity);
     }
-    
-    
+
+
 
     createBox(x, y, floor) {
-      
+
         this.tilesTexture.resource.magFilter =
             this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST
 
@@ -187,9 +187,9 @@ export class LevelController {
         this.boxMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
         this.boxMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
         this.boxMaterial.setParameter('repeat', [0.9, 0.9]);
-        this.boxMaterial.setParameter('tint', [0, 1,0,1]);
+        this.boxMaterial.setParameter('tint', [0, 0, 0, 0]);
         this.boxMaterial.update();
-       
+
         const boxEntity = new pc.Entity();
         boxEntity.addComponent("model", {
             type: "box"
@@ -198,8 +198,16 @@ export class LevelController {
         boxEntity.translate(x, floor - 0.05, y);
         boxEntity.setLocalScale(.9, .9, .9);
         boxEntity.addComponent("script");
-        boxEntity.script.create('shape');
+        boxEntity.script.create('shape',{
+            attributes:{
+                keepUpdating:true
+            }
+        });
         boxEntity.script.create('boxController');
+        boxEntity.addComponent("rigidbody", {
+            type: pc.BODYTYPE_DYNAMIC,
+            mass: 10
+        });
 
         boxEntity.tags.add('box');
         boxEntity.name = 'boxy';
@@ -224,7 +232,7 @@ export class LevelController {
         });
         cube.setLocalScale(1, 1, 1);
         cube.translate(x, y, z);
-        cube.render.material = this.material[tileIndex-1];
+        cube.render.material = this.material[tileIndex - 1];
 
         this.app.root.addChild(cube);
     };
