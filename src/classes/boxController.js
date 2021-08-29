@@ -42,13 +42,7 @@ BoxController.prototype.initialize = function () {
                 this.direction.set(1, 0, 0);
             }
         }
-        this.targetPosition = new pc.Vec3(0, 0, 0);
-        this.lastPosition = this.entity.getPosition().clone();
-        if (this.app.levelController.tryMoveBox(this.lastPosition, this.direction, this.targetPosition)) {
-            this.isMoving = true;
-            this.movementTime = 0;
-            console.log(this.lastPosition, this.targetPosition);
-        }
+        this._calculateNextTarget();
     });
 }
 let vecA = new pc.Vec3();
@@ -63,6 +57,22 @@ BoxController.prototype.update = function (dt) {
         if (this.movementTime >= 1) {
             this.entity.setPosition(this.targetPosition);
             this.isMoving = false;
+            // did we reach the target?
+            if(this.app.levelController.getTileAt(this.targetPosition) === 'T') {
+                console.log('we reached the target');
+            }else{
+            // need to move again?            
+                this._calculateNextTarget();            
+            }
         }
     }
 }
+BoxController.prototype._calculateNextTarget = function() {
+    this.targetPosition = new pc.Vec3(0, 0, 0);
+    this.lastPosition = this.entity.getPosition().clone();
+    if (this.app.levelController.tryMoveBox(this.lastPosition, this.direction, this.targetPosition)) {
+        this.isMoving = true;
+        this.movementTime = 0;
+    }
+}
+

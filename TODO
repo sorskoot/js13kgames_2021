@@ -5,7 +5,9 @@ Must have:
     ✔ Enter VR Button @done(21-08-27 22:16)
     ✔ Movement in VR @done(21-08-28 20:34)
         ✔ teleporting. @done(21-08-28 20:34)
-    ☐ Push cubes to target
+    Push cubes to target:
+        ☐ check if target is reached
+        ✔ move boxes @done(21-08-29 13:05)
     ✔ Level generator @done(21-08-27 21:20)
     ☐ Be very easy to restart levels    
     ☐ 5 levels.
@@ -14,6 +16,7 @@ Must have:
 
 
 Should have:
+    ☐ Handle multiple boxes, prevent boxes from overlapping
     ☐ store progress when leaving game
     ☐ Must have 10 levels.
     ☐ particles:
@@ -22,6 +25,7 @@ Should have:
         ☐ on the target
 
 Could have:
+    ☐ animating textures, like last year.
     ☐ bigger FOV on desktop
     ☐ Movement by walking
     ☐ Have the game run on the desktop
@@ -38,7 +42,10 @@ Would like:
 Bugs: 
     @critical:
         ☐ reset camera after leaving XR
-
+    @high:
+        ☐ prevent player from teleporting into walls
+        ☐ prevent player from moving box by pointing though walls or over them
+            ~ maybe add an invisible wall above other blocks to prevent this
 
 Story:
     ~ Janitor on space ship. The ship is a mess, boxes all over the place.

@@ -197,19 +197,16 @@ export class LevelController {
         });
         boxEntity.model.material = this.boxMaterial;
         boxEntity.translate(x, floor - 0.05, y);
-        boxEntity.setLocalScale(.9, .9, .9);
+     
         boxEntity.addComponent("script");
         boxEntity.script.create('shape', {
             attributes: {
                 keepUpdating: true
             }
         });
+        boxEntity.setLocalScale(.9, .9, .9);
         boxEntity.script.create('boxController');
-        boxEntity.addComponent("rigidbody", {
-            type: pc.BODYTYPE_DYNAMIC,
-            mass: 10
-        });
-
+       
         boxEntity.tags.add('box');
         boxEntity.name = 'boxy';
         this.app.root.addChild(boxEntity);
@@ -239,7 +236,8 @@ export class LevelController {
     };
 
     /**
-     * 
+     * Tries to find a tile at the given position. Returns true if possible to move.
+     * The target position is set in TargetPosition.
      * @param {pc.Vec3} position current position of the box
      * @param {pc.Vec3} direction direction of movement
      * @param {pc.Vec3} targetPosition set to the position of the target
@@ -250,12 +248,19 @@ export class LevelController {
         const dir = new pc.Vec2(direction.x, direction.z);
         const target = pos.add(dir);
         const targetTile = LevelData[this.currentLevel].layer[0].data[target.x][target.y];
-        if (targetTile === 0) {
+        if (targetTile === 0 || targetTile === 'S' || targetTile === 'B' ||targetTile === 'T') {
             targetPosition.set(
                 target.x - LevelData[this.currentLevel].width / 2, 
                 position.y, 
-                target.y - LevelData[this.currentLevel].height / 2);
-        }
-        return targetTile === 0;
+                target.y - LevelData[this.currentLevel].height / 2);          
+        }       
+        return (targetTile === 0 || targetTile === 'S' || targetTile === 'B'|| targetTile === 'T');
     }
+
+    getTileAt(position) {
+        const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
+        return LevelData[this.currentLevel].layer[0].data[pos.x][pos.y];
+    }
+
+
 };
