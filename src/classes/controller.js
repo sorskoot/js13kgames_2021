@@ -76,8 +76,11 @@ Controller.prototype.pick = function () {
         // check teleportable
         if (this.hoverEntity.tags.has('floor')) {
             var dot = this.hoverEntity.up.dot(this.ray.direction);
-            if (dot <= 0) validTeleport = true;
-        }
+            if(this.app.levelController.getTileAt(this.hoverEntity.getPosition()) === 0){
+                if (dot <= 0) validTeleport = true;
+            }
+            }
+            
         // if (this.hoverEntity.tags.has('box')) {
         //     var dot = this.hoverEntity.up.dot(this.ray.direction);
         //     if (dot <= 0) validTeleport = true;

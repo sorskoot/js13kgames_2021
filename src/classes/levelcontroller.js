@@ -46,6 +46,7 @@ export class LevelController {
         this.shapes = [];
         this.tilesTexture.resource.magFilter =
             this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST
+        this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.currentLevel]));
         for (let i = 0; i < 16; i++) {
             let mat = new pc.Material();
             mat.setShader(this.shader);
@@ -246,20 +247,22 @@ export class LevelController {
     tryMoveBox(position, direction, targetPosition) {
         const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
         const dir = new pc.Vec2(direction.x, direction.z);
-        const target = pos.add(dir);
+        const target = pos.clone().add(dir);
         const targetTile = LevelData[this.currentLevel].layer[0].data[target.x][target.y];
         if (targetTile === 0 || targetTile === 'S' || targetTile === 'B' ||targetTile === 'T') {
             targetPosition.set(
                 target.x - LevelData[this.currentLevel].width / 2, 
-                position.y, 
-                target.y - LevelData[this.currentLevel].height / 2);          
+                position.y,                 
+                target.y - LevelData[this.currentLevel].height / 2);      
+                this.currentLevelData.layer[0].data[pos.x][pos.y] = 0;
+                this.currentLevelData.layer[0].data[target.x][target.y] = 'B';                    
         }       
         return (targetTile === 0 || targetTile === 'S' || targetTile === 'B'|| targetTile === 'T');
     }
 
     getTileAt(position) {
         const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
-        return LevelData[this.currentLevel].layer[0].data[pos.x][pos.y];
+        return this.currentLevelData.layer[0].data[pos.x][pos.y];
     }
 
 
