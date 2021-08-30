@@ -6,21 +6,30 @@ Must have:
     ✔ Movement in VR @done(21-08-28 20:34)
         ✔ teleporting. @done(21-08-28 20:34)
     Push cubes to target:
-        ☐ check if target is reached
+        ✔ check if target is reached @done(21-08-29 21:31)
         ✔ move boxes @done(21-08-29 13:05)
+        ✔ advance to next level @done(21-08-30 23:14)
     ✔ Level generator @done(21-08-27 21:20)
     ☐ Be very easy to restart levels    
-    ☐ 5 levels.
+        ☐ Button on desktop, like VR button
+        ☐ In VR we can show a screen with 2 buttons, "Restart? Yes/No"
+    ☐ @today 5 levels
+    ☐ @today UI in VR component
     ☐ Menu
+        ~ https://forum.playcanvas.com/t/solved-generating-new-material-in-script/8134
     ☐ Title Screen
+    ☐ Gulp pipeline to better compress
 
 
 Should have:
-    ☐ Handle multiple boxes, prevent boxes from overlapping
+    ☐ @test @today Handle multiple boxes, prevent boxes from overlapping
     ☐ store progress when leaving game
     ☐ Must have 10 levels.
-    ☐ particles:
+    ☐ More variation in textures
+    ☐ Some lighting effect in the shader, maybe just add something shading based on the hight or something.
+    ☐ add suger and spice:
         ☐ when you hit a cube
+        ☐ when you hover over cube
         ☐ when you hit the target
         ☐ on the target
 

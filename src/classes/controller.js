@@ -15,6 +15,7 @@ Controller.prototype.initialize = function () {
     this.color = new pc.Color(1, 1, 1);
     this.teleportable = true;
     this.active = true;
+    this.allowedTeleportTargets = [0, 'S', 'T']
 };
 
 Controller.prototype.onSelectStart = function () {
@@ -61,11 +62,11 @@ Controller.prototype.pick = function () {
     if (!this.active) hoverEntity = null;
 
     if (this.hoverEntity !== hoverEntity) {
-        if (this.hoverEntity){
+        if (this.hoverEntity) {
             this.hoverEntity.fire('object:offhover', this);
-            
+
         }
-        if (hoverEntity){
+        if (hoverEntity) {
             hoverEntity.fire('object:onhover', this);
         }
 
@@ -76,18 +77,18 @@ Controller.prototype.pick = function () {
         // check teleportable
         if (this.hoverEntity.tags.has('floor')) {
             var dot = this.hoverEntity.up.dot(this.ray.direction);
-            if(this.app.levelController.getTileAt(this.hoverEntity.getPosition()) === 0){
+            if (~this.allowedTeleportTargets.indexOf(this.app.levelController.getTileAt(this.hoverEntity.getPosition()))) {
                 if (dot <= 0) validTeleport = true;
             }
-            }
-            
+        }
+
         // if (this.hoverEntity.tags.has('box')) {
         //     var dot = this.hoverEntity.up.dot(this.ray.direction);
         //     if (dot <= 0) validTeleport = true;
         // }
-        
+
     }
-    
+
     if (validTeleport) {
         this.teleportableEntity = this.hoverEntity;
     } else {
@@ -137,28 +138,28 @@ Controller.prototype.update = function (dt) {
 };
 
 
-Controller.prototype.setInputSource = function(inputSource, asset) {
+Controller.prototype.setInputSource = function (inputSource, asset) {
     var self = this;
-    
+
     this.inputSource = inputSource;
     this.inputSource.once('remove', this.onRemove, this);
-    
+
     this.on('hover', this.onHover, this);
     this.on('blur', this.onBlur, this);
-    
+
     this.inputSource.on('selectstart', this.onSelectStart, this);
     this.inputSource.on('selectend', this.onSelectEnd, this);
-    
- 
+
+
 };
 
-Controller.prototype.onRemove = function() {
+Controller.prototype.onRemove = function () {
     // if (this.modelEntity.containerAsset) {
     //     console.log(this.modelEntity.containerAsset);
     //     this.modelEntity.containerAsset.unload();
     //     this.app.assets.remove(this.modelEntity.containerAsset);
     //     this.modelEntity.containerAsset = null;
     // }
-    
+
     this.entity.destroy();
 };

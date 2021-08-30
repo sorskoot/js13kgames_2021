@@ -1,31 +1,70 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
 
-const LevelData = [{
-    width: 7,
-    height: 7,
-    layer: [{
-        data: [
-            [1, 12, 10, 12, 10, 12, 1],
-            [10, 'S', 0, 0, 0, 1, 0],
-            [12, 0, 1, 0, 0, 0, 12],
-            [10, 0, 'B', 0, 0, 'T', 10],
-            [12, 0, 1, 0, 0, 0, 8],
-            [10, 0, 0, 0, 0, 1, 0],
-            [1, 12, 10, 12, 10, 12, 1]
-        ]
+const LevelData = [
+    {
+        width: 7,
+        height: 7,
+        layer: [{
+            data: [
+                [1, 12, 10, 12, 10, 12, 1],
+                [10, 'S', 0, 0, 0, 1, 0],
+                [12, 0, 1, 0, 0, 0, 12],
+                [10, 0, 'B', 0, 0, 'T', 10],
+                [12, 0, 1, 0, 0, 0, 8],
+                [10, 0, 0, 0, 0, 1, 0],
+                [1, 12, 10, 12, 10, 12, 1]
+            ]
+        },
+        {
+            data: [
+                [0, 3, 3, 3, 3, 3, 0],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 1, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 1, 0, 0, 0, 9],
+                [11, 0, 0, 0, 0, 0, 11],
+                [0, 11, 11, 11, 11, 11, 0]
+            ]
+        }]
     },
     {
-        data: [
-            [0, 3, 3, 3, 3, 3, 0],
-            [11, 0, 0, 0, 0, 0, 11],
-            [11, 0, 1, 0, 0, 0, 11],
-            [11, 0, 0, 0, 0, 0, 11],
-            [11, 0, 1, 0, 0, 0, 9],
-            [11, 0, 0, 0, 0, 0, 11],
-            [0, 11, 11, 11, 11, 11, 0]
-        ]
-    }],
-}];
+        width: 7,
+        height: 7,
+        layer: [{
+            data: [
+                [1, 12, 10, 12, 10, 12, 1],
+                [10, 0, 0, 0, 0, 0, 10],
+                [12, 0, 0, 0, 0, 0, 12],
+                [8, 0, 'B', 'S', 0, 'T', 8],
+                [12, 0, 0, 0, 0, 0, 12],
+                [10, 0, 0, 0, 0, 0, 10],
+                [1, 12, 10, 12, 10, 12, 1]
+            ]
+        },
+        {
+            data: [
+                [0, 3, 3, 3, 3, 3, 0],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [9, 0, 0, 0, 0, 0, 9],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [0, 11, 11, 11, 11, 11, 0]
+            ]
+        },
+        {
+            data: [
+                [0, 3, 3, 3, 3, 3, 0],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [0, 11, 11, 11, 11, 11, 0]
+            ]
+        }],
+    }
+];
 
 export class LevelController {
 
@@ -42,11 +81,18 @@ export class LevelController {
      * @type {pc.vec3} Camera position
      */
     init() {
+
         this.material = [];
         this.shapes = [];
+        
+
         this.tilesTexture.resource.magFilter =
-            this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST
-        this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.currentLevel]));
+            this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST;
+
+        this.app.root.on("box:onTarget", this.onTarget, this);
+        this.app.root.on("box:offTarget", this.offTarget, this);
+        this.app.root.on("box:onNewTile", this.onNewTile, this);
+
         for (let i = 0; i < 16; i++) {
             let mat = new pc.Material();
             mat.setShader(this.shader);
@@ -58,6 +104,16 @@ export class LevelController {
             mat.update();
             this.material.push(mat);
         }
+        return this.createLevel();
+    }
+
+    createLevel() {        
+        this.levelGeometry = new pc.Entity();        
+        this.app.root.addChild(this.levelGeometry);
+
+        this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.currentLevel]));
+        this.targetsToComplete = 0;
+
         let cameraposition = new pc.Vec3(0, 0, 0);
 
         // create a grid of cubes
@@ -66,7 +122,7 @@ export class LevelController {
                 for (let col = 0; col < LevelData[this.currentLevel].layer[layer].data[row].length; col++) {
                     let tile = LevelData[this.currentLevel].layer[layer].data[row][col];
                     if (layer == 0) {
-                        if (tile == 'S' || tile == 'B' || tile == 0) {
+                        if (tile == 'S' || tile == 'B' || tile == 0 || tile == 'T') {
                             let shape = new pc.Entity();
                             shape.addComponent("script");
                             shape.script.create('shape');
@@ -75,7 +131,7 @@ export class LevelController {
                             shape.setLocalPosition(row - LevelData[this.currentLevel].width / 2, -1.5, col - LevelData[this.currentLevel].height / 2);
                             shape.setLocalScale(1, .01, 1);
 
-                            this.app.root.addChild(shape);
+                            this.levelGeometry.addChild(shape);
                             this.shapes.push(shape);
                         }
                     }
@@ -95,6 +151,7 @@ export class LevelController {
                             break;
                         case 'T':
                             this.createTarget(row - LevelData[this.currentLevel].width / 2, col - LevelData[this.currentLevel].height / 2, layer - 1);
+                            this.targetsToComplete++;
                             break;
                         default:
                             this.createCube(row - LevelData[this.currentLevel].width / 2, layer - 1, col - LevelData[this.currentLevel].height / 2, tile);
@@ -108,7 +165,6 @@ export class LevelController {
 
         return cameraposition;
     }
-
     createFloor(width, height, floor) {
         const floorMaterial = new pc.Material();
         this.tilesTexture.resource.magFilter =
@@ -130,7 +186,7 @@ export class LevelController {
         floorEntity.setLocalScale(width, 1, height);
         floorEntity.translate(-.5, floor - .5, -.5);
 
-        this.app.root.addChild(floorEntity);
+        this.levelGeometry.addChild(floorEntity);
     }
 
     createCeiling(width, height, ceiling) {
@@ -153,7 +209,7 @@ export class LevelController {
         ceilingEntity.model.material = ceilingMaterial;
         ceilingEntity.setLocalScale(width, -1, height);
         ceilingEntity.translate(-.5, ceiling - .5, -.5);
-        this.app.root.addChild(ceilingEntity);
+        this.levelGeometry.addChild(ceilingEntity);
     }
     createTarget(x, y, floor) {
         const targetMaterial = new pc.Material();
@@ -174,7 +230,7 @@ export class LevelController {
         });
         targetEntity.model.material = targetMaterial;
         targetEntity.translate(x, floor - .499, y);
-        this.app.root.addChild(targetEntity);
+        this.levelGeometry.addChild(targetEntity);
     }
 
 
@@ -198,7 +254,7 @@ export class LevelController {
         });
         boxEntity.model.material = this.boxMaterial;
         boxEntity.translate(x, floor - 0.05, y);
-     
+
         boxEntity.addComponent("script");
         boxEntity.script.create('shape', {
             attributes: {
@@ -207,10 +263,10 @@ export class LevelController {
         });
         boxEntity.setLocalScale(.9, .9, .9);
         boxEntity.script.create('boxController');
-       
+
         boxEntity.tags.add('box');
         boxEntity.name = 'boxy';
-        this.app.root.addChild(boxEntity);
+        this.levelGeometry.addChild(boxEntity);
     }
 
     createCube(x, y, z, tileIndex) {
@@ -233,7 +289,7 @@ export class LevelController {
         cube.translate(x, y, z);
         cube.render.material = this.material[tileIndex - 1];
 
-        this.app.root.addChild(cube);
+        this.levelGeometry.addChild(cube);
     };
 
     /**
@@ -249,21 +305,42 @@ export class LevelController {
         const dir = new pc.Vec2(direction.x, direction.z);
         const target = pos.clone().add(dir);
         const targetTile = LevelData[this.currentLevel].layer[0].data[target.x][target.y];
-        if (targetTile === 0 || targetTile === 'S' || targetTile === 'B' ||targetTile === 'T') {
+        if (targetTile === 0 || targetTile === 'S' || targetTile === 'B' || targetTile === 'T') {
             targetPosition.set(
-                target.x - LevelData[this.currentLevel].width / 2, 
-                position.y,                 
-                target.y - LevelData[this.currentLevel].height / 2);      
-                this.currentLevelData.layer[0].data[pos.x][pos.y] = 0;
-                this.currentLevelData.layer[0].data[target.x][target.y] = 'B';                    
-        }       
-        return (targetTile === 0 || targetTile === 'S' || targetTile === 'B'|| targetTile === 'T');
+                target.x - LevelData[this.currentLevel].width / 2,
+                position.y,
+                target.y - LevelData[this.currentLevel].height / 2);
+        }
+        return (targetTile === 0 || targetTile === 'S' || targetTile === 'B' || targetTile === 'T');
     }
 
     getTileAt(position) {
         const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
         return this.currentLevelData.layer[0].data[pos.x][pos.y];
     }
+
+    onNewTile(boxEntity, targetPosition, lastTile) {
+        const lastPosition = boxEntity.getPosition();
+        this.currentLevelData.layer[0].data[this.calcRowPos(lastPosition.x)][this.calcColPos(lastPosition.z)] = lastTile;
+        this.currentLevelData.layer[0].data[this.calcRowPos(targetPosition.x)][this.calcColPos(targetPosition.z)] = 'B';
+    }
+
+    onTarget(boxEntity) {
+        this.targetsToComplete--;
+        if (this.targetsToComplete === 0) {
+            this.currentLevel++;
+            if(this.levelGeometry) this.levelGeometry.destroy();
+            this.createLevel();
+        }
+    }
+
+    offTarget(boxEntity, lastTile) {
+        this.targetsToComplete++;
+        const position = boxEntity.getPosition();
+        this.currentLevelData.layer[0].data[this.calcRowPos(position.x)][this.calcColPos(position.z)] = lastTile;        
+    }
+    calcRowPos(row) { return row + LevelData[this.currentLevel].height / 2; }
+    calcColPos(col) { return col + LevelData[this.currentLevel].width / 2; }
 
 
 };

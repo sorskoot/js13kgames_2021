@@ -4,7 +4,7 @@ var BoxController = pc.createScript('boxController');
 // initialize code called once per entity
 BoxController.prototype.initialize = function () {
     this.direction = new pc.Vec3(0, 0, 0);
-
+    this.lastTile = 0;
     this.entity.on('object:onhover', (e) => {
         this.entity.model.material.setParameter("tint", [1, 1, .5, 1]);
         //  this.entity.model.material.setParameter("index",0);
@@ -49,30 +49,36 @@ let vecA = new pc.Vec3();
 
 BoxController.prototype.update = function (dt) {
     if (this.isMoving) {
-        this.movementTime += dt*8;
+        this.movementTime += dt * 8;
         vecA.set(pc.util.lerp(this.lastPosition.x, this.targetPosition.x, this.movementTime),
             this.lastPosition.y,
             pc.util.lerp(this.lastPosition.z, this.targetPosition.z, this.movementTime))
         this.entity.setPosition(vecA);
         if (this.movementTime >= 1) {
-            this.entity.setPosition(this.targetPosition);
+            this.entity.setPosition(this.targetPosition);            
             this.isMoving = false;
             // did we reach the target?
-            if(this.app.levelController.getTileAt(this.targetPosition) === 'T') {
-                console.log('we reached the target');
-            }else{
-            // need to move again?            
-                this._calculateNextTarget();            
+            if (this.lastTile === 'T') {
+                this.app.root.fire('box:onTarget', this.entity);
+            } else {
+                // need to move again?            
+                this._calculateNextTarget();
             }
         }
     }
 }
-BoxController.prototype._calculateNextTarget = function() {
+BoxController.prototype._calculateNextTarget = function () {
     this.targetPosition = new pc.Vec3(0, 0, 0);
     this.lastPosition = this.entity.getPosition().clone();
     if (this.app.levelController.tryMoveBox(this.lastPosition, this.direction, this.targetPosition)) {
+      
+        const oldLastTile = this.app.levelController.getTileAt(this.targetPosition);  
+        this.app.root.fire('box:onNewTile', this.entity, this.targetPosition, this.lastTile);
+        this.lastTile = oldLastTile;
         this.isMoving = true;
+
         this.movementTime = 0;
+
     }
 }
 

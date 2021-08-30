@@ -60,7 +60,7 @@ ShapeWorld.prototype.addItem = function (entity, shape) {
 
         
 ShapeWorld.prototype.removeItem = function (entity) {
-    var i = this._items.indexOf(entity);
+    var i = this._pickableEntities.indexOf(entity);
     if (i >= 0) {
         this._pickableEntities.splice(i, 1);
         this._pickableShapes.splice(i, 1);
