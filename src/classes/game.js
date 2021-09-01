@@ -68,9 +68,7 @@ export class Game {
         this.app.root.addChild(this.locator);
 
         let controller = new pc.Entity();
-        // controller.addComponent('render', {
-        //     type: "sphere"
-        // });
+  
         controller.enabled = false;
         controller.addComponent('script');
         controller.script.create('controller', {

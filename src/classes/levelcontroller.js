@@ -7,35 +7,9 @@ const LevelData = [
         layer: [{
             data: [
                 [1, 12, 10, 12, 10, 12, 1],
-                [10, 'S', 0, 0, 0, 1, 0],
-                [12, 0, 1, 0, 0, 0, 12],
-                [10, 0, 'B', 0, 0, 'T', 10],
-                [12, 0, 1, 0, 0, 0, 8],
-                [10, 0, 0, 0, 0, 1, 0],
-                [1, 12, 10, 12, 10, 12, 1]
-            ]
-        },
-        {
-            data: [
-                [0, 3, 3, 3, 3, 3, 0],
-                [11, 0, 0, 0, 0, 0, 11],
-                [11, 0, 1, 0, 0, 0, 11],
-                [11, 0, 0, 0, 0, 0, 11],
-                [11, 0, 1, 0, 0, 0, 9],
-                [11, 0, 0, 0, 0, 0, 11],
-                [0, 11, 11, 11, 11, 11, 0]
-            ]
-        }]
-    },
-    {
-        width: 7,
-        height: 7,
-        layer: [{
-            data: [
-                [1, 12, 10, 12, 10, 12, 1],
                 [10, 0, 0, 0, 0, 0, 10],
                 [12, 0, 0, 0, 0, 0, 12],
-                [8, 0, 'B', 'S', 0, 'T', 8],
+                [8, 'T', 0, 'S', 'B', 0, 8],
                 [12, 0, 0, 0, 0, 0, 12],
                 [10, 0, 0, 0, 0, 0, 10],
                 [1, 12, 10, 12, 10, 12, 1]
@@ -63,7 +37,81 @@ const LevelData = [
                 [0, 11, 11, 11, 11, 11, 0]
             ]
         }],
-    }
+    },
+    {
+        width: 7,
+        height: 7,
+        layer: [{
+            data: [
+                [1, 12, 10, 12, 10, 12, 1],
+                [10, 'S', 0, 0, 0, 1, 0],
+                [12, 0, 1, 0, 0, 0, 12],
+                [10, 0, 'B', 0, 0, 'T', 10],
+                [12, 0, 1, 0, 0, 0, 8],
+                [10, 0, 0, 0, 0, 1, 0],
+                [1, 12, 10, 12, 10, 12, 1]
+            ]
+        },
+        {
+            data: [
+                [0, 3, 3, 3, 3, 3, 0],
+                [11, 0, 0, 0, 0, 1, 11],
+                [11, 0, 1, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 1, 0, 0, 0, 9],
+                [11, 0, 0, 0, 0, 1, 11],
+                [0, 11, 11, 11, 11, 11, 0]
+            ]
+        }]
+    },
+    {
+        width: 7,
+        height: 7,
+        layer: [{
+            data: [
+                [1, 1, 1, 12, 10, 12, 1],
+                [1, 1, 12, 'T', 0, 0, 12],
+                [1, 12, 12, 0, 0, 0, 10],
+                [12, 0, 0, 0, 0, 0, 12],
+                [10, 0, 'B', 0, 12, 12, 12],
+                [12, 'S', 0, 0, 12, 1, 1],
+                [1, 12, 8, 12, 1, 1, 1]
+            ]
+        },
+        {
+            data: [
+                [1, 1, 1, 11, 11, 11, 1],
+                [1, 1, 11, 0, 0, 0, 11],
+                [1, 11, 11, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 11, 11, 1],
+                [11, 0, 0, 0, 11, 1, 1],
+                [1, 11, 9, 11, 1, 1, 1]
+            ]
+        },
+        {
+            data: [
+                [1, 1, 1, 11, 11, 11, 1],
+                [1, 1, 11, 0, 0, 0, 11],
+                [1, 11, 11, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 11, 11, 11],
+                [11, 0, 0, 0, 11, 1, 1],
+                [1, 11, 11, 11, 1, 1, 1]
+            ]
+        }]
+    },
+    {
+        "width": 8,
+        "height": 10,
+        "layer": [{
+                "data": [["12", "12", "12", "12", "12", 0, 0, 0, 0, 0], ["12", "T", "T", 0, "12", "12", "12", "12", "12", "12"], ["12", "T", 0, "B", 0, 0, 0, 0, 0, "12"], ["12", "10", 0, 0, "B", 0, 0, "10", 0, "8"], [0, "12", "10", "10", "S", "B", 0, "10", 0, "8"], [0, 0, 0, "12", "10", 0, 0, 0, 0, "12"], [0, 0, 0, 0, "12", "12", "12", "12", "12", "12"], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+            }, {
+                "data": [["11", "11", "11", "11", "11", 0, 0, 0, 0, 0], ["11", 0, 0, 0, "11", "11", "11", "11", "11", "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11"], ["11", "11", 0, 0, 0, 0, 0, "11", 0, "9"], [0, "11", "11", "11", 0, 0, 0, "11", 0, "9"], [0, 0, 0, "11", "11", 0, 0, 0, 0, "11"], [0, 0, 0, 0, "11", "11", "11", "11", "11", "11"], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+            }
+        ]
+    }    
+
 ];
 
 export class LevelController {
@@ -72,7 +120,7 @@ export class LevelController {
         this.app = app;
         this.tilesTexture = tilesTexture;
         this.shader = shader;
-        this.currentLevel = 0;
+        this.currentLevel = 3;
         this.boxMaterial = new pc.Material();
     }
 
@@ -84,7 +132,7 @@ export class LevelController {
 
         this.material = [];
         this.shapes = [];
-        
+
 
         this.tilesTexture.resource.magFilter =
             this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST;
@@ -107,8 +155,8 @@ export class LevelController {
         return this.createLevel();
     }
 
-    createLevel() {        
-        this.levelGeometry = new pc.Entity();        
+    createLevel() {
+        this.levelGeometry = new pc.Entity();
         this.app.root.addChild(this.levelGeometry);
 
         this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.currentLevel]));
@@ -135,15 +183,15 @@ export class LevelController {
                             this.shapes.push(shape);
                         }
                     }
-                    if (tile === 0) {
+                    if (tile == 0) {
                         continue;
                     }
                     switch (tile) {
                         case 'S':
                             cameraposition = new pc.Vec3(
-                                col - LevelData[this.currentLevel].width / 2,
+                                row - LevelData[this.currentLevel].width / 2,
                                 -1.5,
-                                row - LevelData[this.currentLevel].height / 2);
+                                col - LevelData[this.currentLevel].height / 2);
 
                             break;
                         case 'B':
@@ -304,14 +352,14 @@ export class LevelController {
         const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
         const dir = new pc.Vec2(direction.x, direction.z);
         const target = pos.clone().add(dir);
-        const targetTile = LevelData[this.currentLevel].layer[0].data[target.x][target.y];
-        if (targetTile === 0 || targetTile === 'S' || targetTile === 'B' || targetTile === 'T') {
+        const targetTile = this.currentLevelData.layer[0].data[target.x][target.y];
+        if (targetTile == 0 || targetTile == 'S' || targetTile == 'T') {
             targetPosition.set(
                 target.x - LevelData[this.currentLevel].width / 2,
                 position.y,
                 target.y - LevelData[this.currentLevel].height / 2);
         }
-        return (targetTile === 0 || targetTile === 'S' || targetTile === 'B' || targetTile === 'T');
+        return (targetTile == 0 || targetTile == 'S' || targetTile == 'T');
     }
 
     getTileAt(position) {
@@ -329,7 +377,7 @@ export class LevelController {
         this.targetsToComplete--;
         if (this.targetsToComplete === 0) {
             this.currentLevel++;
-            if(this.levelGeometry) this.levelGeometry.destroy();
+            if (this.levelGeometry) this.levelGeometry.destroy();
             this.createLevel();
         }
     }
@@ -337,10 +385,15 @@ export class LevelController {
     offTarget(boxEntity, lastTile) {
         this.targetsToComplete++;
         const position = boxEntity.getPosition();
-        this.currentLevelData.layer[0].data[this.calcRowPos(position.x)][this.calcColPos(position.z)] = lastTile;        
+        this.currentLevelData.layer[0].data[this.calcRowPos(position.x)][this.calcColPos(position.z)] = lastTile;
     }
+
     calcRowPos(row) { return row + LevelData[this.currentLevel].height / 2; }
     calcColPos(col) { return col + LevelData[this.currentLevel].width / 2; }
 
+    calculatePossibleTeleportTargets(){
+        this.possibleTeleportTargets = [,];
+        
+    }
 
 };

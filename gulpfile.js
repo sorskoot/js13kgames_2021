@@ -64,6 +64,8 @@ function production() {
                 unsafe_regexp:true,
                 unsafe_symbols:true,
                 unsafe_undefined:true,
+                drop_console:true,
+                module:true,
                 passes:10
             }
         })))

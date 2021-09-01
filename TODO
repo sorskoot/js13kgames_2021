@@ -51,11 +51,13 @@ Would like:
 Bugs: 
     @critical:
         ☐ reset camera after leaving XR
+        ☐ Reposition camera when going to the next level
     @high:
-        ☐ prevent player from teleporting into walls
+        ☐ prevent player from teleporting into walls or over them
         ✔ prevent player from teleporting into the small space behind the box @done(21-08-29 13:38)
         ☐ prevent player from moving box by pointing though walls or over them
             ~ maybe add an invisible wall above other blocks to prevent this
+            ~ when 2 boxes are next to each other, you can't move them
 
 Story:
     ~ Janitor on space ship. The ship is a mess, boxes all over the place.

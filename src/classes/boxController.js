@@ -58,7 +58,7 @@ BoxController.prototype.update = function (dt) {
             this.entity.setPosition(this.targetPosition);            
             this.isMoving = false;
             // did we reach the target?
-            if (this.lastTile === 'T') {
+            if (this.lastTile == 'T') {
                 this.app.root.fire('box:onTarget', this.entity);
             } else {
                 // need to move again?            
@@ -74,6 +74,9 @@ BoxController.prototype._calculateNextTarget = function () {
       
         const oldLastTile = this.app.levelController.getTileAt(this.targetPosition);  
         this.app.root.fire('box:onNewTile', this.entity, this.targetPosition, this.lastTile);
+        if(this.lastTile == 'T'){
+            this.app.root.fire('box:offTarget', this.entity,this.lastTile);
+        }
         this.lastTile = oldLastTile;
         this.isMoving = true;
 
