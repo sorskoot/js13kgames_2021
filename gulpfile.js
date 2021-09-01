@@ -22,11 +22,14 @@ function javascript(cb) {
     {
         return gulp.src(['./src/index.js','./src/classes/*.js', './src/shaders/*.glsl'])
 
-           // .pipe(sourcemaps.init())
-            .pipe(gulpif(isJavaScript, terser()))
-            .pipe(gulpif(isShader, glslify()))
-            .pipe(concat('main.js'))
-          //  .pipe(sourcemaps.write())
+            .pipe(sourcemaps.init())
+            .pipe(gulpif(isJavaScript, terser({
+                keep_fnames: true,
+                mangle: false
+              })))                                    
+            .pipe(gulpif(isShader, glslify()))                                    
+            .pipe(concat('main.js'))                       
+            .pipe(sourcemaps.write('./'))
             .pipe(gulp.dest('./dist/'));
     }
 }
@@ -43,9 +46,9 @@ function doWebp(cb){
 }
 
 gulp.task('watch', function () {
-    return gulp.watch(['./src/index.js','./src/components/*.js','./src/static/*.*', './src/shaders/*.glsl'],
+    return gulp.watch(['./src/index.js','./src/classes/*.js','./src/static/*.*', './src/shaders/*.glsl'],
         { ignoreInitial: false },
-        gulp.series(copyStatic, doWebp, production));
+        gulp.series(copyStatic, doWebp, javascript));
 });
 
 function production() {

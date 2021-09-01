@@ -105,12 +105,12 @@ const LevelData = [
         "width": 8,
         "height": 10,
         "layer": [{
-                "data": [["12", "12", "12", "12", "12", 0, 0, 0, 0, 0], ["12", "T", "T", 0, "12", "12", "12", "12", "12", "12"], ["12", "T", 0, "B", 0, 0, 0, 0, 0, "12"], ["12", "10", 0, 0, "B", 0, 0, "10", 0, "8"], [0, "12", "10", "10", "S", "B", 0, "10", 0, "8"], [0, 0, 0, "12", "10", 0, 0, 0, 0, "12"], [0, 0, 0, 0, "12", "12", "12", "12", "12", "12"], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-            }, {
-                "data": [["11", "11", "11", "11", "11", 0, 0, 0, 0, 0], ["11", 0, 0, 0, "11", "11", "11", "11", "11", "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11"], ["11", "11", 0, 0, 0, 0, 0, "11", 0, "9"], [0, "11", "11", "11", 0, 0, 0, "11", 0, "9"], [0, 0, 0, "11", "11", 0, 0, 0, 0, "11"], [0, 0, 0, 0, "11", "11", "11", "11", "11", "11"], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-            }
+            "data": [["12", "12", "12", "12", "12", 0, 0, 0, 0, 0], ["12", "T", "T", 0, "12", "12", "12", "12", "12", "12"], ["12", "T", 0, "B", 0, 0, 0, 0, 0, "12"], ["12", "10", 0, 0, "B", 0, 0, "10", 0, "8"], [0, "12", "10", "10", "S", "B", 0, "10", 0, "8"], [0, 0, 0, "12", "10", 0, 0, 0, 0, "12"], [0, 0, 0, 0, "12", "12", "12", "12", "12", "12"], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+        }, {
+            "data": [["11", "11", "11", "11", "11", 0, 0, 0, 0, 0], ["11", 0, 0, 0, "11", "11", "11", "11", "11", "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11"], ["11", "11", 0, 0, 0, 0, 0, "11", 0, "9"], [0, "11", "11", "11", 0, 0, 0, "11", 0, "9"], [0, 0, 0, "11", "11", 0, 0, 0, 0, "11"], [0, 0, 0, 0, "11", "11", "11", "11", "11", "11"], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+        }
         ]
-    }    
+    }
 
 ];
 
@@ -361,14 +361,19 @@ class LevelController {
         }
         return (targetTile == 0 || targetTile == 'S' || targetTile == 'T');
     }
-
-    getTileAt(position) {
+    /**
+     * Gets the tile number at the given position.
+     * @param {pc.Vec3} position 
+     * @param {number} layer 
+     */
+    getTileAt(position, layer = 0) {
         const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
-        return this.currentLevelData.layer[0].data[pos.x][pos.y];
+        return this.currentLevelData.layer[layer].data[pos.x][pos.y];
     }
 
     onNewTile(boxEntity, targetPosition, lastTile) {
         const lastPosition = boxEntity.getPosition();
+        console.log(lastPosition, lastTile);
         this.currentLevelData.layer[0].data[this.calcRowPos(lastPosition.x)][this.calcColPos(lastPosition.z)] = lastTile;
         this.currentLevelData.layer[0].data[this.calcRowPos(targetPosition.x)][this.calcColPos(targetPosition.z)] = 'B';
     }
@@ -388,12 +393,23 @@ class LevelController {
         this.currentLevelData.layer[0].data[this.calcRowPos(position.x)][this.calcColPos(position.z)] = lastTile;
     }
 
-    calcRowPos(row) { return row + LevelData[this.currentLevel].height / 2; }
-    calcColPos(col) { return col + LevelData[this.currentLevel].width / 2; }
+    calcRowPos(row) { return row + LevelData[this.currentLevel].width / 2; }
+    calcColPos(col) { return col + LevelData[this.currentLevel].height / 2; }
 
-    calculatePossibleTeleportTargets(){
-        this.possibleTeleportTargets = [,];
-        
+    /**
+     * Checks if there are any blocks in the way that prevent teleportation
+     * @param {pc.Vec3} startPos 
+     * @param {pc.Vec3} endPos 
+     * @returns true of there is no block in the way; false otherwise
+     */
+    checkLineOfSight(startPos, endPos) {
+        let foundIssue = pc.util.checkLine(
+            new pc.Vec2(startPos.x+.5, startPos.z+.5),
+            new pc.Vec2(endPos.x+.5, endPos.z+.5), (x, y) => {
+                const tile = this.getTileAt(new pc.Vec3(x, 0, y));
+                console.log(x, y, tile);
+                return tile == 0 || tile == 'S' || tile == 'T';
+            });
+        return foundIssue != null;
     }
-
 };

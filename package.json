@@ -72,6 +72,8 @@
     "webpack-serve": "^3.2.0"
   },
   "dependencies": {
-    "simple-autoreload-server": "^0.2.15"
+    "gulp-wrap-js": "^0.4.1",
+    "simple-autoreload-server": "^0.2.15",
+    "vinyl-sourcemaps-apply": "^0.2.1"
   }
 }

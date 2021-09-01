@@ -78,7 +78,16 @@ Controller.prototype.pick = function () {
         if (this.hoverEntity.tags.has('floor')) {
             var dot = this.hoverEntity.up.dot(this.ray.direction);
             if (~this.allowedTeleportTargets.indexOf(this.app.levelController.getTileAt(this.hoverEntity.getPosition()))) {
-                if (dot <= 0) validTeleport = true;
+                const hasBlockedLineOfSight = this.app.levelController.checkLineOfSight(
+                    this.app.mainCamera.getPosition(),
+                    this.hoverEntity.getPosition());
+                console.log(`hasBlockedLineOfSight:${hasBlockedLineOfSight}`);
+                // Check if anything is between the player and the target point                
+                if (dot <= 0 &&
+                    !hasBlockedLineOfSight) {
+                    validTeleport = true;
+                }
+                console.log(`validTeleport:${validTeleport}`);
             }
         }
 
