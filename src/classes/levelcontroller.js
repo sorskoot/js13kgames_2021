@@ -114,7 +114,7 @@ const LevelData = [
 
 ];
 
-export class LevelController {
+class LevelController {
 
     constructor(app, tilesTexture, shader) {
         this.app = app;

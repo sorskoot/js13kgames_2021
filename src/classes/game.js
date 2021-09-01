@@ -1,4 +1,4 @@
-import { LevelController } from "./levelcontroller";
+//import { LevelController } from "./levelcontroller";
 
 const movementSpeed = 1.5; // 1.5 m/s
 const rotateSpeed = 45;
@@ -11,7 +11,7 @@ const tmpVec3A = new pc.Vec3();
 const tmpVec3B = new pc.Vec3();
 const lineColor = new pc.Color(1, 1, 1);
 
-export class Game {
+class Game {
     /**
      * 
      * @param {pc.Application} app 
@@ -30,15 +30,15 @@ export class Game {
     }
 
     async init() {
-        await import('./pcUtils');
-        await import('./controllers');
-        await import('./controller');
-        await import('./teleportCamera');
-        await import('./lookCamera');
-        await import('./locator');
-        await import('./shapeWorld');
-        await import('./shape');
-        await import('./boxController');
+        // await import('./pcUtils');
+        // await import('./controllers');
+        // await import('./controller');
+        // await import('./teleportCamera');
+        // await import('./lookCamera');
+        // await import('./locator');
+        // await import('./shapeWorld');
+        // await import('./shape');
+        // await import('./boxController');
 
         this.app.root.addComponent('script');
         this.app.root.script.create('shapeWorld');

@@ -4,7 +4,8 @@
   "description": "Repo for the 2021 edition of the JS13KGames Compo",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev",            
+    "startx": "webpack-dev-server --config webpack.dev",
+    "start": "autoreload-server -d ./dist -p 1337 --default-pages index.html",
     "build": "webpack --config webpack.prod --progress --colors"
   },
   "repository": {
@@ -22,7 +23,7 @@
     "@babel/core": "^7.11.4",
     "@babel/plugin-proposal-optional-chaining": "^7.11.0",
     "@babel/plugin-syntax-numeric-separator": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",    
+    "@babel/preset-env": "^7.11.0",
     "babel-loader": "^8.1.0",
     "bundle-js": "^1.0.3",
     "compression-webpack-plugin": "^4.0.1",
@@ -69,5 +70,8 @@
     "webpack-dev-server": "3.11.0",
     "webpack-merge": "^4.2.2",
     "webpack-serve": "^3.2.0"
-}
+  },
+  "dependencies": {
+    "simple-autoreload-server": "^0.2.15"
+  }
 }

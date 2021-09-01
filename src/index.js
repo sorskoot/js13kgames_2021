@@ -1,9 +1,9 @@
-import { Game } from "./classes/game";
+//import { Game } from "./classes/game";
 (async function () {
 
     // stage 1: loading scripts
     console.log("Loading scripts...");
-    await import('./scripts/rotator.js');
+    //await import('./scripts/rotator.js');
 
     // stage 2: initialize the game    
     function initGame() {
@@ -28,7 +28,7 @@ import { Game } from "./classes/game";
     function loadAssets(app) {
         return new Promise(resolve => {
             const tilesTexture = new pc.Asset("tiles", "texture", {
-                url: './Tiles.png',
+                url: './Tiles.webp',
             });
 
             tilesTexture.ready(() => {
@@ -45,16 +45,15 @@ import { Game } from "./classes/game";
 
     function loadShader(app) {
         return new Promise(async resolve => {
-            const vertShader = await import('./shaders/vertShader.glsl');
-            const fragShader = await import('./shaders/fragShader.glsl');
-
+            // const vertShader = await import('./shaders/vertShader.glsl');
+            // const fragShader = await import('./shaders/fragShader.glsl');
             let shaderDefinition = {
                 attributes: {
                     aPosition: pc.gfx.SEMANTIC_POSITION,
                     vertex_texCoord0: pc.gfx.SEMANTIC_TEXCOORD0
                 },
-                vshader: vertShader.default,
-                fshader: fragShader.default
+                vshader: vertShader,
+                fshader: fragShader
             };
             let shader = new pc.Shader(app.graphicsDevice, shaderDefinition);
             resolve(shader);

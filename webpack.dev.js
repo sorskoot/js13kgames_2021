@@ -1,8 +1,8 @@
-const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
-const fs = require('fs');
+// const merge = require('webpack-merge');
+// const common = require('./webpack.common.js');
+// const fs = require('fs');
 
-module.exports = merge(common, {
+module.exports = /*merge(common,*/ {
     mode: 'development',
     "devtool": "inline-source-map",
     devServer: {     
@@ -17,4 +17,5 @@ module.exports = merge(common, {
         //cert: fs.readFileSync('c0dr.crt'),
       //  ca: fs.readFileSync('c0dr.pem'),
       }
-});
+}
+//);

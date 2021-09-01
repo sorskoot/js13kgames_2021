@@ -10,6 +10,7 @@ ShapeWorld.prototype.initialize = function() {
     this.app.on("shapeworld:add", this.addItem, this);
     this.app.on("shapeworld:remove", this.removeItem, this);
     
+    
     // Create a global 
     this.app.shapeWorld = this;
 };
