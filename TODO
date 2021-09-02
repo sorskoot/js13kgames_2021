@@ -56,9 +56,10 @@ Would like:
 
 Bugs: 
     @critical:
-        ☐ reset camera after leaving XR
+        ✔ reset camera after leaving XR @done(21-09-02 22:38)
         ✔ Reposition camera when going to the next level @done(21-09-02 19:14)
     @high:
+        ☐ prevent teleportation when moving a box.
         ✔ prevent player from teleporting into walls or over them @done(21-09-02 19:14)
             ~ the issue seems to change when after teleporting one time. The first time it works fine, then is it wrong. 
         ✔ prevent player from teleporting into the small space behind the box @done(21-08-29 13:38)

@@ -54,6 +54,8 @@ class Game {
             clearColor: new pc.Color(44 / 255, 62 / 255, 80 / 255),
             farClip: 1000
         });
+        this.camera.translate(0, 1.6, 0);
+        
         this.locator = new pc.Entity();
         this.locator.addComponent('render', {
             type: "cylinder"
@@ -91,28 +93,36 @@ class Game {
         });
 
         this.cameraParent.addChild(this.camera);
-        this.camera.translate(0, 1.7, 0);
         // Add the new entities to the hierarchy
         this.app.root.addChild(this.cameraParent);
         // update position and rotation for each controller
         this.app.on('update', this.update, this);
 
-        let startPosition = this.app.levelController.init();
+        this.app.levelController.init();
 
-        this.cameraParent.translate(startPosition.x, startPosition.y, startPosition.z);
-
+    
+        
     }
 
 
     startXR() {
-        this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
-            callback: function (err) {
+        console.log(`before start:${this.camera.getPosition()}`);
+        this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {            
+            callback: (err) => {
+                console.log(`in callback:${this.camera.getPosition()}`);
                 //  app.xr._baseLayer.stencil = true;
                 if (err) console.error("WebXR Immersive VR failed to start: " + err.message);
             }
         });
+        //this.camera.translate(0,0.7,0);
+        console.log(`after start:${this.camera.getPosition()}`);
     }
-    endXR() {
-        this.camera.camera.endXr();
+    endXR() {        
+        console.log(`before end:${this.camera.getPosition()}`);
+        this.camera.camera.endXr((err)=>{
+            console.log(`in exit callback:${this.camera.getPosition()}`);
+        });
+        
+        console.log(`after end:${this.camera.getPosition()}`);
     }
 }

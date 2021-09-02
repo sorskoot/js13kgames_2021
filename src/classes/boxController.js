@@ -3,6 +3,7 @@ var BoxController = pc.createScript('boxController');
 
 // initialize code called once per entity
 BoxController.prototype.initialize = function () {
+    this.vecA = new pc.Vec3();
     this.direction = new pc.Vec3(0, 0, 0);
     this.lastTile = 0;
     this.entity.on('object:onhover', (e) => {
@@ -45,15 +46,15 @@ BoxController.prototype.initialize = function () {
         this._calculateNextTarget();
     });
 }
-let vecA = new pc.Vec3();
+
 
 BoxController.prototype.update = function (dt) {
     if (this.isMoving) {
         this.movementTime += dt * 8;
-        vecA.set(pc.util.lerp(this.lastPosition.x, this.targetPosition.x, this.movementTime),
+        this.vecA.set(pc.util.lerp(this.lastPosition.x, this.targetPosition.x, this.movementTime),
             this.lastPosition.y,
             pc.util.lerp(this.lastPosition.z, this.targetPosition.z, this.movementTime))
-        this.entity.setPosition(vecA);
+        this.entity.setPosition(this.vecA);
         if (this.movementTime >= 1) {
             this.entity.setPosition(this.targetPosition);            
             this.isMoving = false;

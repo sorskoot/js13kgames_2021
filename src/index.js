@@ -103,12 +103,14 @@
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {
             if (evt.key === pc.KEY_ESCAPE && app.xr.active) {
+                game.endXR();
                 app.xr.end();
             }
         });
 
         app.xr.on('start', function () {
             console.log("Immersive VR session has started");
+            
         });
         app.xr.on('end', function () {
             console.log("Immersive VR session has ended");
