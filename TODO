@@ -58,6 +58,7 @@ Bugs:
     @critical:
         ✔ reset camera after leaving XR @done(21-09-02 22:38)
         ✔ Reposition camera when going to the next level @done(21-09-02 19:14)
+        ✔ Make the boxes color individualy @done(21-09-02 22:47)
     @high:
         ☐ prevent teleportation when moving a box.
         ✔ prevent player from teleporting into walls or over them @done(21-09-02 19:14)

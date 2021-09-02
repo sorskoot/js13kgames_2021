@@ -345,20 +345,20 @@ class LevelController {
 
         this.tilesTexture.resource.magFilter =
             this.tilesTexture.resource.minFilter = pc.FILTER_NEAREST
-
-        this.boxMaterial.setShader(this.shader);
-        this.boxMaterial.setParameter('index', 5);
-        this.boxMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
-        this.boxMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
-        this.boxMaterial.setParameter('repeat', [0.9, 0.9]);
-        this.boxMaterial.setParameter('tint', [0, 0, 0, 0]);
-        this.boxMaterial.update();
+        const boxMaterial = new pc.Material();
+        boxMaterial.setShader(this.shader);
+        boxMaterial.setParameter('index', 5);
+        boxMaterial.setParameter('DiffuseTexture', this.tilesTexture.resource);
+        boxMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
+        boxMaterial.setParameter('repeat', [0.9, 0.9]);
+        boxMaterial.setParameter('tint', [0, 0, 0, 0]);
+        boxMaterial.update();
 
         const boxEntity = new pc.Entity();
         boxEntity.addComponent("model", {
             type: "box"
         });
-        boxEntity.model.material = this.boxMaterial;
+        boxEntity.model.material = boxMaterial;
         boxEntity.translate(x, floor+.45 , y);
 
         boxEntity.addComponent("script");
