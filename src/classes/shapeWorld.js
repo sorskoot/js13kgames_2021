@@ -15,13 +15,10 @@ ShapeWorld.prototype.initialize = function() {
     this.app.shapeWorld = this;
 };
 
-
 ShapeWorld.hitPoint = new pc.Vec3();
 ShapeWorld.vecBetween = new pc.Vec3();
 
-ShapeWorld.prototype.raycast = function (ray, intersectPosition, length) {    
-    //console.log("== Start Shape Raycast ==");
-       
+ShapeWorld.prototype.raycast = function (ray, intersectPosition, length) {               
     var hitPoint = ShapeWorld.hitPoint;
     var vecBetween = ShapeWorld.vecBetween;
     

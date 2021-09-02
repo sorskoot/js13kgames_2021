@@ -22,7 +22,7 @@ Must have:
 
 
 Should have:
-    ☐ @test @today Handle multiple boxes, prevent boxes from overlapping
+    ✔ @test Handle multiple boxes, prevent boxes from overlapping @done(21-09-02 19:14)
     ☐ store progress when leaving game
     ☐ Must have 10 levels.
     ☐ More variation in textures
@@ -57,15 +57,16 @@ Would like:
 Bugs: 
     @critical:
         ☐ reset camera after leaving XR
-        ☐ Reposition camera when going to the next level
+        ✔ Reposition camera when going to the next level @done(21-09-02 19:14)
     @high:
-        ☐ prevent player from teleporting into walls or over them
+        ✔ prevent player from teleporting into walls or over them @done(21-09-02 19:14)
             ~ the issue seems to change when after teleporting one time. The first time it works fine, then is it wrong. 
         ✔ prevent player from teleporting into the small space behind the box @done(21-08-29 13:38)
         ☐ prevent player from moving box by pointing though walls or over them
             ~ maybe add an invisible wall above other blocks to prevent this
             ~ when 2 boxes are next to each other, you can't move them
     @low:
+        ☐ teleporting next to box should be possible more often
         ☐ prevent player from walking through walls in VR
         ☐ Make game work with levels with odd Width and Height
 
