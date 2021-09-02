@@ -1,6 +1,45 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
 
 const LevelData = [
+    // {
+    //     width: 7,
+    //     height: 7,
+    //     layer: [{
+    //         data: [
+    //             [0,  0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 'S', 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0]
+    //         ]
+    //     },
+    //     {
+    //         data: [
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //         ]
+    //     },
+    //     {
+    //         data: [
+    //             [0, 3, 3, 3, 3, 3, 0],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [0, 11, 11, 11, 11, 11, 0]
+    //         ]
+    //     }],
+    // },
+
+
     {
         width: 7,
         height: 7,
@@ -84,7 +123,7 @@ const LevelData = [
                 [1, 1, 11, 0, 0, 0, 11],
                 [1, 11, 11, 0, 0, 0, 11],
                 [11, 0, 0, 0, 0, 0, 11],
-                [11, 0, 0, 0, 11, 11, 1],
+                [11, 0, 0, 11, 11, 11, 1],
                 [11, 0, 0, 0, 11, 1, 1],
                 [1, 11, 9, 11, 1, 1, 1]
             ]
@@ -102,12 +141,20 @@ const LevelData = [
         }]
     },
     {
-        "width": 8,
-        "height": 10,
+        "width": 7,
+        "height": 11,
         "layer": [{
-            "data": [["12", "12", "12", "12", "12", 0, 0, 0, 0, 0], ["12", "T", "T", 0, "12", "12", "12", "12", "12", "12"], ["12", "T", 0, "B", 0, 0, 0, 0, 0, "12"], ["12", "10", 0, 0, "B", 0, 0, "10", 0, "8"], [0, "12", "10", "10", "S", "B", 0, "10", 0, "8"], [0, 0, 0, "12", "10", 0, 0, 0, 0, "12"], [0, 0, 0, 0, "12", "12", "12", "12", "12", "12"], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+            "data": [
+                ["12", "12", "12", "12", "12", 0, 0, 0, 0, 0,0],
+                ["12", "T", "T", 0, "12", "12", "12", "12", "12", "12",0], 
+                ["12", "T", 0, "B", 0, 0, 0, 0, 0, "12",0], 
+                ["12", "10", 0, 0, "B", 0, 0, "10", 0, "8",0],
+                [0, "12", "10", "10", "S", "B", 0, "10", 0, "8",0], 
+                [0, 0, 0, "12", "10", 0, 0, 0, 0, "12",0], 
+                [0, 0, 0, 0, "12", "12", "12", "12", "12", "12",0], 
+                ]
         }, {
-            "data": [["11", "11", "11", "11", "11", 0, 0, 0, 0, 0], ["11", 0, 0, 0, "11", "11", "11", "11", "11", "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11"], ["11", "11", 0, 0, 0, 0, 0, "11", 0, "9"], [0, "11", "11", "11", 0, 0, 0, "11", 0, "9"], [0, 0, 0, "11", "11", 0, 0, 0, 0, "11"], [0, 0, 0, 0, "11", "11", "11", "11", "11", "11"], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+            "data": [["11", "11", "11", "11", "11", 0, 0, 0, 0, 0], ["11", 0, 0, 0, "11", "11", "11", "11", "11", "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11"], ["11", "11", 0, 0, 0, 0, 0, "11", 0, "9"], [0, "11", "11", "11", 0, 0, 0, "11", 0, "9"], [0, 0, 0, "11", "11", 0, 0, 0, 0, "11"], [0, 0, 0, 0, "11", "11", "11", "11", "11", "11"]]
         }
         ]
     }
@@ -120,7 +167,7 @@ class LevelController {
         this.app = app;
         this.tilesTexture = tilesTexture;
         this.shader = shader;
-        this.currentLevel = 3;
+        this.currentLevel = 0;
         this.boxMaterial = new pc.Material();
     }
 
@@ -129,6 +176,14 @@ class LevelController {
      * @type {pc.vec3} Camera position
      */
     init() {
+        this.debugBox = new pc.Entity();
+        this.debugBox.addComponent('render', {
+            type: 'box'
+        });
+        this.debugBox.setLocalScale(0.4, 0.4, 0.4);
+        this.debugBox.setPosition(0, 0, 0);
+        this.debugBox.setName('debugBox');
+        //this.app.root.addChild(this.debugBox);
 
         this.material = [];
         this.shapes = [];
@@ -210,6 +265,8 @@ class LevelController {
         }
         this.createFloor(LevelData[this.currentLevel].width, LevelData[this.currentLevel].height, -1);
         this.createCeiling(LevelData[this.currentLevel].width, LevelData[this.currentLevel].height, LevelData[this.currentLevel].layer.length - 1);
+
+        this.app.fire("teleport:to", cameraposition);
 
         return cameraposition;
     }
@@ -367,13 +424,15 @@ class LevelController {
      * @param {number} layer 
      */
     getTileAt(position, layer = 0) {
+
         const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
-        return this.currentLevelData.layer[layer].data[pos.x][pos.y];
+        this.debugBox.setPosition(position.x - .5, -1.5, position.z - .5);
+        console.log(position.x - .5, position.z - .5);
+        return this.currentLevelData.layer[layer].data[Math.floor(pos.x)][Math.floor(pos.y)];
     }
 
     onNewTile(boxEntity, targetPosition, lastTile) {
         const lastPosition = boxEntity.getPosition();
-        console.log(lastPosition, lastTile);
         this.currentLevelData.layer[0].data[this.calcRowPos(lastPosition.x)][this.calcColPos(lastPosition.z)] = lastTile;
         this.currentLevelData.layer[0].data[this.calcRowPos(targetPosition.x)][this.calcColPos(targetPosition.z)] = 'B';
     }
@@ -403,11 +462,13 @@ class LevelController {
      * @returns true of there is no block in the way; false otherwise
      */
     checkLineOfSight(startPos, endPos) {
+
         let foundIssue = pc.util.checkLine(
-            new pc.Vec2(startPos.x+.5, startPos.z+.5),
-            new pc.Vec2(endPos.x+.5, endPos.z+.5), (x, y) => {
-                const tile = this.getTileAt(new pc.Vec3(x, 0, y));
-                console.log(x, y, tile);
+            new pc.Vec2(startPos.x + .5, startPos.z + .5),
+            new pc.Vec2(endPos.x + .5, endPos.z + .5), (x, y) => {
+                let tile = this.getTileAt(new pc.Vec3(x, 0, y));
+
+                //  if(tile == 0) tile = this.getTileAt(new pc.Vec3(x, 0, y), 1 );
                 return tile == 0 || tile == 'S' || tile == 'T';
             });
         return foundIssue != null;

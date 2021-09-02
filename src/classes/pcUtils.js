@@ -22,6 +22,7 @@
      */
     pc.util.checkLine=function(vec1, vex2, callback)
     {
+        
         let x0 = Math.floor(vec1.x);
         let y0 = Math.floor(vec1.y);
         let x1 = Math.floor(vex2.x);
@@ -40,7 +41,6 @@
         for (; n > 0; --n)
         {
             const isEmpty = callback(x, y);
-            console.log(isEmpty);
             if(!isEmpty){
                 return new pc.Vec2(x, y);
             }

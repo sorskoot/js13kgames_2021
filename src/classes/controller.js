@@ -80,14 +80,13 @@ Controller.prototype.pick = function () {
             if (~this.allowedTeleportTargets.indexOf(this.app.levelController.getTileAt(this.hoverEntity.getPosition()))) {
                 const hasBlockedLineOfSight = this.app.levelController.checkLineOfSight(
                     this.app.mainCamera.getPosition(),
-                    this.hoverEntity.getPosition());
-                console.log(`hasBlockedLineOfSight:${hasBlockedLineOfSight}`);
+                    this.hoverEntity.getPosition());                
                 // Check if anything is between the player and the target point                
                 if (dot <= 0 &&
                     !hasBlockedLineOfSight) {
                     validTeleport = true;
                 }
-                console.log(`validTeleport:${validTeleport}`);
+                
             }
         }
 

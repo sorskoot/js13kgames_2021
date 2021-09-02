@@ -32,8 +32,14 @@ Should have:
         ☐ when you hover over cube
         ☐ when you hit the target
         ☐ on the target
+    
 
 Could have:
+    On desktop:
+        ☐ when pointerlocked, hide VR button.
+        ☐ When not pointerlocked, 'pause' game, disable teleport
+        ☐ When not pointerlocked, show VR button and Reset button
+
     ☐ animating textures, like last year.
     ☐ bigger FOV on desktop
     ☐ Movement by walking
@@ -54,10 +60,14 @@ Bugs:
         ☐ Reposition camera when going to the next level
     @high:
         ☐ prevent player from teleporting into walls or over them
+            ~ the issue seems to change when after teleporting one time. The first time it works fine, then is it wrong. 
         ✔ prevent player from teleporting into the small space behind the box @done(21-08-29 13:38)
         ☐ prevent player from moving box by pointing though walls or over them
             ~ maybe add an invisible wall above other blocks to prevent this
             ~ when 2 boxes are next to each other, you can't move them
+    @low:
+        ☐ prevent player from walking through walls in VR
+        ☐ Make game work with levels with odd Width and Height
 
 Story:
     ~ Janitor on space ship. The ship is a mess, boxes all over the place.
