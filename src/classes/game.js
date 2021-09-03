@@ -1,3 +1,4 @@
+/// <reference path="../../typings/playcanvas.d.ts" />
 //import { LevelController } from "./levelcontroller";
 
 const movementSpeed = 1.5; // 1.5 m/s
@@ -30,16 +31,6 @@ class Game {
     }
 
     async init() {
-        // await import('./pcUtils');
-        // await import('./controllers');
-        // await import('./controller');
-        // await import('./teleportCamera');
-        // await import('./lookCamera');
-        // await import('./locator');
-        // await import('./shapeWorld');
-        // await import('./shape');
-        // await import('./boxController');
-
         this.app.root.addComponent('script');
         this.app.root.script.create('shapeWorld');
 
@@ -51,11 +42,59 @@ class Game {
         // create camera
         this.camera = new pc.Entity();
         this.camera.addComponent('camera', {
-            clearColor: new pc.Color(44 / 255, 62 / 255, 80 / 255),
+            clearColor: pc.Color.BLACK,
             farClip: 1000
         });
         this.camera.translate(0, 1.6, 0);
         
+        this.textgroup = new pc.Entity();
+        this.titleImage = new pc.Entity();        
+        this.titleImage.addComponent('render',{
+            type: 'plane'
+        });        
+        this.titleImage.translate(-.5,1.8,-3.5);        
+        this.titleImage.rotateLocal(90, 0,     0);
+        this.titleImage.setLocalScale(3.2,.8,.8);
+        this.titleImage.addComponent('script');
+        this.titleImage.script.create('titleText',);         
+        this.textgroup.addChild(this.titleImage);
+
+        this.texttest = new pc.Entity();        
+        this.texttest.addComponent('render',{
+            type: 'plane'
+        });        
+        this.texttest.translate(-.5,1.2,-3);        
+        this.texttest.rotateLocal(90, 0,     0);
+        this.texttest.setLocalScale(0.6,.25,0.25);
+        
+        this.texttest.addComponent('script');
+        this.texttest.script.create('button',{
+            attributes:{
+                 text:'Restart'
+             }
+         });         
+        this.textgroup.addChild(this.texttest);
+        this.app.root.addChild(this.textgroup);
+        
+        // this.texttest2 = new pc.Entity();
+        // this.texttest2.addComponent('render',{
+        //     type:'box'            
+        // });
+        // this.texttest2.translate(0,0,-2);
+
+        // this.texttest2.addComponent('script');
+        // this.texttest2.script.create('button',{
+        //     attributes:{
+        //         text:'Button 2!'
+        //     }
+        // });
+        // this.texttest2.setLocalScale(0.3,.1,.001);
+        // this.texttest2.on('button:click',(e)=>{
+        //     console.log('Button 2');
+        // });
+        // this.camera.addChild(this.texttest2);
+
+        this.app.scene.ambientLight = new pc.Color(1,1,1);
         this.locator = new pc.Entity();
         this.locator.addComponent('render', {
             type: "cylinder"

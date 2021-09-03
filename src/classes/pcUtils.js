@@ -60,4 +60,34 @@
         return null;
     }
 
+    pc.util.createTextTexture=function(text, backgroundColor, width=512, height=512){
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+        ctx.width = width;
+        ctx.height = height;
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0,0,width,height);
+    
+        ctx.font = '48px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'white';
+        
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+    
+        const img = new Image();
+        img.src = canvas.toDataURL();
+        img.width = width;
+        img.height = height;
+    
+        var texture = new pc.Texture(this.app.graphicsDevice, {
+            width: width,
+            height: height,
+            format: pc.PIXELFORMAT_R8_G8_B8
+        });
+        texture.setSource(img);
+    
+        return texture;
+    }
+
 })();
