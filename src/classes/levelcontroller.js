@@ -1,43 +1,43 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
 
 const LevelData = [
-    {
-        width: 7,
-        height: 7,
-        layer: [{
-            data: [
-                [0,  0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 'S', 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0]
-            ]
-        },
-        {
-            data: [
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-            ]
-        },
-        {
-            data: [
-                [0, 3, 3, 3, 3, 3, 0],
-                [11, 0, 0, 0, 0, 0, 11],
-                [11, 0, 0, 0, 0, 0, 11],
-                [11, 0, 0, 0, 0, 0, 11],
-                [11, 0, 0, 0, 0, 0, 11],
-                [11, 0, 0, 0, 0, 0, 11],
-                [0, 11, 11, 11, 11, 11, 0]
-            ]
-        }],
-    },
+    // {
+    //     width: 7,
+    //     height: 7,
+    //     layer: [{
+    //         data: [
+    //             [0,  0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 'S', 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0]
+    //         ]
+    //     },
+    //     {
+    //         data: [
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 0],
+    //         ]
+    //     },
+    //     {
+    //         data: [
+    //             [0, 3, 3, 3, 3, 3, 0],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [11, 0, 0, 0, 0, 0, 11],
+    //             [0, 11, 11, 11, 11, 11, 0]
+    //         ]
+    //     }],
+    // },
 
 
     {
@@ -209,7 +209,7 @@ class LevelController {
             mat.update();
             this.material.push(mat);
         }
-        return this.createLevel();
+        //return this.createLevel();
     }
 
     createLevel() {
@@ -443,6 +443,7 @@ class LevelController {
             this.currentLevel++;
             if (this.levelGeometry) this.levelGeometry.destroy();
             this.createLevel();
+            this.levelGeometry.enabled = true;
         }
     }
 
@@ -472,5 +473,12 @@ class LevelController {
                 return tile == 0 || tile == 'S' || tile == 'T';
             });
         return foundIssue != null;
+    }
+
+    start(){
+        this.currentLevel = 0;
+        if (this.levelGeometry) this.levelGeometry.destroy();
+        this.createLevel();      
+        this.levelGeometry.enabled = true;
     }
 };

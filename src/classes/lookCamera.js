@@ -156,7 +156,7 @@ LookCamera.prototype._onTouchMove = function (event) {
     if (this.gazeController)
         this.gazeController.script.controller.mouseCoords.set(event.touches[0].x, event.touches[0].y);
     
-    if (! this.gazeController || ! this.gazeController.script.controller.getHeldEntity()) {
+    if (! this.gazeController) {
         var dx = event.touches[0].x - this.touchCoords.x;
         var dy = event.touches[0].y - this.touchCoords.y;
         this.touchCoords.set(event.touches[0].x, event.touches[0].y);

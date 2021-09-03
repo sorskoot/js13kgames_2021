@@ -67,6 +67,7 @@
     await game.init();
 
     app.start();
+    const enterVRButton = document.getElementById('enter-vr');
 
     if (app.xr.supported) {
         const activate = function () {
@@ -78,33 +79,37 @@
             }
         };
 
-        // document.getElementById('enter-vr').addEventListener('click', () => {
-        //     if (!app.xr.active) {
-        //         activate();
-        //     }
-        // });
+        enterVRButton.addEventListener('click', () => {
+            if (!app.xr.active) {
+                activate();
+                enterVRButton.style.display = 'none';
+            }
+        });
 
-        // if (app.touch) {
-        //     app.touch.on("touchend", function (evt) {
-        //         if (!app.xr.active) {
+        if (app.touch) {
+            app.touch.on("touchend", function (evt) {
+                if (!app.xr.active) {
 
-        //             // if not in VR, activate
-        //             activate();
-        //         } else {
-        //             // otherwise reset camera
-        //             game.endXR();
-        //         }
+                    // if not in VR, activate
+                    activate();
+                    enterVRButton.style.display = 'none';
+                } else {
+                    // otherwise reset camera
+                    game.endXR();
+                    enterVRButton.style.display = 'block';
+                }
 
-        //         evt.event.preventDefault();
-        //         evt.event.stopPropagation();
-        //     });
-        // }
+                evt.event.preventDefault();
+                evt.event.stopPropagation();
+            });
+        }
 
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {
             if (evt.key === pc.KEY_ESCAPE && app.xr.active) {
                 game.endXR();
                 app.xr.end();
+                enterVRButton.style.display = 'block';
             }
         });
 
@@ -114,6 +119,7 @@
         });
         app.xr.on('end', function () {
             console.log("Immersive VR session has ended");
+            enterVRButton.style.display = 'block';
         });
         app.xr.on('available:' + pc.XRTYPE_VR, function (available) {
             console.log("Immersive VR is " + (available ? 'available' : 'unavailable'));

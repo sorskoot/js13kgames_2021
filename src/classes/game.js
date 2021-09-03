@@ -61,30 +61,37 @@ class Game {
         this.titleImage.script.create('titleText',);
         this.textgroup.addChild(this.titleImage);
     
-        this.restartButton = this.createButton('Restart', 0, 1.2, -3, 0.6, .25);
+        this.restartButton = this.createButton('Restart', .1, 1.2, -3, 0.6, .25);
         this.restartButton.on('button:click',()=>{
             console.log('restart');
         })
         this.restartButton.enabled = false;
         this.textgroup.addChild(this.restartButton);
-        
-        this.playButton = this.createButton('Play', 0, 1.2, -3, 0.6, .25);
-        this.playButton.on('button:click',()=>{
-            console.log('play');
+
+        this.continueButton = this.createButton('Continue', -.9, 1.2, -3, 0.6, .25);
+        this.continueButton.on('button:click',()=>{
+            console.log('Continue');
         })
+        this.continueButton.enabled = false;
+        this.textgroup.addChild(this.continueButton);
+        
+        this.playButton = this.createButton('Play', -.4, 1.4, -3, 0.6, .25);
+        this.playButton.on('button:click',()=>{
+            this.gameStateChange('play');
+        })        
         this.textgroup.addChild(this.playButton);
 
-        this.enterVRButton = this.createButton('Enter VR', -1, 1.2, -3, 0.6, .25);
-        this.enterVRButton.on('button:click',()=>{            
-            if (this.app.xr.isAvailable(pc.XRTYPE_VR)) {
-                this.startXR();
+        // this.enterVRButton = this.createButton('Enter VR', -1, 1.2, -3, 0.6, .25);
+        // this.enterVRButton.on('button:click',()=>{            
+        //     if (this.app.xr.isAvailable(pc.XRTYPE_VR)) {
+        //         this.startXR();
 
-            } else {
-                console.log("Immersive VR is not available");
-            }
+        //     } else {
+        //         console.log("Immersive VR is not available");
+        //     }
             
-        })
-        this.textgroup.addChild(this.enterVRButton);
+        // })
+        // this.textgroup.addChild(this.enterVRButton);
 
         this.app.root.addChild(this.textgroup);
         this.app.scene.ambientLight = new pc.Color(1, 1, 1);
@@ -132,7 +139,7 @@ class Game {
 
         this.app.levelController.init();
 
-
+        
         this.app.xr.on('start', () => {
             
         });
@@ -140,7 +147,7 @@ class Game {
         this.app.xr.on('end', () => {
             
         });
-
+        this.gameStateChange('start');        
     }
 
 
@@ -181,5 +188,18 @@ class Game {
             }
         });
         return button;
+    }
+
+    gameStateChange(state) {
+        switch (state) {
+            case 'start':
+                this.textgroup.enabled = true;
+                break;
+            case 'play':
+                this.textgroup.enabled = false;
+                this.app.levelController.start();
+                break;                
+        };
+        this.app.fire('game:stateChange', state, this);
     }
 }
