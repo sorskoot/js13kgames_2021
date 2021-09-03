@@ -28,7 +28,7 @@ TitleText.prototype.diffuseMap = function () {
     gradient.addColorStop(0.95, '#4d6a94');
     gradient.addColorStop(1, '#5d8bb3');
     ctx.fillStyle = gradient;
-    ctx.font = "italic 900 110px Sans-serif";
+    ctx.font = "italic bolder 110px monospace";
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(this.title, this.width / 2, this.height / 2);
@@ -44,16 +44,16 @@ TitleText.prototype.diffuseMap = function () {
     gradient2.addColorStop(0.8, '#ffd3a3');
     gradient2.addColorStop(0.9, '#ffd3a3');
     ctx.strokeStyle = 'white';
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 3;
     ctx.strokeText(this.title, this.width / 2, this.height / 2);
 
-    ctx.shadowColor = '#bf2651';
+    ctx.shadowColor = '#242b4a';
     ctx.shadowBlur = 2;
     ctx.shadowOffsetX = 2;
     ctx.shadowOffsetY = 2;
 
     ctx.strokeStyle = gradient2;
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 2;
     ctx.strokeText(this.title, this.width / 2, this.height / 2);
 
     const img = new Image();
@@ -79,7 +79,7 @@ TitleText.prototype.opacityMap = function () {
 
     var ctx = canvas.getContext("2d");
     ctx.fillStyle = '#fff';
-    ctx.font = "italic 900 110px Sans-serif";
+    ctx.font = "italic bolder 110px monospace";
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(this.title, this.width / 2, this.height / 2);

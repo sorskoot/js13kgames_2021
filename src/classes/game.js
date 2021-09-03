@@ -31,6 +31,8 @@ class Game {
     }
 
     async init() {
+      
+
         this.app.root.addComponent('script');
         this.app.root.script.create('shapeWorld');
 
@@ -46,70 +48,61 @@ class Game {
             farClip: 1000
         });
         this.camera.translate(0, 1.6, 0);
-        
+
         this.textgroup = new pc.Entity();
-        this.titleImage = new pc.Entity();        
-        this.titleImage.addComponent('render',{
+        this.titleImage = new pc.Entity();
+        this.titleImage.addComponent('render', {
             type: 'plane'
-        });        
-        this.titleImage.translate(-.5,1.8,-3.5);        
-        this.titleImage.rotateLocal(90, 0,     0);
-        this.titleImage.setLocalScale(3.2,.8,.8);
+        });
+        this.titleImage.translate(-.5, 1.8, -3.5);
+        this.titleImage.rotateLocal(90, 0, 0);
+        this.titleImage.setLocalScale(3.2, .8, .8);
         this.titleImage.addComponent('script');
-        this.titleImage.script.create('titleText',);         
+        this.titleImage.script.create('titleText',);
         this.textgroup.addChild(this.titleImage);
-
-        this.texttest = new pc.Entity();        
-        this.texttest.addComponent('render',{
-            type: 'plane'
-        });        
-        this.texttest.translate(-.5,1.2,-3);        
-        this.texttest.rotateLocal(90, 0,     0);
-        this.texttest.setLocalScale(0.6,.25,0.25);
+    
+        this.restartButton = this.createButton('Restart', 0, 1.2, -3, 0.6, .25);
+        this.restartButton.on('button:click',()=>{
+            console.log('restart');
+        })
+        this.restartButton.enabled = false;
+        this.textgroup.addChild(this.restartButton);
         
-        this.texttest.addComponent('script');
-        this.texttest.script.create('button',{
-            attributes:{
-                 text:'Restart'
-             }
-         });         
-        this.textgroup.addChild(this.texttest);
+        this.playButton = this.createButton('Play', 0, 1.2, -3, 0.6, .25);
+        this.playButton.on('button:click',()=>{
+            console.log('play');
+        })
+        this.textgroup.addChild(this.playButton);
+
+        this.enterVRButton = this.createButton('Enter VR', -1, 1.2, -3, 0.6, .25);
+        this.enterVRButton.on('button:click',()=>{            
+            if (this.app.xr.isAvailable(pc.XRTYPE_VR)) {
+                this.startXR();
+
+            } else {
+                console.log("Immersive VR is not available");
+            }
+            
+        })
+        this.textgroup.addChild(this.enterVRButton);
+
         this.app.root.addChild(this.textgroup);
-        
-        // this.texttest2 = new pc.Entity();
-        // this.texttest2.addComponent('render',{
-        //     type:'box'            
-        // });
-        // this.texttest2.translate(0,0,-2);
-
-        // this.texttest2.addComponent('script');
-        // this.texttest2.script.create('button',{
-        //     attributes:{
-        //         text:'Button 2!'
-        //     }
-        // });
-        // this.texttest2.setLocalScale(0.3,.1,.001);
-        // this.texttest2.on('button:click',(e)=>{
-        //     console.log('Button 2');
-        // });
-        // this.camera.addChild(this.texttest2);
-
-        this.app.scene.ambientLight = new pc.Color(1,1,1);
+        this.app.scene.ambientLight = new pc.Color(1, 1, 1);
         this.locator = new pc.Entity();
         this.locator.addComponent('render', {
             type: "cylinder"
         });
         let locatorMat = new pc.StandardMaterial();
         locatorMat.emissive = new pc.Color(0.3, 0.56, 0.51);
-        this.locator.setLocalScale(.125, .01,.125);
+        this.locator.setLocalScale(.125, .01, .125);
         this.locator.render.material = locatorMat;
-        
+
         this.locator.addComponent('script');
         this.locator.script.create('teleport');
         this.app.root.addChild(this.locator);
 
         let controller = new pc.Entity();
-  
+
         controller.enabled = false;
         controller.addComponent('script');
         controller.script.create('controller', {
@@ -139,14 +132,21 @@ class Game {
 
         this.app.levelController.init();
 
-    
+
+        this.app.xr.on('start', () => {
+            
+        });
         
+        this.app.xr.on('end', () => {
+            
+        });
+
     }
 
 
     startXR() {
         console.log(`before start:${this.camera.getPosition()}`);
-        this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {            
+        this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
             callback: (err) => {
                 console.log(`in callback:${this.camera.getPosition()}`);
                 //  app.xr._baseLayer.stencil = true;
@@ -156,12 +156,30 @@ class Game {
         //this.camera.translate(0,0.7,0);
         console.log(`after start:${this.camera.getPosition()}`);
     }
-    endXR() {        
+    endXR() {
         console.log(`before end:${this.camera.getPosition()}`);
-        this.camera.camera.endXr((err)=>{
+        this.camera.camera.endXr((err) => {
             console.log(`in exit callback:${this.camera.getPosition()}`);
         });
-        
+
         console.log(`after end:${this.camera.getPosition()}`);
+    }
+
+    createButton(text, x, y, z, scalex, scaley) {
+        const button  = new pc.Entity();
+        button.addComponent('render', {
+            type: 'plane'
+        });
+        button.translate(x, y, z);
+        button.rotateLocal(90, 0, 0);
+        button.setLocalScale(scalex, scaley, scaley);
+
+        button.addComponent('script');
+        button.script.create('button', {
+            attributes: {
+                text: text
+            }
+        });
+        return button;
     }
 }

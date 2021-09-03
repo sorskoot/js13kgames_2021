@@ -78,27 +78,27 @@
             }
         };
 
-        document.getElementById('enter-vr').addEventListener('click', () => {
-            if (!app.xr.active) {
-                activate();
-            }
-        });
+        // document.getElementById('enter-vr').addEventListener('click', () => {
+        //     if (!app.xr.active) {
+        //         activate();
+        //     }
+        // });
 
-        if (app.touch) {
-            app.touch.on("touchend", function (evt) {
-                if (!app.xr.active) {
+        // if (app.touch) {
+        //     app.touch.on("touchend", function (evt) {
+        //         if (!app.xr.active) {
 
-                    // if not in VR, activate
-                    activate();
-                } else {
-                    // otherwise reset camera
-                    game.endXR();
-                }
+        //             // if not in VR, activate
+        //             activate();
+        //         } else {
+        //             // otherwise reset camera
+        //             game.endXR();
+        //         }
 
-                evt.event.preventDefault();
-                evt.event.stopPropagation();
-            });
-        }
+        //         evt.event.preventDefault();
+        //         evt.event.stopPropagation();
+        //     });
+        // }
 
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {

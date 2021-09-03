@@ -61,10 +61,11 @@ LookCamera.prototype.initialize = function () {
 };
 
 LookCamera.prototype._onMouseDown = function (event) {
+    
     if (this.app.xr.active)
         return;
     
-    // Attempt to lock the pointer
+    //Attempt to lock the pointer
     if (! pc.Mouse.isPointerLocked()) {
         if (event.event.target.id && event.event.target.id == 'application') {
             this.app.mouse.enablePointerLock();
@@ -79,6 +80,7 @@ LookCamera.prototype._onMouseDown = function (event) {
     
     if (this.gazeController)
         this.gazeController.script.controller.onSelectStart();
+    
 };
 
 LookCamera.prototype._onTouchStart = function (event) {
