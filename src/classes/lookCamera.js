@@ -169,9 +169,9 @@ LookCamera.prototype._onTouchMove = function (event) {
 };
 
 LookCamera.prototype.update = function (dt) {
-    this._offsetParent.setLocalEulerAngles(0, this.yaw, 0);
-    
+     
     if (! this.app.xr.active) {
+        this._offsetParent.setLocalEulerAngles(0, this.yaw, 0);
         this.entity.setLocalEulerAngles(this.pitch, 0, 0);
     }
 };

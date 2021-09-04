@@ -31,7 +31,7 @@ class Game {
     }
 
     async init() {
-      
+
 
         this.app.root.addComponent('script');
         this.app.root.script.create('shapeWorld');
@@ -40,17 +40,18 @@ class Game {
         this.cameraParent = new pc.Entity();
         this.cameraParent.addComponent('script');
         this.cameraParent.script.create('teleportCamera');
+        this.cameraParent.script.create('rotateCamera');
 
         // create camera
         this.camera = new pc.Entity();
         this.camera.addComponent('camera', {
             clearColor: pc.Color.BLACK,
             farClip: 1000
-        });        
+        });
         this.camera.addComponent('script');
-        this.camera.script.create('blackness',{
-            attributes:{
-                darkness:0
+        this.camera.script.create('blackness', {
+            attributes: {
+                darkness: 0
             }
         });
 
@@ -67,25 +68,25 @@ class Game {
         this.titleImage.addComponent('script');
         this.titleImage.script.create('titleText',);
         this.textgroup.addChild(this.titleImage);
-    
+
         this.restartButton = this.createButton('Restart', .1, 1.2, -3, 0.6, .25);
-        this.restartButton.on('button:click',()=>{
+        this.restartButton.on('button:click', () => {
             console.log('restart');
         })
         this.restartButton.enabled = false;
         this.textgroup.addChild(this.restartButton);
 
         this.continueButton = this.createButton('Continue', -.9, 1.2, -3, 0.6, .25);
-        this.continueButton.on('button:click',()=>{
+        this.continueButton.on('button:click', () => {
             console.log('Continue');
         })
         this.continueButton.enabled = false;
         this.textgroup.addChild(this.continueButton);
-        
+
         this.playButton = this.createButton('Play', -.4, 1.4, -3, 0.6, .25);
-        this.playButton.on('button:click',()=>{
+        this.playButton.on('button:click', () => {
             this.gameStateChange('play');
-        })        
+        })
         this.textgroup.addChild(this.playButton);
 
         // this.enterVRButton = this.createButton('Enter VR', -1, 1.2, -3, 0.6, .25);
@@ -96,7 +97,7 @@ class Game {
         //     } else {
         //         console.log("Immersive VR is not available");
         //     }
-            
+
         // })
         // this.textgroup.addChild(this.enterVRButton);
 
@@ -146,15 +147,15 @@ class Game {
 
         this.app.levelController.init();
 
-        
+
         this.app.xr.on('start', () => {
-            
+
         });
-        
+
         this.app.xr.on('end', () => {
-            
+
         });
-        this.gameStateChange('start');        
+        this.gameStateChange('start');
     }
 
 
@@ -180,7 +181,7 @@ class Game {
     }
 
     createButton(text, x, y, z, scalex, scaley) {
-        const button  = new pc.Entity();
+        const button = new pc.Entity();
         button.addComponent('render', {
             type: 'plane'
         });
@@ -205,7 +206,7 @@ class Game {
             case 'play':
                 this.textgroup.enabled = false;
                 this.app.levelController.start();
-                break;                
+                break;
         };
         this.app.fire('game:stateChange', state, this);
     }

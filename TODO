@@ -10,6 +10,7 @@ Must have:
         ✔ move boxes @done(21-08-29 13:05)
         ✔ advance to next level @done(21-08-30 23:14)
     ✔ Level generator @done(21-08-27 21:20)
+    ✔ rotate with controller @done(21-09-04 23:59)
     ☐ Be very easy to restart levels    
         ☐ Button on desktop, like VR button
         ☐ In VR we can show a screen with 2 buttons, "Restart? Yes/No"
@@ -59,6 +60,7 @@ Bugs:
         ✔ reset camera after leaving XR @done(21-09-02 22:38)
         ✔ Reposition camera when going to the next level @done(21-09-02 19:14)
         ✔ Make the boxes color individualy @done(21-09-02 22:47)
+        ☐ Teleporting does not work all the time...
         ☐ On desktop you have to first get focus befor you can start the game. This needs to be only one click, or with a differnt button
 
     @high:

@@ -185,7 +185,7 @@ class LevelController {
         this.debugBox.setLocalScale(0.4, 0.4, 0.4);
         this.debugBox.setPosition(0, 0, 0);
         this.debugBox.setName('debugBox');
-        //this.app.root.addChild(this.debugBox);
+        
 
         this.material = [];
         this.shapes = [];
@@ -216,7 +216,7 @@ class LevelController {
         this.levelGeometry = new pc.Entity();
         this.levelGeometry.enabled = false;
         this.app.root.addChild(this.levelGeometry);
-
+        this.levelGeometry.addChild(this.debugBox);
         this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.currentLevel]));
         this.targetsToComplete = 0;
 
@@ -427,7 +427,7 @@ class LevelController {
      */
     getTileAt(position, layer = 0) {
         const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
-        this.debugBox.setPosition(position.x - .5, -1.5, position.z - .5);
+      
         return this.currentLevelData.layer[layer].data[Math.floor(pos.x)][Math.floor(pos.y)];
     }
 
@@ -466,12 +466,13 @@ class LevelController {
      * @returns true of there is no block in the way; false otherwise
      */
     checkLineOfSight(startPos, endPos) {
-
+        
         let foundIssue = pc.util.checkLine(
             new pc.Vec2(startPos.x + .5, startPos.z + .5),
             new pc.Vec2(endPos.x + .5, endPos.z + .5), (x, y) => {
                 let tile = this.getTileAt(new pc.Vec3(x, 0, y));
-
+                this.debugBox.setPosition(x, 0, y);
+                console.log(x,y)
                 //  if(tile == 0) tile = this.getTileAt(new pc.Vec3(x, 0, y), 1 );
                 return tile == 0 || tile == 'S' || tile == 'T';
             });

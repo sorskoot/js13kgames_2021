@@ -15,7 +15,8 @@ Controller.prototype.initialize = function () {
     this.color = new pc.Color(1, 1, 1);
     this.teleportable = true;
     this.active = true;
-    this.allowedTeleportTargets = [0, 'S', 'T']
+    this.allowedTeleportTargets = [0, 'S', 'T'];
+    this.lastRotateValue = 0;
 };
 
 Controller.prototype.onSelectStart = function () {
@@ -77,16 +78,17 @@ Controller.prototype.pick = function () {
         // check teleportable
         if (this.hoverEntity.tags.has('floor')) {
             var dot = this.hoverEntity.up.dot(this.ray.direction);
+
             if (~this.allowedTeleportTargets.indexOf(this.app.levelController.getTileAt(this.hoverEntity.getPosition()))) {
                 const hasBlockedLineOfSight = this.app.levelController.checkLineOfSight(
                     this.app.mainCamera.getPosition(),
-                    this.hoverEntity.getPosition());                
+                    this.hoverEntity.getPosition());
                 // Check if anything is between the player and the target point                
                 if (dot <= 0 &&
                     !hasBlockedLineOfSight) {
                     validTeleport = true;
                 }
-                
+
             }
         }
 
@@ -142,6 +144,28 @@ Controller.prototype.update = function (dt) {
         this.app.fire('teleport:show');
     } else {
         this.app.fire('teleport:hide');
+    }
+
+    if (this.inputSource?.handedness === pc.XRHAND_RIGHT) {
+        const rotate = -this.inputSource.gamepad.axes[2];
+
+        // each rotate should be done by moving thumbstick to the side enough
+        // then thumbstick should be moved back close to neutral position
+        // before it can be used again to rotate
+        if (this.lastRotateValue > 0 && rotate < rotateResetThreshold) {
+            this.lastRotateValue = 0;
+        } else if (this.lastRotateValue < 0 && rotate > -rotateResetThreshold) {
+            this.lastRotateValue = 0;
+        }
+
+        // if thumbstick is reset and moved enough to the side
+        if (this.lastRotateValue === 0 && Math.abs(rotate) > rotateThreshold) {
+            this.lastRotateValue = Math.sign(rotate);
+
+            // we want to rotate relative to camera position
+            this.app.fire('rotate:to', rotate);
+
+        }
     }
 };
 
