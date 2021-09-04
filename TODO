@@ -17,8 +17,8 @@ Must have:
     ☐ @today UI in VR component
     ☐ Menu
         ~ https://forum.playcanvas.com/t/solved-generating-new-material-in-script/8134
-    ☐ Title Screen
-    ☐ Gulp pipeline to better compress
+    ✔ Title Screen @done(21-09-04 19:58)
+    ✔ Gulp pipeline to better compress @done(21-09-04 19:58)
 
 
 Should have:
@@ -59,6 +59,8 @@ Bugs:
         ✔ reset camera after leaving XR @done(21-09-02 22:38)
         ✔ Reposition camera when going to the next level @done(21-09-02 19:14)
         ✔ Make the boxes color individualy @done(21-09-02 22:47)
+        ☐ On desktop you have to first get focus befor you can start the game. This needs to be only one click, or with a differnt button
+
     @high:
         ☐ prevent teleportation when moving a box.
         ✔ prevent player from teleporting into walls or over them @done(21-09-02 19:14)
@@ -71,6 +73,7 @@ Bugs:
         ☐ teleporting next to box should be possible more often
         ☐ prevent player from walking through walls in VR
         ☐ Make game work with levels with odd Width and Height
+
 
 Story:
     ~ Janitor on space ship. The ship is a mess, boxes all over the place.

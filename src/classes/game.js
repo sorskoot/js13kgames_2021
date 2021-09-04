@@ -46,7 +46,14 @@ class Game {
         this.camera.addComponent('camera', {
             clearColor: pc.Color.BLACK,
             farClip: 1000
+        });        
+        this.camera.addComponent('script');
+        this.camera.script.create('blackness',{
+            attributes:{
+                darkness:0
+            }
         });
+
         this.camera.translate(0, 1.6, 0);
 
         this.textgroup = new pc.Entity();

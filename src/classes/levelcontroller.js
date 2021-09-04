@@ -144,22 +144,22 @@ const LevelData = [
         "width": 7,
         "height": 11,
         "layer": [{
-                "data": [
-                    [12, 12, 12, 12, 12, 0, 0, 0, 0, 0, 0], 
-                [12, "T", "T", 0, 12, 12, 12, 12, 12, 12, 0], 
-                [12, "T", 0, "B", 0, 0, 0, 0, 0, 12, 0], 
+            "data": [
+                [12, 12, 12, 12, 12, 0, 0, 0, 0, 0, 0],
+                [12, "T", "T", 0, 12, 12, 12, 12, 12, 12, 0],
+                [12, "T", 0, "B", 0, 0, 0, 0, 0, 12, 0],
                 [12, 10, 0, 0, "B", 0, 0, 10, 0, 8, 0],
-                 [0, 12, 10, 10, "S", "B", 0, 10, 0, 8, 0],
-                  [0, 0, 0, 12, 10, 0, 0, 0, 0, 12, 0], 
-                  [0, 0, 0, 0, 12, 12, 12, 12, 12, 12, 0]]
-            }, {
-                "data": [[11, 11, 11, 11, 11, 0, 0, 0, 0, 0, 0], [11, 0, 0, 0, 11, 11, 11, 11, 11, 11, 0], [11, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0], [11, 11, 0, 0, 0, 0, 0, 11, 0, 9, 0], [0, 11, 11, 11, 0, 0, 0, 11, 0, 9, 0], [0, 0, 0, 11, 11, 0, 0, 0, 0, 11, 0], [0, 0, 0, 0, 11, 11, 11, 11, 11, 11, 0]]
-            }, {
-                "data": [[11, 11, 11, 11, 11, 0, 0, 0, 0, 0, 0], [11, 0, 0, 0, 11, 11, 11, 11, 11, 11, 0], [11, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0], [11, 11, 0, 0, 0, 0, 0, 11, 0, 11, 0], [0, 11, 11, 11, 0, 0, 0, 11, 0, 11, 0], [0, 0, 0, 11, 11, 0, 0, 0, 0, 11, 0], [0, 0, 0, 0, 11, 11, 11, 11, 11, 11, 0]]
-            }
+                [0, 12, 10, 10, "S", "B", 0, 10, 0, 8, 0],
+                [0, 0, 0, 12, 10, 0, 0, 0, 0, 12, 0],
+                [0, 0, 0, 0, 12, 12, 12, 12, 12, 12, 0]]
+        }, {
+            "data": [[11, 11, 11, 11, 11, 0, 0, 0, 0, 0, 0], [11, 0, 0, 0, 11, 11, 11, 11, 11, 11, 0], [11, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0], [11, 11, 0, 0, 0, 0, 0, 11, 0, 9, 0], [0, 11, 11, 11, 0, 0, 0, 11, 0, 9, 0], [0, 0, 0, 11, 11, 0, 0, 0, 0, 11, 0], [0, 0, 0, 0, 11, 11, 11, 11, 11, 11, 0]]
+        }, {
+            "data": [[11, 11, 11, 11, 11, 0, 0, 0, 0, 0, 0], [11, 0, 0, 0, 11, 11, 11, 11, 11, 11, 0], [11, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0], [11, 11, 0, 0, 0, 0, 0, 11, 0, 11, 0], [0, 11, 11, 11, 0, 0, 0, 11, 0, 11, 0], [0, 0, 0, 11, 11, 0, 0, 0, 0, 11, 0], [0, 0, 0, 0, 11, 11, 11, 11, 11, 11, 0]]
+        }
         ]
     }
-    
+
 
 ];
 
@@ -214,7 +214,7 @@ class LevelController {
 
     createLevel() {
         this.levelGeometry = new pc.Entity();
-        this.levelGeometry.enabled=false;
+        this.levelGeometry.enabled = false;
         this.app.root.addChild(this.levelGeometry);
 
         this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.currentLevel]));
@@ -360,7 +360,7 @@ class LevelController {
             type: "box"
         });
         boxEntity.model.material = boxMaterial;
-        boxEntity.translate(x, floor+.45 , y);
+        boxEntity.translate(x, floor + .45, y);
 
         boxEntity.addComponent("script");
         boxEntity.script.create('shape', {
@@ -393,7 +393,7 @@ class LevelController {
             type: "box"
         });
         cube.setLocalScale(1, 1, 1);
-        cube.translate(x, y+.5, z);
+        cube.translate(x, y + .5, z);
         cube.render.material = this.material[tileIndex - 1];
 
         this.levelGeometry.addChild(cube);
@@ -427,7 +427,7 @@ class LevelController {
      */
     getTileAt(position, layer = 0) {
         const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
-        this.debugBox.setPosition(position.x - .5, -1.5, position.z - .5);       
+        this.debugBox.setPosition(position.x - .5, -1.5, position.z - .5);
         return this.currentLevelData.layer[layer].data[Math.floor(pos.x)][Math.floor(pos.y)];
     }
 
@@ -440,10 +440,13 @@ class LevelController {
     onTarget(boxEntity) {
         this.targetsToComplete--;
         if (this.targetsToComplete === 0) {
-            this.currentLevel++;
-            if (this.levelGeometry) this.levelGeometry.destroy();
-            this.createLevel();
-            this.levelGeometry.enabled = true;
+            this.app.mainCamera.script.blackness.fadeOut().then(async () => {
+                this.currentLevel++;
+                if (this.levelGeometry) this.levelGeometry.destroy();
+                this.createLevel();
+                this.levelGeometry.enabled = true;
+                await this.app.mainCamera.script.blackness.fadeIn();
+            });
         }
     }
 
@@ -475,10 +478,16 @@ class LevelController {
         return foundIssue != null;
     }
 
-    start(){
-        this.currentLevel = 0;
+    async start(level = 0) {
+        console.log('start');
+        let q = await this.app.mainCamera.script.blackness.fadeOut();
+
+        this.currentLevel = level;
         if (this.levelGeometry) this.levelGeometry.destroy();
-        this.createLevel();      
+        this.createLevel();
         this.levelGeometry.enabled = true;
+
+        q = await this.app.mainCamera.script.blackness.fadeIn();
+
     }
 };
