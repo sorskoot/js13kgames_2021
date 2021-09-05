@@ -86,10 +86,7 @@ Controller.prototype.pick = function () {
         if (this.hoverEntity.tags.has('floor')) {
             var dot = this.hoverEntity.up.dot(this.ray.direction);
 
-            if (~this.allowedTeleportTargets.indexOf(this.app.levelController.getTileAt(this.hoverEntity.getPosition()))) {
-                // const hasBlockedLineOfSight = this.app.levelController.checkLineOfSight(
-                //     this.app.mainCamera.getPosition(),
-                //     this.hoverEntity.getPosition());
+            if (~this.allowedTeleportTargets.indexOf(this.app.levelController.getTileAt(this.hoverEntity.getPosition()))) {                
                 const canTeleport = this.app.levelController.canTeleportTo(this.hoverEntity.getPosition());
                 // Check if anything is between the player and the target point                
                 if (dot <= 0 && canTeleport) {
@@ -98,12 +95,6 @@ Controller.prototype.pick = function () {
 
             }
         }
-
-        // if (this.hoverEntity.tags.has('box')) {
-        //     var dot = this.hoverEntity.up.dot(this.ray.direction);
-        //     if (dot <= 0) validTeleport = true;
-        // }
-
     }
 
     if (validTeleport) {

@@ -11,6 +11,7 @@ Must have:
         ✔ advance to next level @done(21-08-30 23:14)
     ✔ Level generator @done(21-08-27 21:20)
     ✔ rotate with controller @done(21-09-04 23:59)
+    ✔ Remove old teleportion check code. @done(21-09-05 15:39)
     ☐ Be very easy to restart levels    
         ☐ Button on desktop, like VR button
         ☐ In VR we can show a screen with 2 buttons, "Restart? Yes/No"
@@ -40,7 +41,7 @@ Could have:
         ☐ when pointerlocked, hide VR button.
         ☐ When not pointerlocked, 'pause' game, disable teleport
         ☐ When not pointerlocked, show VR button and Reset button
-
+    ☐ better highlight when targetting a boxx
     ☐ animating textures, like last year.
     ☐ bigger FOV on desktop
     ☐ Movement by walking
@@ -60,7 +61,7 @@ Bugs:
         ✔ reset camera after leaving XR @done(21-09-02 22:38)
         ✔ Reposition camera when going to the next level @done(21-09-02 19:14)
         ✔ Make the boxes color individualy @done(21-09-02 22:47)
-        ☐ Teleporting does not work all the time...
+        ✔ Teleporting does not work all the time... @done(21-09-05 13:03)
         ☐ On desktop you have to first get focus befor you can start the game. This needs to be only one click, or with a differnt button
 
     @high:

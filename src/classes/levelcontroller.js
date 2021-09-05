@@ -452,25 +452,6 @@ class LevelController {
     calcRowPos(row) { return row + LevelData[this.currentLevel].width / 2; }
     calcColPos(col) { return col + LevelData[this.currentLevel].height / 2; }
 
-    /**
-     * Checks if there are any blocks in the way that prevent teleportation
-     * @param {pc.Vec3} startPos 
-     * @param {pc.Vec3} endPos 
-     * @returns true of there is no block in the way; false otherwise
-     */
-    checkLineOfSight(startPos, endPos) {
-
-        let foundIssue = pc.util.checkLine(
-            new pc.Vec2(startPos.x + .5, startPos.z + .5),
-            new pc.Vec2(endPos.x + .5, endPos.z + .5), (x, y) => {
-                let tile = this.getTileAt(new pc.Vec3(x, 0, y));
-                this.debugBox.setPosition(x, 0, y);
-                //  if(tile == 0) tile = this.getTileAt(new pc.Vec3(x, 0, y), 1 );
-                return tile == 0 || tile == 'S' || tile == 'T';
-            });
-        return foundIssue != null;
-    }
-
     async start(level) {
         console.log('start');
         let q = await this.app.mainCamera.script.blackness.fadeOut();
@@ -483,6 +464,7 @@ class LevelController {
 
         q = await this.app.mainCamera.script.blackness.fadeIn();
     }
+
     canTeleportTo(position){        
         const mapPos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
         return !!this.possibleTargets[Math.floor(mapPos.x)][Math.floor(mapPos.y)];
@@ -500,11 +482,7 @@ class LevelController {
                 this.possibleTargets[i][j] = 0;
             }
         }
-        console.log(pos,mapPos);
-        console.log(Math.floor(mapPos.x), Math.floor(mapPos.y));
         this.floodFillUtil(screen, this.possibleTargets, Math.floor(mapPos.x), Math.floor(mapPos.y));
-        console.log(screen);
-        console.log(this.possibleTargets);
     }
 
     floodFillUtil(sourceMap, targetMap, x, y, prevC = 0, newC = 1) {    
