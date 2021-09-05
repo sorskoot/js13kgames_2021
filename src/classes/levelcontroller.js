@@ -6,7 +6,7 @@ const LevelData = [
     //     height: 7,
     //     layer: [{
     //         data: [
-    //             [0,  0, 0, 0, 0, 0, 0],
+    //             [0, 0, 0, 0, 0, 0, 'T'],
     //             [0, 0, 0, 0, 0, 0, 0],
     //             [0, 0, 0, 0, 0, 0, 0],
     //             [0, 0, 0, 'S', 0, 0, 0],
@@ -335,6 +335,24 @@ class LevelController {
         targetEntity.addComponent("model", {
             type: "plane"
         });
+        const texture = this.solidColorTexture('#ffac7f');
+        
+        targetEntity.addComponent("particlesystem", {
+            numParticles: 128,
+            
+            alphaGraph: new pc.Curve([0, 0.1, 2, 1]),
+            lifetime: 2,
+            rate:0.02,
+            blend:pc.BLEND_ADDITIVE,
+            colorMap: texture,
+            emitterShape: pc.EMITTERSHAPE_BOX,
+            emitterExtents: new pc.Vec3(.6, 0, .6),
+            scaleGraph: new pc.Curve([0, .05, 1, .01]),
+            velocityGraph: new pc.CurveSet([[0, 0], [0, 1,1,.1], [0, 0]]),
+            velocityGraph2: new pc.CurveSet([[0, 0], [0,.5,1.1], [0, 0]])
+        });
+
+
         targetEntity.model.material = targetMaterial;
         targetEntity.translate(x, floor + .01, y);
         this.levelGeometry.addChild(targetEntity);
@@ -431,14 +449,14 @@ class LevelController {
             this.app.mainCamera.script.blackness.fadeOut().then(async () => {
                 this.currentLevel++;
                 if (this.levelGeometry) this.levelGeometry.destroy();
-                this.createLevel();             
-                this.calculateTargets();   
+                this.createLevel();
+                this.calculateTargets();
                 console.log('level complete');
                 this.app.fire('level:next');
                 this.levelGeometry.enabled = true;
-                
+
                 await this.app.mainCamera.script.blackness.fadeIn();
-                
+
             });
         }
     }
@@ -465,7 +483,7 @@ class LevelController {
         q = await this.app.mainCamera.script.blackness.fadeIn();
     }
 
-    canTeleportTo(position){        
+    canTeleportTo(position) {
         const mapPos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
         return !!this.possibleTargets[Math.floor(mapPos.x)][Math.floor(mapPos.y)];
     }
@@ -473,23 +491,23 @@ class LevelController {
     calculateTargets() {
         console.log('calculate targets');
         const pos = this.app.mainCamera.getPosition();
-        const mapPos = new pc.Vec2(this.calcRowPos(Math.floor(pos.x)+.5), this.calcColPos(Math.floor(pos.z)+.5));
+        const mapPos = new pc.Vec2(this.calcRowPos(Math.floor(pos.x) + .5), this.calcColPos(Math.floor(pos.z) + .5));
         const screen = this.currentLevelData.layer[0].data;
         this.possibleTargets = new Array(LevelData[this.currentLevel].height);
-        for (let i = 0; i < LevelData[this.currentLevel].height; i++) {            
+        for (let i = 0; i < LevelData[this.currentLevel].height; i++) {
             this.possibleTargets[i] = new Array(LevelData[this.currentLevel].width);
-            for (let j = 0; j < LevelData[this.currentLevel].width; j++) {                        
+            for (let j = 0; j < LevelData[this.currentLevel].width; j++) {
                 this.possibleTargets[i][j] = 0;
             }
         }
         this.floodFillUtil(screen, this.possibleTargets, Math.floor(mapPos.x), Math.floor(mapPos.y));
     }
 
-    floodFillUtil(sourceMap, targetMap, x, y, prevC = 0, newC = 1) {    
-        if (x < 0 || x >= LevelData[this.currentLevel].width || y < 0 || y >= LevelData[this.currentLevel].height) return;        
+    floodFillUtil(sourceMap, targetMap, x, y, prevC = 0, newC = 1) {
+        if (x < 0 || x >= LevelData[this.currentLevel].width || y < 0 || y >= LevelData[this.currentLevel].height) return;
         if (sourceMap[x][y] != prevC && sourceMap[x][y] != 'S' && sourceMap[x][y] != 'T') return;
-        if(!!targetMap[x][y]) return;
-        
+        if (!!targetMap[x][y]) return;
+
         targetMap[x][y] = newC;
 
         // Recur for north, east, south and west
@@ -497,5 +515,33 @@ class LevelController {
         this.floodFillUtil(sourceMap, targetMap, x - 1, y);
         this.floodFillUtil(sourceMap, targetMap, x, y + 1);
         this.floodFillUtil(sourceMap, targetMap, x, y - 1);
+    }
+
+    solidColorTexture(color) {
+
+        var canvas = document.createElement("canvas");
+        document.body.appendChild(canvas);
+        canvas.width = 16;
+        canvas.height = 16;
+
+        var ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const img = new Image();
+        img.src = canvas.toDataURL();
+        img.width = 16;
+        img.height = 16;
+
+        var texture = new pc.Texture(this.app.graphicsDevice, {
+            width: 16,
+            height: 16,
+            format: pc.PIXELFORMAT_R8_G8_B8
+        });
+        texture.setSource(img);
+
+        return texture;
+
     }
 };
