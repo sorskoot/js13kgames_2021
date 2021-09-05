@@ -56,6 +56,7 @@ BoxController.prototype.update = function (dt) {
             pc.util.lerp(this.lastPosition.z, this.targetPosition.z, this.movementTime))
         this.entity.setPosition(this.vecA);
         if (this.movementTime >= 1) {
+            this.app.root.fire('box:doneMoving', this.entity);
             this.entity.setPosition(this.targetPosition);            
             this.isMoving = false;
             // did we reach the target?

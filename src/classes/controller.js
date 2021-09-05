@@ -17,6 +17,13 @@ Controller.prototype.initialize = function () {
     this.active = true;
     this.allowedTeleportTargets = [0, 'S', 'T'];
     this.lastRotateValue = 0;
+    this.app.on('level:next', this.onLevelNext, this);
+};
+
+Controller.prototype.onLevelNext = function () {
+    this.lastRotateValue = 0;
+    this.hoverEntity = null;
+    this.teleportableEntity = null;
 };
 
 Controller.prototype.onSelectStart = function () {
@@ -80,12 +87,12 @@ Controller.prototype.pick = function () {
             var dot = this.hoverEntity.up.dot(this.ray.direction);
 
             if (~this.allowedTeleportTargets.indexOf(this.app.levelController.getTileAt(this.hoverEntity.getPosition()))) {
-                const hasBlockedLineOfSight = this.app.levelController.checkLineOfSight(
-                    this.app.mainCamera.getPosition(),
-                    this.hoverEntity.getPosition());
+                // const hasBlockedLineOfSight = this.app.levelController.checkLineOfSight(
+                //     this.app.mainCamera.getPosition(),
+                //     this.hoverEntity.getPosition());
+                const canTeleport = this.app.levelController.canTeleportTo(this.hoverEntity.getPosition());
                 // Check if anything is between the player and the target point                
-                if (dot <= 0 &&
-                    !hasBlockedLineOfSight) {
+                if (dot <= 0 && canTeleport) {
                     validTeleport = true;
                 }
 

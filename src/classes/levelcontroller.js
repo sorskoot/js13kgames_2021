@@ -185,7 +185,7 @@ class LevelController {
         this.debugBox.setLocalScale(0.4, 0.4, 0.4);
         this.debugBox.setPosition(0, 0, 0);
         this.debugBox.setName('debugBox');
-        
+
 
         this.material = [];
         this.shapes = [];
@@ -197,6 +197,7 @@ class LevelController {
         this.app.root.on("box:onTarget", this.onTarget, this);
         this.app.root.on("box:offTarget", this.offTarget, this);
         this.app.root.on("box:onNewTile", this.onNewTile, this);
+        this.app.root.on("box:doneMoving", this.calculateTargets, this);
 
         for (let i = 0; i < 16; i++) {
             let mat = new pc.Material();
@@ -213,10 +214,11 @@ class LevelController {
     }
 
     createLevel() {
+        this.shapes = [];
         this.levelGeometry = new pc.Entity();
         this.levelGeometry.enabled = false;
         this.app.root.addChild(this.levelGeometry);
-        this.levelGeometry.addChild(this.debugBox);
+        //this.levelGeometry.addChild(this.debugBox);
         this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.currentLevel]));
         this.targetsToComplete = 0;
 
@@ -236,7 +238,6 @@ class LevelController {
                             shape.name = 'floory';
                             shape.setLocalPosition(row - LevelData[this.currentLevel].width / 2, 0, col - LevelData[this.currentLevel].height / 2);
                             shape.setLocalScale(1, .01, 1);
-
                             this.levelGeometry.addChild(shape);
                             this.shapes.push(shape);
                         }
@@ -268,7 +269,6 @@ class LevelController {
         }
         this.createFloor(LevelData[this.currentLevel].width, LevelData[this.currentLevel].height, 0);
         this.createCeiling(LevelData[this.currentLevel].width, LevelData[this.currentLevel].height, LevelData[this.currentLevel].layer.length);
-
         this.app.fire("teleport:to", cameraposition);
     }
 
@@ -377,17 +377,6 @@ class LevelController {
     }
 
     createCube(x, y, z, tileIndex) {
-
-
-        // const group = new pc.Entity();
-        // const box = new pc.Entity();
-        // box.addComponent('model', {
-        //     type: 'box'
-        // });
-        // box.model.material = borderMat;
-        // box.translate(0, 0, -5);
-        // group.addChild(box);
-
         const cube = new pc.Entity();
         cube.addComponent("render", {
             type: "box"
@@ -427,7 +416,6 @@ class LevelController {
      */
     getTileAt(position, layer = 0) {
         const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
-      
         return this.currentLevelData.layer[layer].data[Math.floor(pos.x)][Math.floor(pos.y)];
     }
 
@@ -443,9 +431,14 @@ class LevelController {
             this.app.mainCamera.script.blackness.fadeOut().then(async () => {
                 this.currentLevel++;
                 if (this.levelGeometry) this.levelGeometry.destroy();
-                this.createLevel();
+                this.createLevel();             
+                this.calculateTargets();   
+                console.log('level complete');
+                this.app.fire('level:next');
                 this.levelGeometry.enabled = true;
+                
                 await this.app.mainCamera.script.blackness.fadeIn();
+                
             });
         }
     }
@@ -466,29 +459,65 @@ class LevelController {
      * @returns true of there is no block in the way; false otherwise
      */
     checkLineOfSight(startPos, endPos) {
-        
+
         let foundIssue = pc.util.checkLine(
             new pc.Vec2(startPos.x + .5, startPos.z + .5),
             new pc.Vec2(endPos.x + .5, endPos.z + .5), (x, y) => {
                 let tile = this.getTileAt(new pc.Vec3(x, 0, y));
                 this.debugBox.setPosition(x, 0, y);
-                console.log(x,y)
                 //  if(tile == 0) tile = this.getTileAt(new pc.Vec3(x, 0, y), 1 );
                 return tile == 0 || tile == 'S' || tile == 'T';
             });
         return foundIssue != null;
     }
 
-    async start(level = 0) {
+    async start(level) {
         console.log('start');
         let q = await this.app.mainCamera.script.blackness.fadeOut();
 
         this.currentLevel = level;
         if (this.levelGeometry) this.levelGeometry.destroy();
         this.createLevel();
+        this.calculateTargets();
         this.levelGeometry.enabled = true;
 
         q = await this.app.mainCamera.script.blackness.fadeIn();
+    }
+    canTeleportTo(position){        
+        const mapPos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
+        return !!this.possibleTargets[Math.floor(mapPos.x)][Math.floor(mapPos.y)];
+    }
 
+    calculateTargets() {
+        console.log('calculate targets');
+        const pos = this.app.mainCamera.getPosition();
+        const mapPos = new pc.Vec2(this.calcRowPos(Math.floor(pos.x)+.5), this.calcColPos(Math.floor(pos.z)+.5));
+        const screen = this.currentLevelData.layer[0].data;
+        this.possibleTargets = new Array(LevelData[this.currentLevel].height);
+        for (let i = 0; i < LevelData[this.currentLevel].height; i++) {            
+            this.possibleTargets[i] = new Array(LevelData[this.currentLevel].width);
+            for (let j = 0; j < LevelData[this.currentLevel].width; j++) {                        
+                this.possibleTargets[i][j] = 0;
+            }
+        }
+        console.log(pos,mapPos);
+        console.log(Math.floor(mapPos.x), Math.floor(mapPos.y));
+        this.floodFillUtil(screen, this.possibleTargets, Math.floor(mapPos.x), Math.floor(mapPos.y));
+        console.log(screen);
+        console.log(this.possibleTargets);
+    }
+
+    floodFillUtil(sourceMap, targetMap, x, y, prevC = 0, newC = 1) {    
+        if (x < 0 || x >= LevelData[this.currentLevel].width || y < 0 || y >= LevelData[this.currentLevel].height) return;        
+        if (sourceMap[x][y] != prevC && sourceMap[x][y] != 'S' && sourceMap[x][y] != 'T') return;
+        if(!!targetMap[x][y]) return;
+        
+        targetMap[x][y] = newC;
+
+        // Recur for north, east, south and west
+        this.floodFillUtil(sourceMap, targetMap, x + 1, y);
+        this.floodFillUtil(sourceMap, targetMap, x - 1, y);
+        this.floodFillUtil(sourceMap, targetMap, x, y + 1);
+        this.floodFillUtil(sourceMap, targetMap, x, y - 1);
     }
 };

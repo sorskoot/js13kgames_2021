@@ -205,7 +205,7 @@ class Game {
                 break;
             case 'play':
                 this.textgroup.enabled = false;
-                this.app.levelController.start();
+                this.app.levelController.start(this.app.levelController.currentLevel);
                 break;
         };
         this.app.fire('game:stateChange', state, this);
