@@ -1,88 +1,63 @@
-//import { Game } from "./classes/game";
-(async function () {
+/// <reference path="../typings/playcanvas.d.ts" />
 
-    // stage 1: loading scripts
-    console.log("Loading scripts...");
-    //await import('./scripts/rotator.js');
-
-    // stage 2: initialize the game    
-    function initGame() {
-        return new Promise(resolve => {
-            const canvas = document.getElementById('application');
-            const app = new pc.Application(canvas, {
-                mouse: new pc.Mouse(canvas),
-                touch: new pc.TouchDevice(canvas),
-                keyboard: new pc.Keyboard(window),
-            });
-            app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
-            app.setCanvasResolution(pc.RESOLUTION_AUTO);
-            window.addEventListener('resize', () => app.resizeCanvas());
-            resolve(app);
-        });
-    }
+(function () {
+    
     console.log("Initializing game...");
-    /** @type {pc.Application} */
-    const app = await initGame();
+    const canvas = document.getElementById('application');
+    const app = new pc.Application(canvas, {
+        mouse: new pc.Mouse(canvas),
+        touch: new pc.TouchDevice(canvas),
+        keyboard: new pc.Keyboard(window),
+    });
+    app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
+    app.setCanvasResolution(pc.RESOLUTION_AUTO);
+    window.addEventListener('resize', () => app.resizeCanvas());
+    const game = new pc.Entity();
+    game.addComponent('script');
+    game.script.create('game');
+    app.root.addChild(game);    
 
-    // stage 3: loading assets
-    function loadAssets(app) {
-        return new Promise(resolve => {
-            const texturemap = "data:image/webp;base64,UklGRkADAABXRUJQVlA4TDMDAAAv/8ADECfhKAAAMpptK8B6rOViLMUK2H8bxxpMAwBMMk9uaOUDe4E/+JRLSFZdC+tIkpU83D7dIQtyp8iCANzdXeY/AAAMQ/uvRhxPZTTwzLk2XRUgF16lrp4tH+nrNiIT4dluUz2nQT2fIvovSC/zftKywxibIn8bv4y0+AWUv3tncUx0jiQ39ymtzrwY027ZVogPHEzhCTqXQbZtW21buei64BilYLkhRy7//5FwOAcruu97R/Qfgtu2gSQ58W6z15nsdA9ov3CPQOjgEIg7gOvPC9j+bMGfKwC4t9WZak3NTEUAdAzLJnQRcH+v2Z8r3lMWwj1i+DnwvLidD5R0phyCqkSui3UTPY0BJc0qQxcvISsGJ79IN7omgEgAyJHtcL4teDuw0qIL6C7KQqHOfCGFcg0kzDCAjEwEwUVC14lvUv6iUYNcZUCu9AQYMjj+9qcgXkrOBwy4JoKhxKXThCrz7V4IvkBbiIz+ODNKB0F2FESuVyICjf9wAAz6ImAqhqxMvCuUViwyVNxHR4p5dbaXAc9MznYnBN8WBPcOWXG9aig70lZc9AZSN06Bu2VDJqXKHF/oOwXyA5kPFCbqQChsn2LHlCU7Ly/jKZDxJozNMnaVTK98N02Q3isA869Nf0xESKwBSQKrNVAauVs2u73GzIvLziRFvAnvkRIr/wPDtYCpLOiS9cc5g+uP0UIxrJoU2QqalQH8M6UOg6vGlJUVNr0ydMpBj1UCDm9Ys8RKtTwwQPs5Gwv7d2XklK1XzBgw0/+uBADGMvg8Qaf1aMfCeguaCbOv6ZVL9D/xeGCulpVptWWROTTyp76tRcviQvrvCjQTZl+TGBgWr3LaQaX1j+9VF9x6E81pl7ppOWWU5MxRiZaVZT0nWr4r+04NLiybP1BXToxw7pB3FZL7LmXLLudFI+mCKYVqTWXfTZICDMLEYBAUbWllFJ8lB947d9Tuu/9hR4B04gYuFlmSe9LrEciglN3XBMoQQwc5LrgVRkRjxaN57vqTc2f5yJy4QQbKbithPlZ2psy+poB28MQ9AsMPrgQJFOfOqIs0z922jYDZd+IuCGDuYIRz/eTO3QAA";
-            const img = new Image();
-          //  img.src = texturemap;
-            img.src = 'Tiles.webp';
-            var texture = new pc.Texture(app.graphicsDevice, {
-                width: this.width,
-                height: this.height,
-                format: pc.PIXELFORMAT_R8_G8_B8
-            });
-            texture.setSource(img);
-            const tilesTexture = new pc.Asset("tiles", "texture");
-            tilesTexture.resource = texture;
-            tilesTexture.ready = true;
-            // tilesTexture.ready(() => {
-            
-            // });
 
-             app.assets.add(tilesTexture);
-            // app.assets.load(tilesTexture);
-            resolve(tilesTexture);
-        });
-    };
+
     console.log("Loading assets...");
-    /** @type {pc.Asset} */
-    const tilesTexture = await loadAssets(app);
-
-    function loadShader(app) {
-        return new Promise(async resolve => {
-            // const vertShader = await import('./shaders/vertShader.glsl');
-            // const fragShader = await import('./shaders/fragShader.glsl');
-            let shaderDefinition = {
-                attributes: {
-                    aPosition: pc.gfx.SEMANTIC_POSITION,
-                    vertex_texCoord0: pc.gfx.SEMANTIC_TEXCOORD0
-                },
-                vshader: vertShader,
-                fshader: fragShader
-            };
-            let shader = new pc.Shader(app.graphicsDevice, shaderDefinition);
-            resolve(shader);
-        });
-    };
+    const texturemap = "data:image/webp;base64,UklGRkADAABXRUJQVlA4TDMDAAAv/8ADECfhKAAAMpptK8B6rOViLMUK2H8bxxpMAwBMMk9uaOUDe4E/+JRLSFZdC+tIkpU83D7dIQtyp8iCANzdXeY/AAAMQ/uvRhxPZTTwzLk2XRUgF16lrp4tH+nrNiIT4dluUz2nQT2fIvovSC/zftKywxibIn8bv4y0+AWUv3tncUx0jiQ39ymtzrwY027ZVogPHEzhCTqXQbZtW21buei64BilYLkhRy7//5FwOAcruu97R/Qfgtu2gSQ58W6z15nsdA9ov3CPQOjgEIg7gOvPC9j+bMGfKwC4t9WZak3NTEUAdAzLJnQRcH+v2Z8r3lMWwj1i+DnwvLidD5R0phyCqkSui3UTPY0BJc0qQxcvISsGJ79IN7omgEgAyJHtcL4teDuw0qIL6C7KQqHOfCGFcg0kzDCAjEwEwUVC14lvUv6iUYNcZUCu9AQYMjj+9qcgXkrOBwy4JoKhxKXThCrz7V4IvkBbiIz+ODNKB0F2FESuVyICjf9wAAz6ImAqhqxMvCuUViwyVNxHR4p5dbaXAc9MznYnBN8WBPcOWXG9aig70lZc9AZSN06Bu2VDJqXKHF/oOwXyA5kPFCbqQChsn2LHlCU7Ly/jKZDxJozNMnaVTK98N02Q3isA869Nf0xESKwBSQKrNVAauVs2u73GzIvLziRFvAnvkRIr/wPDtYCpLOiS9cc5g+uP0UIxrJoU2QqalQH8M6UOg6vGlJUVNr0ydMpBj1UCDm9Ys8RKtTwwQPs5Gwv7d2XklK1XzBgw0/+uBADGMvg8Qaf1aMfCeguaCbOv6ZVL9D/xeGCulpVptWWROTTyp76tRcviQvrvCjQTZl+TGBgWr3LaQaX1j+9VF9x6E81pl7ppOWWU5MxRiZaVZT0nWr4r+04NLiybP1BXToxw7pB3FZL7LmXLLudFI+mCKYVqTWXfTZICDMLEYBAUbWllFJ8lB947d9Tuu/9hR4B04gYuFlmSe9LrEciglN3XBMoQQwc5LrgVRkRjxaN57vqTc2f5yJy4QQbKbithPlZ2psy+poB28MQ9AsMPrgQJFOfOqIs0z922jYDZd+IuCGDuYIRz/eTO3QAA";
+    const img = new Image(); // SWITCH THESE LINES TO USER WEBP
+    //  img.src = texturemap;
+    img.src = 'Tiles.webp';
+    var texture = new pc.Texture(app.graphicsDevice, {
+        width: this.width,
+        height: this.height,
+        format: pc.PIXELFORMAT_R8_G8_B8
+    });
+    texture.setSource(img);
+    const tilesTexture = new pc.Asset("tiles", "texture");
+    tilesTexture.resource = texture;
+    tilesTexture.ready = true;
+    app.assets.add(tilesTexture);
+    
     console.log("Loading shader...");
-    /** @type {pc.Shader} */
-    const shader = await loadShader(app);
-
-    const game = new Game(app, tilesTexture, shader);
-    await game.init();
+    let shaderDefinition = {
+        attributes: {
+            aPosition: pc.gfx.SEMANTIC_POSITION,
+            vertex_texCoord0: pc.gfx.SEMANTIC_TEXCOORD0
+        },
+        vshader: vertShader,
+        fshader: fragShader
+    };
+    let shader = new pc.Shader(app.graphicsDevice, shaderDefinition);
+    let shaderAsset = new pc.Asset('shader', 'shader');
+    shaderAsset.resource = shader;
+    shaderAsset.ready = true;
+    app.assets.add(shaderAsset);
 
     app.start();
+
     const enterVRButton = document.getElementById('enter-vr');
 
     if (app.xr.supported) {
         const activate = function () {
             if (app.xr.isAvailable(pc.XRTYPE_VR)) {
-                game.startXR();
+                app.game.startXR();
 
             } else {
                 console.log("Immersive VR is not available");
@@ -99,16 +74,12 @@
         if (app.touch) {
             app.touch.on("touchend", function (evt) {
                 if (!app.xr.active) {
-
-                    // if not in VR, activate
                     activate();
                     enterVRButton.style.display = 'none';
                 } else {
-                    // otherwise reset camera
-                    game.endXR();
+                    app.game.endXR();
                     enterVRButton.style.display = 'block';
                 }
-
                 evt.event.preventDefault();
                 evt.event.stopPropagation();
             });
@@ -117,33 +88,14 @@
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {
             if (evt.key === pc.KEY_ESCAPE && app.xr.active) {
-                game.endXR();
+                app.game.endXR();
                 app.xr.end();
                 enterVRButton.style.display = 'block';
             }
         });
 
-        app.xr.on('start', function () {
-            console.log("Immersive VR session has started");
-            
-        });
         app.xr.on('end', function () {
-            console.log("Immersive VR session has ended");
             enterVRButton.style.display = 'block';
-        });
-        app.xr.on('available:' + pc.XRTYPE_VR, function (available) {
-            console.log("Immersive VR is " + (available ? 'available' : 'unavailable'));
-        });
-
-        if (!app.xr.isAvailable(pc.XRTYPE_VR)) {
-            console.log("Immersive VR is not available");
-        }
-        // app.xr.input.on('add', function (inputSource) {
-        //     game.createController(inputSource);
-        // });
-
-
-    } else {
-        console.log("WebXR is not supported");
-    }
+        });        
+    } 
 })();
