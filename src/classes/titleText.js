@@ -1,7 +1,7 @@
 let TitleText = pc.createScript('titleText');
 
 TitleText.prototype.initialize = function () {
-    this.title = "SPACE STATION 13";
+    this.title = "STORAGE SPACE 13";
     this.width = 1200;
     this.height = 150;
     const material = new pc.StandardMaterial();
