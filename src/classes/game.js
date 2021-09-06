@@ -147,7 +147,7 @@ GameController.prototype.initialize = function () {
 
     });
 
-    this.app.root.on('game:pause', () => {
+    this.app.on('button4:pressed', () => {
         if (this.gameState == 'play') {
             this.gameStateChange('pause');
         }

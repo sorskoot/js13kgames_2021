@@ -167,7 +167,6 @@ var LevelController = pc.createScript('levelController');
 
 LevelController.prototype.initialize = function () {
     this.app.levelController = this;
-    console.log(this);
     this.tilesTexture = this.app.assets.find("tiles", "texture").resource;
     this.shader = this.app.assets.find("shader", "shader").resource;
 
