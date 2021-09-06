@@ -24,12 +24,11 @@ function javascript(cb) {
         return gulp.src(['./src/shaders/*.glsl','./src/index.js', './src/classes/*.js'])
 
             .pipe(sourcemaps.init())
-            // .pipe(gulpif(isJavaScript, terser({
-                
-            //     compress:false,
-            //     keep_fnames: true,
-            //     mangle: false
-            //   })))                                    
+            .pipe(gulpif(isJavaScript, terser({                
+                compress:false,
+                keep_fnames: true,
+                mangle: false
+              })))                                    
             .pipe(gulpif(isShader, glslify()))                                    
             .pipe(concat('main.js'))                       
             .pipe(sourcemaps.write('./'))

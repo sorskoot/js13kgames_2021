@@ -57,14 +57,12 @@ BoxController.prototype.update = function (dt) {
         this.entity.setPosition(this.vecA);
         if (this.movementTime >= 1) {
             this.app.root.fire('box:doneMoving', this.entity);
-            this.entity.setPosition(this.targetPosition);            
+            this.entity.setPosition(this.targetPosition);
             this.isMoving = false;
-            // did we reach the target?
-            if (this.lastTile == 'T') {
+            // Can we move again? or did we reach the target?                                       
+            if (!this._calculateNextTarget() && this.lastTile == 'T') {
                 this.app.root.fire('box:onTarget', this.entity);
-            } else {
-                // need to move again?            
-                this._calculateNextTarget();
+                this.onTarget = true;
             }
         }
     }
@@ -73,17 +71,20 @@ BoxController.prototype._calculateNextTarget = function () {
     this.targetPosition = new pc.Vec3(0, 0, 0);
     this.lastPosition = this.entity.getPosition().clone();
     if (this.app.levelController.tryMoveBox(this.lastPosition, this.direction, this.targetPosition)) {
-      
-        const oldLastTile = this.app.levelController.getTileAt(this.targetPosition);  
+
+        const oldLastTile = this.app.levelController.getTileAt(this.targetPosition);
         this.app.root.fire('box:onNewTile', this.entity, this.targetPosition, this.lastTile);
-        if(this.lastTile == 'T'){
-            this.app.root.fire('box:offTarget', this.entity,this.lastTile);
+        if (this.lastTile == 'T') {
+            if(this.onTarget){
+                this.app.root.fire('box:offTarget', this.entity, this.lastTile);
+                this.onTarget = false;
+            }
         }
         this.lastTile = oldLastTile;
         this.isMoving = true;
 
         this.movementTime = 0;
-
+        return true;
     }
 }
 
