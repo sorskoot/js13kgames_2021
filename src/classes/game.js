@@ -30,8 +30,7 @@ class Game {
         this.app.levelController = new LevelController(this.app, this.tilesTexture, this.shader);
     }
 
-    async init() {
-
+    init() {
 
         this.app.root.addComponent('script');
         this.app.root.script.create('shapeWorld');
@@ -131,6 +130,7 @@ class Game {
                 controllerTemplate: controller
             }
         });
+        
 
         this.camera.addComponent('script');
         this.camera.script.create('lookCamera', {
@@ -155,6 +155,13 @@ class Game {
         this.app.xr.on('end', () => {
 
         });
+
+        this.app.root.on('game:pause',()=>{
+            if(this.gameState == 'play'){
+                this.gameStateChange('pause');
+            }
+        });
+
         this.gameStateChange('start');
     }
 
@@ -206,6 +213,11 @@ class Game {
             case 'play':
                 this.textgroup.enabled = false;
                 this.app.levelController.start(this.app.levelController.currentLevel);
+                break;
+            case 'pause':
+                console.log('pause');
+                this.textgroup.enabled = true;
+                this.app.levelController.pause();
                 break;
         };
         this.app.fire('game:stateChange', state, this);

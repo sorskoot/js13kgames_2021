@@ -40,6 +40,7 @@ Could have:
         ☐ when pointerlocked, hide VR button.
         ☐ When not pointerlocked, 'pause' game, disable teleport
         ☐ When not pointerlocked, show VR button and Reset button
+    ☐ turn particles on target of when box is on top.
     ☐ better highlight when targetting a boxx
     ☐ animating textures, like last year.
     ☐ store progress when leaving game
@@ -106,5 +107,9 @@ Levels:
     ideas:
         - Add transparent textures close to the walls to give it a more 3D look.
         
+Notes:
+    - best compression for zip, on linux => advzip -a -4 -i=5000 dist.zip index.html
+    - base64 for image => https://base64.guru/converter/encode/image/webp
+        - add "data:image/webp;base64," in front of the string
 
 example project:https://developer.playcanvas.com/en/tutorials/webxr-vr-lab/

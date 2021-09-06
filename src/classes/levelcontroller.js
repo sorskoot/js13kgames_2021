@@ -198,7 +198,7 @@ class LevelController {
         this.app.root.on("box:offTarget", this.offTarget, this);
         this.app.root.on("box:onNewTile", this.onNewTile, this);
         this.app.root.on("box:doneMoving", this.calculateTargets, this);
-
+        
         for (let i = 0; i < 16; i++) {
             let mat = new pc.Material();
             mat.setShader(this.shader);
@@ -542,6 +542,21 @@ class LevelController {
         texture.setSource(img);
 
         return texture;
+    }
+
+    pause() {
+        this.app.mainCamera.script.blackness.fadeOut().then(async () => {
+            this.levelGeometry.enabled = false;
+        });
+    }
+    unpause(){
+        this.levelGeometry.enabled = true;
+        this.app.mainCamera.script.blackness.fadeIn().then(async () => {
+           
+        });
+
+    }
+    restart(){
 
     }
 };

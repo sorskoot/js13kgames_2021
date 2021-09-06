@@ -3,6 +3,7 @@ const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
 const terser = require('gulp-terser');
 const glslify = require('./gulp/gulp-glslify');
+const roadroller = require('./gulp/gulp-roadroller');
 const gulpif = require('gulp-if');
 const gulpCopy = require('gulp-copy');
 const webp = require('gulp-webp');
@@ -72,7 +73,8 @@ function production() {
             }
         })))
         .pipe(gulpif(isShader, glslify()))
-        .pipe(concat('main.js'))      
+        .pipe(concat('main.js'))   
+        .pipe(roadroller())   
         .pipe(gulp.dest('./dist/'));
 };
 

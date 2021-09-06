@@ -105,6 +105,11 @@ Controller.prototype.pick = function () {
 };
 
 Controller.prototype.update = function (dt) {
+    // Get button A from xr controller 
+   
+    if (this.inputSource && this.inputSource.gamepad.buttons[4]?.pressed) {
+        this.entity.fire('button4:pressed');
+    }    
     if (this.inputSource && this.inputSource.targetRayMode !== 'gaze') {
         // render ray line
         this.vecA.copy(this.inputSource.getOrigin());

@@ -27,16 +27,26 @@
     // stage 3: loading assets
     function loadAssets(app) {
         return new Promise(resolve => {
-            const tilesTexture = new pc.Asset("tiles", "texture", {
-                url: './Tiles.webp',
+            const texturemap = "data:image/webp;base64,UklGRkADAABXRUJQVlA4TDMDAAAv/8ADECfhKAAAMpptK8B6rOViLMUK2H8bxxpMAwBMMk9uaOUDe4E/+JRLSFZdC+tIkpU83D7dIQtyp8iCANzdXeY/AAAMQ/uvRhxPZTTwzLk2XRUgF16lrp4tH+nrNiIT4dluUz2nQT2fIvovSC/zftKywxibIn8bv4y0+AWUv3tncUx0jiQ39ymtzrwY027ZVogPHEzhCTqXQbZtW21buei64BilYLkhRy7//5FwOAcruu97R/Qfgtu2gSQ58W6z15nsdA9ov3CPQOjgEIg7gOvPC9j+bMGfKwC4t9WZak3NTEUAdAzLJnQRcH+v2Z8r3lMWwj1i+DnwvLidD5R0phyCqkSui3UTPY0BJc0qQxcvISsGJ79IN7omgEgAyJHtcL4teDuw0qIL6C7KQqHOfCGFcg0kzDCAjEwEwUVC14lvUv6iUYNcZUCu9AQYMjj+9qcgXkrOBwy4JoKhxKXThCrz7V4IvkBbiIz+ODNKB0F2FESuVyICjf9wAAz6ImAqhqxMvCuUViwyVNxHR4p5dbaXAc9MznYnBN8WBPcOWXG9aig70lZc9AZSN06Bu2VDJqXKHF/oOwXyA5kPFCbqQChsn2LHlCU7Ly/jKZDxJozNMnaVTK98N02Q3isA869Nf0xESKwBSQKrNVAauVs2u73GzIvLziRFvAnvkRIr/wPDtYCpLOiS9cc5g+uP0UIxrJoU2QqalQH8M6UOg6vGlJUVNr0ydMpBj1UCDm9Ys8RKtTwwQPs5Gwv7d2XklK1XzBgw0/+uBADGMvg8Qaf1aMfCeguaCbOv6ZVL9D/xeGCulpVptWWROTTyp76tRcviQvrvCjQTZl+TGBgWr3LaQaX1j+9VF9x6E81pl7ppOWWU5MxRiZaVZT0nWr4r+04NLiybP1BXToxw7pB3FZL7LmXLLudFI+mCKYVqTWXfTZICDMLEYBAUbWllFJ8lB947d9Tuu/9hR4B04gYuFlmSe9LrEciglN3XBMoQQwc5LrgVRkRjxaN57vqTc2f5yJy4QQbKbithPlZ2psy+poB28MQ9AsMPrgQJFOfOqIs0z922jYDZd+IuCGDuYIRz/eTO3QAA";
+            const img = new Image();
+          //  img.src = texturemap;
+            img.src = 'Tiles.webp';
+            var texture = new pc.Texture(app.graphicsDevice, {
+                width: this.width,
+                height: this.height,
+                format: pc.PIXELFORMAT_R8_G8_B8
             });
+            texture.setSource(img);
+            const tilesTexture = new pc.Asset("tiles", "texture");
+            tilesTexture.resource = texture;
+            tilesTexture.ready = true;
+            // tilesTexture.ready(() => {
+            
+            // });
 
-            tilesTexture.ready(() => {
-                resolve(tilesTexture);
-            });
-
-            app.assets.add(tilesTexture);
-            app.assets.load(tilesTexture);
+             app.assets.add(tilesTexture);
+            // app.assets.load(tilesTexture);
+            resolve(tilesTexture);
         });
     };
     console.log("Loading assets...");

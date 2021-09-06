@@ -73,6 +73,7 @@
   },
   "dependencies": {
     "gulp-wrap-js": "^0.4.1",
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "roadroller": "^2.0.0"
   }
 }
