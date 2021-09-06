@@ -74,6 +74,7 @@ GameController.prototype.initialize = function () {
     this.playButton = this.createButton('Play', -.4, 1.4, -3, 0.6, .25);
     this.playButton.on('button:click', () => {
         this.gameStateChange('play');
+        sound.play(3);
     })
     this.textgroup.addChild(this.playButton);
 
@@ -154,6 +155,8 @@ GameController.prototype.initialize = function () {
     });
 
     this.gameStateChange('start');    
+
+    InitAudio();
 }
 GameController.prototype.startXR=function() {
     console.log(`before start:${this.camera.getPosition()}`);
