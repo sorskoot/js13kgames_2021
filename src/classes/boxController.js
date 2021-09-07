@@ -18,7 +18,7 @@ BoxController.prototype.initialize = function () {
     });
     this.entity.on('object:interact', (e) => {
         if (this.isMoving) return;
-
+        sound.play(0);
         this.entity.model.material.setParameter("tint", [0, 1, 0, 1]);
         this.entity.model.material.update();
         /**

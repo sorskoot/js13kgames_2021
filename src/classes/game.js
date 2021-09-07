@@ -23,7 +23,7 @@ GameController.prototype.initialize = function () {
 
     this.app.root.addComponent('script');
     this.app.root.script.create('shapeWorld');
-
+    this.app.root.script.create('spacetexture');
     // create camera parent
     this.cameraParent = new pc.Entity();
     this.cameraParent.addComponent('script');
@@ -73,6 +73,7 @@ GameController.prototype.initialize = function () {
 
     this.playButton = this.createButton('Play', -.4, 1.4, -3, 0.6, .25);
     this.playButton.on('button:click', () => {
+        InitAudio();
         this.gameStateChange('play');
         sound.play(3);
     })
@@ -96,6 +97,7 @@ GameController.prototype.initialize = function () {
     this.locator.addComponent('render', {
         type: "cylinder"
     });
+
     let locatorMat = new pc.StandardMaterial();
     locatorMat.emissive = new pc.Color(0.3, 0.56, 0.51);
     this.locator.setLocalScale(.125, .01, .125);
@@ -148,7 +150,7 @@ GameController.prototype.initialize = function () {
 
     });
 
-    this.app.on('button4:pressed', () => {
+    this.entity.on('button4:pressed', () => {
         if (this.gameState == 'play') {
             this.gameStateChange('pause');
         }
@@ -156,9 +158,10 @@ GameController.prototype.initialize = function () {
 
     this.gameStateChange('start');    
 
-    InitAudio();
+    
 }
 GameController.prototype.startXR=function() {
+    InitAudio();
     console.log(`before start:${this.camera.getPosition()}`);
     this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
         callback: (err) => {
