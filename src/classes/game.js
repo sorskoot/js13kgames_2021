@@ -59,14 +59,16 @@ GameController.prototype.initialize = function () {
 
     this.restartButton = this.createButton('Restart', .1, 1.2, -3, 0.6, .25);
     this.restartButton.on('button:click', () => {
-        console.log('restart');
+        sound.play(3);
+        this.gameStateChange('play','restart');
     })
     this.restartButton.enabled = false;
     this.textgroup.addChild(this.restartButton);
 
     this.continueButton = this.createButton('Continue', -.9, 1.2, -3, 0.6, .25);
-    this.continueButton.on('button:click', () => {
-        console.log('Continue');
+    this.continueButton.on('button:click', () => {        
+        sound.play(3);
+        this.gameStateChange('play','continue');
     })
     this.continueButton.enabled = false;
     this.textgroup.addChild(this.continueButton);
@@ -74,8 +76,8 @@ GameController.prototype.initialize = function () {
     this.playButton = this.createButton('Play', -.4, 1.4, -3, 0.6, .25);
     this.playButton.on('button:click', () => {
         InitAudio();
-        this.gameStateChange('play');
         sound.play(3);
+        this.gameStateChange('play');        
     })
     this.textgroup.addChild(this.playButton);
 
@@ -156,11 +158,11 @@ GameController.prototype.initialize = function () {
         }
     }, this);
 
-    this.gameStateChange('start');    
+    this.gameStateChange('start');
 
-    
+
 }
-GameController.prototype.startXR=function() {
+GameController.prototype.startXR = function () {
     InitAudio();
     console.log(`before start:${this.camera.getPosition()}`);
     this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
@@ -173,7 +175,7 @@ GameController.prototype.startXR=function() {
     //this.camera.translate(0,0.7,0);
     console.log(`after start:${this.camera.getPosition()}`);
 }
-GameController.prototype.endXR=function() {
+GameController.prototype.endXR = function () {
     console.log(`before end:${this.camera.getPosition()}`);
     this.camera.camera.endXr((err) => {
         console.log(`in exit callback:${this.camera.getPosition()}`);
@@ -182,7 +184,7 @@ GameController.prototype.endXR=function() {
     console.log(`after end:${this.camera.getPosition()}`);
 }
 
-GameController.prototype.createButton=function(text, x, y, z, scalex, scaley) {
+GameController.prototype.createButton = function (text, x, y, z, scalex, scaley) {
     const button = new pc.Entity();
     button.addComponent('render', {
         type: 'plane'
@@ -200,23 +202,31 @@ GameController.prototype.createButton=function(text, x, y, z, scalex, scaley) {
     return button;
 }
 
-GameController.prototype.gameStateChange= async function(state) {
-    this.gameState = state;
+GameController.prototype.gameStateChange = async function (state, extraData) {
     switch (state) {
         case 'start':
             this.textgroup.enabled = true;
             break;
         case 'play':
             this.textgroup.enabled = false;
-            this.app.levelController.start(this.app.levelController.currentLevel);
+            await this.app.mainCamera.script.blackness.fadeOut()
+            if (this.gameState == 'pause' && extraData == 'continue') {                                
+                this.app.levelController.unpause();
+            }
+            else {
+                this.app.levelController.start(this.app.levelController.currentLevel);
+            }
             break;
         case 'pause':
-            console.log('pause');
             await this.app.levelController.pause();
+            this.playButton.enabled = false;
+            this.restartButton.enabled = true;
+            this.continueButton.enabled = true;
             this.textgroup.enabled = true;
             await this.app.mainCamera.script.blackness.fadeIn()
             break;
+
     };
-    
+    this.gameState = state;
     this.app.fire('game:stateChange', state, this);
 }
