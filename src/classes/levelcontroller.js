@@ -1,43 +1,43 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
 
 const LevelData = [
-    // {
-    //     width: 7,
-    //     height: 7,
-    //     layer: [{
-    //         data: [
-    //             [0, 0, 0, 0, 0, 0, 'T'],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 'S', 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0]
-    //         ]
-    //     },
-    //     {
-    //         data: [
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //             [0, 0, 0, 0, 0, 0, 0],
-    //         ]
-    //     },
-    //     {
-    //         data: [
-    //             [0, 3, 3, 3, 3, 3, 0],
-    //             [11, 0, 0, 0, 0, 0, 11],
-    //             [11, 0, 0, 0, 0, 0, 11],
-    //             [11, 0, 0, 0, 0, 0, 11],
-    //             [11, 0, 0, 0, 0, 0, 11],
-    //             [11, 0, 0, 0, 0, 0, 11],
-    //             [0, 11, 11, 11, 11, 11, 0]
-    //         ]
-    //     }],
-    // },
+    {
+        width: 7,
+        height: 7,
+        layer: [{
+            data: [
+                [0, 0, 0, 0, 0, 0, 'T'],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 'S', 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0]
+            ]
+        },
+        {
+            data: [
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+            ]
+        },
+        {
+            data: [
+                [0, 3, 3, 3, 3, 3, 0],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [11, 0, 0, 0, 0, 0, 11],
+                [0, 11, 11, 11, 11, 11, 0]
+            ]
+        }],
+    },
 
 
     {
@@ -172,7 +172,7 @@ LevelController.prototype.initialize = function () {
     this.tilesTexture = this.app.assets.find("tiles", "texture").resource;
     this.shader = this.app.assets.find("shader", "shader").resource;
 
-    this.currentLevel = 6;
+    this.currentLevel = 0;
     this.boxMaterial = new pc.Material();
 
     this.debugBox = new pc.Entity();
@@ -542,10 +542,10 @@ LevelController.prototype.solidColorTexture = function (color) {
     return texture;
 }
 
-LevelController.prototype.pause = function () {
-    this.app.mainCamera.script.blackness.fadeOut().then(async () => {
-        this.levelGeometry.enabled = false;
-    });
+LevelController.prototype.pause = async function () {
+    await this.app.mainCamera.script.blackness.fadeOut();
+    this.levelGeometry.enabled = false;            
+    
 }
 LevelController.prototype.unpause = function () {
     this.levelGeometry.enabled = true;

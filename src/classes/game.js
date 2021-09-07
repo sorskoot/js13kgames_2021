@@ -29,7 +29,7 @@ GameController.prototype.initialize = function () {
     this.cameraParent.addComponent('script');
     this.cameraParent.script.create('teleportCamera');
     this.cameraParent.script.create('rotateCamera');
-
+    this.gameState = 'start';
     // create camera
     this.camera = new pc.Entity();
     this.camera.addComponent('camera', {
@@ -150,11 +150,11 @@ GameController.prototype.initialize = function () {
 
     });
 
-    this.entity.on('button4:pressed', () => {
+    this.on('button4:pressed', () => {
         if (this.gameState == 'play') {
             this.gameStateChange('pause');
         }
-    });
+    }, this);
 
     this.gameStateChange('start');    
 
@@ -200,7 +200,8 @@ GameController.prototype.createButton=function(text, x, y, z, scalex, scaley) {
     return button;
 }
 
-GameController.prototype.gameStateChange=function(state) {
+GameController.prototype.gameStateChange= async function(state) {
+    this.gameState = state;
     switch (state) {
         case 'start':
             this.textgroup.enabled = true;
@@ -211,9 +212,11 @@ GameController.prototype.gameStateChange=function(state) {
             break;
         case 'pause':
             console.log('pause');
+            await this.app.levelController.pause();
             this.textgroup.enabled = true;
-            this.app.levelController.pause();
+            await this.app.mainCamera.script.blackness.fadeIn()
             break;
     };
+    
     this.app.fire('game:stateChange', state, this);
 }

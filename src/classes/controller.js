@@ -111,7 +111,7 @@ Controller.prototype.update = function (dt) {
    
     if (this.inputSource && this.inputSource.gamepad.buttons[4]?.pressed && !this.button4Pressed) {
         this.button4Pressed = true;
-        this.app.root.game.fire('button4:pressed');
+        this.app.game.fire('button4:pressed');
     } 
     if (this.inputSource && !this.inputSource.gamepad.buttons[4]?.pressed && this.button4Pressed) {
         this.button4Pressed = false;
