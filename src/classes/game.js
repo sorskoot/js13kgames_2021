@@ -81,18 +81,6 @@ GameController.prototype.initialize = function () {
     })
     this.textgroup.addChild(this.playButton);
 
-    // this.enterVRButton = this.createButton('Enter VR', -1, 1.2, -3, 0.6, .25);
-    // this.enterVRButton.on('button:click',()=>{            
-    //     if (this.app.xr.isAvailable(pc.XRTYPE_VR)) {
-    //         this.startXR();
-
-    //     } else {
-    //         console.log("Immersive VR is not available");
-    //     }
-
-    // })
-    // this.textgroup.addChild(this.enterVRButton);
-
     this.app.root.addChild(this.textgroup);
     this.app.scene.ambientLight = new pc.Color(1, 1, 1);
     this.locator = new pc.Entity();
@@ -164,24 +152,15 @@ GameController.prototype.initialize = function () {
 }
 GameController.prototype.startXR = function () {
     InitAudio();
-    console.log(`before start:${this.camera.getPosition()}`);
     this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
         callback: (err) => {
-            console.log(`in callback:${this.camera.getPosition()}`);
-            //  app.xr._baseLayer.stencil = true;
-            if (err) console.error("WebXR Immersive VR failed to start: " + err.message);
+                if (err) console.error("WebXR Immersive VR failed to start: " + err.message);
         }
-    });
-    //this.camera.translate(0,0.7,0);
-    console.log(`after start:${this.camera.getPosition()}`);
+    });    
+    
 }
 GameController.prototype.endXR = function () {
-    console.log(`before end:${this.camera.getPosition()}`);
-    this.camera.camera.endXr((err) => {
-        console.log(`in exit callback:${this.camera.getPosition()}`);
-    });
-
-    console.log(`after end:${this.camera.getPosition()}`);
+    this.camera.camera.endXr();
 }
 
 GameController.prototype.createButton = function (text, x, y, z, scalex, scaley) {
