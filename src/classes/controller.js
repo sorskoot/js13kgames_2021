@@ -18,6 +18,7 @@ Controller.prototype.initialize = function () {
     this.allowedTeleportTargets = [0, 'S', 'T'];
     this.lastRotateValue = 0;
     this.button4Pressed = false;
+    this.showTarget = false;
     this.app.on('level:next', this.onLevelNext, this);
 };
 
@@ -89,7 +90,7 @@ Controller.prototype.pick = function () {
         if (this.hoverEntity.tags.has('floor')) {
             var dot = this.hoverEntity.up.dot(this.ray.direction);
 
-            if (~this.allowedTeleportTargets.indexOf(this.app.levelController.getTileAt(this.hoverEntity.getPosition()))) {                
+            if (~this.allowedTeleportTargets.indexOf(this.app.levelController.getTileAt(this.hoverEntity.getPosition()))) {
                 const canTeleport = this.app.levelController.canTeleportTo(this.hoverEntity.getPosition());
                 // Check if anything is between the player and the target point                
                 if (dot <= 0 && canTeleport) {
@@ -98,26 +99,34 @@ Controller.prototype.pick = function () {
 
             }
         }
+
     }
 
     if (validTeleport) {
         this.teleportableEntity = this.hoverEntity;
+        this.showTarget = true;
     } else {
         this.teleportableEntity = null;
+
+        if (this.hoverEntity?.tags.has('box')) {
+            this.showTarget = true;
+        } else {
+            this.showTarget = false;
+        }
     }
 };
 
 
 Controller.prototype.update = function (dt) {
     // Get button A from xr controller 
-   
+
     if (this.inputSource && this.inputSource.gamepad.buttons[4]?.pressed && !this.button4Pressed) {
         this.button4Pressed = true;
         this.app.game.fire('button4:pressed');
-    } 
+    }
     if (this.inputSource && !this.inputSource.gamepad.buttons[4]?.pressed && this.button4Pressed) {
         this.button4Pressed = false;
-    }    
+    }
     if (this.inputSource && this.inputSource.targetRayMode !== 'gaze') {
         // render ray line
         this.vecA.copy(this.inputSource.getOrigin());
@@ -148,7 +157,7 @@ Controller.prototype.update = function (dt) {
 
     this.pick();
 
-    if (this.teleportableEntity) {
+    if (this.showTarget) {
         this.vecB.copy(this.hoverEntity.up).scale(0.01);
         this.vecA.copy(this.hoverPoint).add(this.vecB);
         this.app.fire('teleport:transform', this.vecA, this.hoverEntity.getRotation());

@@ -27,7 +27,8 @@ Should have:
     ✔ @test Handle multiple boxes, prevent boxes from overlapping @done(21-09-02 19:14)
     Do we really need to support the 'touch' things?
     ☐ Must have 10 levels.
-    ☐ More variation in textures
+    ☐ camera must face the center when starting a level.
+    ✔ More variation in textures @done(21-09-08 16:56)
     ☐ Some lighting effect in the shader, maybe just add something shading based on the hight or something.
     ☐ add suger and spice:
         ☐ when you hit a cube
@@ -37,18 +38,23 @@ Should have:
     
 
 Could have:
+    2 Bonus level for Coil users:
+        ☐ 2 hard levels
+        ☐ checks on web monitization
+        ☐ Extra button for Coil users
+    ☐ Spatial Audio
     On desktop:
         ☐ when pointerlocked, hide VR button.
         ☐ When not pointerlocked, 'pause' game, disable teleport
         ☐ When not pointerlocked, show VR button and Reset button
     ☐ 'Good boy' moment when level is done
-    ☐ turn particles on target of when box is on top.
+    ☐ turn particles on target off when box is on top.
     ☐ better highlight when targetting a boxx
-    ☐ animating textures, like last year.
+    ✔ animating textures, like last year. @done(21-09-08 16:56)
     ☐ store progress when leaving game
     ☐ bigger FOV on desktop
     ☐ Movement by walking
-    ☐ Have the game run on the desktop
+    ✔ Have the game run on the desktop @done(21-09-08 16:56)
     ☐ Step/teleport onto the walls (maybe by rotating the whole world)
     ☐ Must have 20 levels.
     ☐ powerups
@@ -67,18 +73,18 @@ Bugs:
         ✔ Teleporting does not work all the time... @done(21-09-05 13:03)
         ☐ On desktop you have to first get focus befor you can start the game. This needs to be only one click, or with a differnt button
         ☐ Make sure title is in from of the camera when pausing
-        
+        ☐ Dont make sound if box cant move
     @high:
         ☐ prevent teleportation when moving a box.
         ✔ prevent player from teleporting into walls or over them @done(21-09-02 19:14)
             ~ the issue seems to change when after teleporting one time. The first time it works fine, then is it wrong. 
         ✔ prevent player from teleporting into the small space behind the box @done(21-08-29 13:38)
-        ☐ prevent player from moving box by pointing though walls or over them
+        ✔ prevent player from moving box by pointing though walls or over them @done(21-09-08 18:36)
             ~ maybe add an invisible wall above other blocks to prevent this
             ~ when 2 boxes are next to each other, you can't move them
     @low:
         ☐ teleporting next to box should be possible more often
-        ☐ prevent player from walking through walls in VR
+        ☐ prevent player from walking through walls in VR (maybe add shapes to every block, to block ray)
         ☐ Make game work with levels with odd Width and Height
 
 

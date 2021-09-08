@@ -1,3 +1,4 @@
+/// <reference path="../../typings/playcanvas.d.ts" />
 
 var BoxController = pc.createScript('boxController');
 
@@ -16,9 +17,14 @@ BoxController.prototype.initialize = function () {
         // this.entity.model.material.setParameter("index",2);
         this.entity.model.material.update();
     });
+
     this.entity.on('object:interact', (e) => {
         if (this.isMoving) return;
+        const distance = e.entity.getPosition().distance(this.entity.getPosition());
+        if (distance > 2) return;
+
         sound.play(0);
+
         this.entity.model.material.setParameter("tint", [0, 1, 0, 1]);
         this.entity.model.material.update();
         /**
@@ -75,7 +81,7 @@ BoxController.prototype._calculateNextTarget = function () {
         const oldLastTile = this.app.levelController.getTileAt(this.targetPosition);
         this.app.root.fire('box:onNewTile', this.entity, this.targetPosition, this.lastTile);
         if (this.lastTile == 'T') {
-            if(this.onTarget){
+            if (this.onTarget) {
                 this.app.root.fire('box:offTarget', this.entity, this.lastTile);
                 this.onTarget = false;
             }

@@ -20,20 +20,26 @@
 
 
     console.log("Loading assets...");
-    const texturemap = "data:image/webp;base64,UklGRkADAABXRUJQVlA4TDMDAAAv/8ADECfhKAAAMpptK8B6rOViLMUK2H8bxxpMAwBMMk9uaOUDe4E/+JRLSFZdC+tIkpU83D7dIQtyp8iCANzdXeY/AAAMQ/uvRhxPZTTwzLk2XRUgF16lrp4tH+nrNiIT4dluUz2nQT2fIvovSC/zftKywxibIn8bv4y0+AWUv3tncUx0jiQ39ymtzrwY027ZVogPHEzhCTqXQbZtW21buei64BilYLkhRy7//5FwOAcruu97R/Qfgtu2gSQ58W6z15nsdA9ov3CPQOjgEIg7gOvPC9j+bMGfKwC4t9WZak3NTEUAdAzLJnQRcH+v2Z8r3lMWwj1i+DnwvLidD5R0phyCqkSui3UTPY0BJc0qQxcvISsGJ79IN7omgEgAyJHtcL4teDuw0qIL6C7KQqHOfCGFcg0kzDCAjEwEwUVC14lvUv6iUYNcZUCu9AQYMjj+9qcgXkrOBwy4JoKhxKXThCrz7V4IvkBbiIz+ODNKB0F2FESuVyICjf9wAAz6ImAqhqxMvCuUViwyVNxHR4p5dbaXAc9MznYnBN8WBPcOWXG9aig70lZc9AZSN06Bu2VDJqXKHF/oOwXyA5kPFCbqQChsn2LHlCU7Ly/jKZDxJozNMnaVTK98N02Q3isA869Nf0xESKwBSQKrNVAauVs2u73GzIvLziRFvAnvkRIr/wPDtYCpLOiS9cc5g+uP0UIxrJoU2QqalQH8M6UOg6vGlJUVNr0ydMpBj1UCDm9Ys8RKtTwwQPs5Gwv7d2XklK1XzBgw0/+uBADGMvg8Qaf1aMfCeguaCbOv6ZVL9D/xeGCulpVptWWROTTyp76tRcviQvrvCjQTZl+TGBgWr3LaQaX1j+9VF9x6E81pl7ppOWWU5MxRiZaVZT0nWr4r+04NLiybP1BXToxw7pB3FZL7LmXLLudFI+mCKYVqTWXfTZICDMLEYBAUbWllFJ8lB947d9Tuu/9hR4B04gYuFlmSe9LrEciglN3XBMoQQwc5LrgVRkRjxaN57vqTc2f5yJy4QQbKbithPlZ2psy+poB28MQ9AsMPrgQJFOfOqIs0z922jYDZd+IuCGDuYIRz/eTO3QAA";
+    const texturemap = "data:image/webp;base64,UklGRsoDAABXRUJQVlA4TL4DAAAv/8ADEAfBNADAJGvuAxqNSuIP7naLblm6/sE2sm0l38ncyYkpALqlFW2A2B0y1xmmAQAmWVtygbxM4hEu5Q5ucHeLrvMfAABnvry5k6MmOpq7+85qrQbQSY7B6N5+ZaOZCdo7fvzQagl2xDNeA+R8B7j5WXRxwNNCBO2Nloa+1i8dvweyVrVLXta7FtuduuLAYaAtSbLcthIoGvKhiKEBcRktx/T/fybOLAe4cd+7I/oPwW0bSZJcMabSWzupY4DqL5QNklnLHmKq71RIpQDmQnk9yqxA+f+LpKiTMFSDPSqQUCstTykQU1MHeZ06W45jg0UXU5CKra/wPxAAcXmQ4AuAAUAbR+VWuTBTx0N6yI9NEXAJSkafVSeLRHsxAytsUEAqV8SwWJZCkKQ/0V3bYHcZsDtNIgbEi9MKAA3qvFzRNw9A9CGX+/WPPFQKYKqUFnxoesyAlSXesy6rPBt9w7JEGzEb4ulDo322FYlZjLfR/iSY/EIAUJIzw5IBDHEMGtZ5N3XSF+iWF3y4vX8MJThIHgTzCSnvM2nG9dnZtm+cLaw8GbHSIWULTfo2Hmkrinbc1AYyNhIWDSoYfFiL6zyYieFjOuC55qenzliJbMWZ6xgG/AxXBpDvaLzDm5uyszPbQq/hOVUKANaTwbYY5FCPrzpvwH8M4VMcSQxJ+mYPtgYSamyILAIYfn5fLysKS9YhSWB8A7yRp9fj6RwhlQWsYnEtAgfJ4UNpyWKDUTw2PIl9MH+8i3G162WglMNNMwLDeFxbM8dxTCj13zdKDKVEJuyAdGSxwQRT1AkTiU0z07TDzS20pHPFuIKCDXZ8xRha6ySAX9gCQ/JzlURqCdgj/XTp5/TEYXpOUN+5XDelr/fRAGAvayPwHcMK7kX2EUwDaV0eAAjxfzpoXOdhRpbmTlbxySFMB8N60yZai2AtqOwlCRZKfK7ANJDW5WogII44MGhc521GX/oBZ0OvfdfPv+Ms5TlpOmzpG9bCNg+rAKjsJIrOdBy9adf1RNEx7KM/7e6d6L13VAyf7EwvHfeOjnt324p6MqpcVoIruB2nSbBIqoBuOYCgk907O8okJjPiiemgM4CG0ZpWwFpIdABggHtGUJxR7FGFxPTeu3/hhJYv5guKuvC0muK8AiAJr466SvJAy0uinjrTewcJUUhBG6c97x1Idlzz964dLK9T/RIU8wXBewhJ6kq6TGCqjro0Rrm2wfwftJ5y+zziPQV7IGKR6XvrHrZVKw+D2PecHd7r87qyhdljnVII";
     const img = new Image(); // SWITCH THESE LINES TO USER WEBP
     //  img.src = texturemap;
     img.src = 'Tiles.webp';
-    var texture = new pc.Texture(app.graphicsDevice, {
-        width: this.width,
-        height: this.height,
-        format: pc.PIXELFORMAT_R8_G8_B8
-    });
+    var texture = new pc.Texture(app.graphicsDevice);
     texture.setSource(img);
     const tilesTexture = new pc.Asset("tiles", "texture");
     tilesTexture.resource = texture;
     tilesTexture.ready = true;
     app.assets.add(tilesTexture);
+    const textureMap2 = "data:image/webp;base64,UklGRnAAAABXRUJQVlA4TGMAAAAvBMACEFegGAAQp29eWzeKHDqNPTwUNZKkLCpYGehnRZ1cfClqJIXBBIqwzQ8xBAO9ZP4DAJwvQ1mBym1aj2+uD8JatIj7g4JIcpr0YicTI1GBERABipEQ0f+s7b3s3Zyj8A0A"
+    const img2 = new Image(); // SWITCH THESE LINES TO USER WEBP
+    //  img2.src = textureMap2;
+    img2.src = 'colors.webp';
+    var texture2 = new pc.Texture(app.graphicsDevice);
+    texture2.setSource(img2);
+    const colorsTexture = new pc.Asset("colors", "texture");
+    colorsTexture.resource = texture2;
+    colorsTexture.ready = true;
+    app.assets.add(colorsTexture);
     
     console.log("Loading shader...");
     let shaderDefinition = {

@@ -1,5 +1,5 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
-
+const numOfSprites = 17.0;
 const LevelData = [
     // {
     //     width: 7,
@@ -51,18 +51,18 @@ const LevelData = [
                 [8, 'T', 0, 'S', 'B', 0, 8],
                 [12, 0, 0, 0, 0, 0, 12],
                 [10, 0, 0, 0, 0, 0, 10],
-                [1, 12, 10, 12, 10, 12, 1]
+                [1, 12, 10, 15, 10, 12, 1]
             ]
         },
         {
             data: [
-                [0, 3, 3, 3, 3, 3, 0],
-                [11, 0, 0, 0, 0, 0, 11],
+                [0, 3, 14, 3, 14, 3, 0],
+                [2, 0, 0, 0, 0, 0, 11],
                 [11, 0, 0, 0, 0, 0, 11],
                 [9, 0, 0, 0, 0, 0, 9],
+                [16, 0, 0, 0, 0, 0, 11],
                 [11, 0, 0, 0, 0, 0, 11],
-                [11, 0, 0, 0, 0, 0, 11],
-                [0, 11, 11, 11, 11, 11, 0]
+                [0, 11, 13, 1, 13, 11, 0]
             ]
         },
         {
@@ -159,20 +159,26 @@ const LevelData = [
         }
         ]
     },
+    { "width": 9, "height": 13, "layer": [{ "data": [["12", "12", "10", "12", "12", 0, 0, 0, "12", "12", "10", "12", "12"], ["10", 0, "T", 0, "10", "12", "12", "12", "10", 0, "T", 0, "10"], ["12", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "12"], ["12", 0, 0, 0, 0, "B", 0, 0, 0, 0, 0, 0, "12"], ["12", "12", 0, 0, 0, 0, 0, "B", 0, 0, 0, "12", "12"], [0, "12", 0, 0, 0, "12", 0, "12", 0, 0, 0, "12", 0], [0, "12", "12", "12", "12", "12", "S", "12", "12", "12", "12", "12", 0], [0, 0, 0, 0, 0, "12", "8", "12", 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }, { "data": [["11", "11", "14", "11", "11", 0, 0, 0, "11", "11", "14", "11", "11"], ["11", 0, 0, 0, "11", "3", "11", "3", "11", 0, 0, 0, "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "13"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "11"], ["13", "11", 0, 0, 0, 0, 0, 0, 0, 0, 0, "11", "11"], [0, "11", 0, 0, 0, 0, 0, 0, 0, 0, 0, "11", 0], [0, "11", "11", "11", "11", "11", 0, "11", "11", "11", "11", "11", 0], [0, 0, 0, 0, 0, "11", "9", "11", 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }] },
     { "width": 7, "height": 13, "layer": [{ "data": [[0, 0, 0, 0, 0, 0, 0, 0, "12", "12", "10", "12", "12"], ["12", "12", "12", "12", 0, "12", "12", "12", "12", "S", 0, 0, "10"], ["12", 0, 0, "10", "8", "10", 0, 0, 0, 0, "T", "T", "8"], ["10", 0, 0, 0, 0, 0, "B", "B", "B", 0, "B", 0, "10"], ["12", 0, 0, 0, 0, 0, 0, "T", 0, "12", "10", "12", "12"], ["12", "12", "12", "10", "12", "12", "12", "T", 0, "8", 0, 0, 0], [0, 0, 0, 0, 0, 0, "12", "10", "10", "12", 0, 0, 0]] }, { "data": [[0, 0, 0, 0, 0, 0, 0, 0, "11", "11", "3", "11", "11"], ["11", "11", "11", "11", 0, "11", "11", "11", "11", 0, 0, 0, "11"], ["11", 0, 0, "11", "9", "11", 0, 0, 0, 0, 0, 0, "9"], ["3", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11", "3", "3", "11"], ["11", "11", "11", "3", "11", "11", "11", 0, 0, "9", 0, 0, 0], [0, 0, 0, 0, 0, 0, "11", "3", "3", "11", 0, 0, 0]] }, { "data": [[0, 0, 0, 0, 0, 0, 0, 0, "11", "11", "11", "11", "11"], ["11", "11", "11", "11", 0, "11", "11", "11", "11", 0, 0, 0, "11"], ["11", 0, 0, "11", "11", "11", 0, 0, 0, 0, 0, 0, "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11", "11", "11", "11"], ["11", "11", "11", "11", "11", "11", "11", 0, 0, "11", 0, 0, 0], [0, 0, 0, 0, 0, 0, "11", "11", "11", "11", 0, 0, 0]] }] },
     { "width": 9, "height": 15, "layer": [{ "data": [[0, 0, 0, "12", "12", "12", 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, "12", "T", "12", 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, "12", "T", "12", 0, 0, 0, "12", "12", "12", "10", "12", "12"], ["12", "12", "12", "12", "T", "12", "8", "12", "12", "12", 0, 0, 0, 0, "10"], ["12", 0, 0, "T", 0, 0, 0, 0, 0, "12", 0, 0, "B", 0, "8"], ["12", 0, "12", "B", 0, 0, 0, 0, 0, "B", 0, 0, 0, 0, "10"], ["12", 0, 0, 0, 0, "S", 0, "B", 0, 0, 0, "12", "10", "12", "12"], ["12", "12", "12", "12", "12", "10", "12", 0, 0, 0, 0, "8", 0, 0, 0], [0, 0, 0, 0, 0, 0, "12", "12", "12", "10", "10", "12", 0, 0, 0]] }, { "data": [[0, 0, 0, "11", "11", "11", 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, "11", 0, "11", 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, "11", 0, "11", 0, 0, 0, "11", "11", "11", "11", "11", "11"], ["11", "11", "11", "11", 0, "11", "9", "11", "11", "11", 0, 0, 0, 0, "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11", 0, 0, 0, 0, "9"], ["11", 0, "11", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "11"], ["11", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "11", "11", "11", "11"], ["11", "11", "11", "11", "11", "11", "11", 0, 0, 0, 0, "9", 0, 0, 0], [0, 0, 0, 0, 0, 0, "11", "11", "11", "11", "11", "11", 0, 0, 0]] }] },
-    { "width": 11, "height": 13, "layer": [{ "data": [["12", "12", "10", "10", "12", "12", 0, 0, 0, 0, 0, 0, 0], ["12", 0, "T", "T", 0, "10", 0, 0, 0, 0, 0, 0, 0], ["10", 0, "T", "T", 0, "10", 0, 0, 0, "12", "12", "12", 0], ["10", 0, 0, 0, 0, "12", "8", "12", "12", "12", 0, "10", 0], ["12", 0, 0, 0, 0, 0, 0, 0, "S", "12", 0, "8", 0], ["12", "12", 0, 0, 0, "B", 0, "B", 0, "B", 0, "10", 0], [0, "12", 0, 0, 0, 0, "12", 0, "12", 0, 0, "12", 0], [0, "12", "12", "12", "12", "10", "12", 0, "12", "B", 0, "12", 0], [0, 0, 0, 0, 0, 0, "12", 0, 0, 0, "12", "12", 0], [0, 0, 0, 0, 0, 0, "12", "12", "10", "12", "12", 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }, { "data": [["11", "11", "1", "1", "11", "11", 0, 0, 0, 0, 0, 0, 0], ["11", 0, 0, 0, 0, "3", 0, 0, 0, 0, 0, 0, 0], ["1", 0, 0, 0, 0, "3", 0, 0, 0, "11", "11", "11", 0], ["1", 0, 0, 0, 0, "11", "9", "3", "11", "11", 0, "11", 0], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11", 0, "9", 0], ["11", "11", 0, 0, 0, 0, 0, 0, 0, 0, 0, "11", 0], [0, "11", 0, 0, 0, 0, "11", 0, "11", 0, 0, "1", 0], [0, "11", "11", "1", "1", "11", "11", 0, "11", 0, 0, "11", 0], [0, 0, 0, 0, 0, 0, "11", 0, 0, 0, "11", "11", 0], [0, 0, 0, 0, 0, 0, "11", "11", "1", "11", "11", 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }] }
+    { "width": 11, "height": 13, "layer": [{ "data": [["12", "12", "10", "10", "12", "12", 0, 0, 0, 0, 0, 0, 0], ["12", 0, "T", "T", 0, "10", 0, 0, 0, 0, 0, 0, 0], ["10", 0, "T", "T", 0, "10", 0, 0, 0, "12", "12", "12", 0], ["10", 0, 0, 0, 0, "12", "8", "12", "12", "12", 0, "10", 0], ["12", 0, 0, 0, 0, 0, 0, 0, "S", "12", 0, "8", 0], ["12", "12", 0, 0, 0, "B", 0, "B", 0, "B", 0, "10", 0], [0, "12", 0, 0, 0, 0, "12", 0, "12", 0, 0, "12", 0], [0, "12", "12", "12", "12", "10", "12", 0, "12", "B", 0, "12", 0], [0, 0, 0, 0, 0, 0, "12", 0, 0, 0, "12", "12", 0], [0, 0, 0, 0, 0, 0, "12", "12", "10", "12", "12", 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }, { "data": [["11", "11", "1", "1", "11", "11", 0, 0, 0, 0, 0, 0, 0], ["11", 0, 0, 0, 0, "3", 0, 0, 0, 0, 0, 0, 0], ["1", 0, 0, 0, 0, "3", 0, 0, 0, "11", "11", "11", 0], ["1", 0, 0, 0, 0, "11", "9", "3", "11", "11", 0, "11", 0], ["11", 0, 0, 0, 0, 0, 0, 0, 0, "11", 0, "9", 0], ["11", "11", 0, 0, 0, 0, 0, 0, 0, 0, 0, "11", 0], [0, "11", 0, 0, 0, 0, "11", 0, "11", 0, 0, "1", 0], [0, "11", "11", "1", "1", "11", "11", 0, "11", 0, 0, "11", 0], [0, 0, 0, 0, 0, 0, "11", 0, 0, 0, "11", "11", 0], [0, 0, 0, 0, 0, 0, "11", "11", "1", "11", "11", 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }] },
+    {"width":9,"height":11,"layer":[{"data":[[0,0,"12","12","12","12","12","12","12",0,0],["12","10","12",0,0,0,0,0,"12","10","12"],["10","T",0,0,"4","S","4",0,0,0,"10"],["12",0,"T",0,0,"4",0,0,0,0,"12"],["10","T",0,0,0,0,0,0,0,0,"10"],["12","12",0,0,0,"B",0,0,0,"12","12"],[0,"10",0,0,"B",0,"B",0,0,"10",0],[0,"12",0,0,0,0,0,0,0,"12",0],[0,"12","12","15","12","8","12","12","12","12",0]]},{"data":[[0,0,"11","14","11","14","11","14","11",0,0],["11","14","11",0,0,0,0,0,"11","14","11"],["3",0,0,0,"14",0,"14",0,0,0,"2"],["3",0,0,0,0,"14",0,0,0,0,"3"],["16",0,0,0,0,0,0,0,0,0,"16"],["11","11",0,0,0,0,0,0,0,"11","11"],[0,"13",0,0,0,0,0,0,0,"2",0],[0,"11",0,0,0,0,0,0,0,"11",0],[0,"11","11","1","11","9","11","1","11","11",0]]},{"data":[[0,0,"11","14","17","14","17","14","11",0,0],["11","14","11",0,0,0,0,0,"11","14","11"],["2",0,0,0,"14",0,"14",0,0,0,"2"],["11",0,0,0,0,"14",0,0,0,0,"11"],["11",0,0,0,0,0,0,0,0,0,"11"],["11","11","4","5","4","5","4","5","4","11","11"],[0,"11","4","4","4","4","4","4","4","11",0],[0,"11","4","5","4","5","4","5","4","11",0],[0,"11","11","11","11","11","11","11","11","11",0]]}]}
 
 ];
+//1,2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16 
+const indexes = [, , 11, , , , , , 11, , , , 12, , 10, 9];
 
 var LevelController = pc.createScript('levelController');
 
 LevelController.prototype.initialize = function () {
     this.app.levelController = this;
     this.tilesTexture = this.app.assets.find("tiles", "texture").resource;
+    this.colorsTexture = this.app.assets.find("colors", "texture").resource;
+
     this.shader = this.app.assets.find("shader", "shader").resource;
 
-    this.currentLevel = 5;
+    this.currentLevel = 8;
     this.boxMaterial = new pc.Material();
 
     this.debugBox = new pc.Entity();
@@ -187,26 +193,30 @@ LevelController.prototype.initialize = function () {
     this.material = [];
     this.shapes = [];
 
-
     this.tilesTexture.magFilter =
         this.tilesTexture.minFilter = pc.FILTER_NEAREST;
+
+    this.colorsTexture.magFilter =
+        this.colorsTexture.minFilter = pc.FILTER_NEAREST;
 
     this.app.root.on("box:onTarget", this.onTarget, this);
     this.app.root.on("box:offTarget", this.offTarget, this);
     this.app.root.on("box:onNewTile", this.onNewTile, this);
     this.app.root.on("box:doneMoving", this.calculateTargets, this);
 
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < numOfSprites; i++) {
         let mat = new pc.Material();
         mat.setShader(this.shader);
         mat.setParameter('index', i);
         mat.setParameter('DiffuseTexture', this.tilesTexture);
-        mat.setParameter('spriteDimensions', [16.0, 1.0]);
+        mat.setParameter('Lookup', this.colorsTexture);
+        mat.setParameter('spriteDimensions', [numOfSprites, 1.0]);
         mat.setParameter('repeat', [1, 1]);
         mat.setParameter('tint', [0, 0, 0, 0]);
         mat.update();
         this.material.push(mat);
     }
+
 }
 
 
@@ -233,7 +243,6 @@ LevelController.prototype.createLevel = function () {
                         shape.addComponent("script");
                         shape.script.create('shape');
                         shape.tags.add("floor");
-                        shape.name = 'floory';
                         shape.setLocalPosition(row - LevelData[this.currentLevel].width / 2, 0, col - LevelData[this.currentLevel].height / 2);
                         shape.setLocalScale(1, .01, 1);
                         this.levelGeometry.addChild(shape);
@@ -258,6 +267,7 @@ LevelController.prototype.createLevel = function () {
                         this.createTarget(row - LevelData[this.currentLevel].width / 2, col - LevelData[this.currentLevel].height / 2, layer);
                         this.targetsToComplete++;
                         break;
+
                     default:
                         this.createCube(row - LevelData[this.currentLevel].width / 2, layer, col - LevelData[this.currentLevel].height / 2, tile);
                         break;
@@ -278,7 +288,7 @@ LevelController.prototype.createFloor = function (width, height, floor) {
     floorMaterial.setShader(this.shader);
     floorMaterial.setParameter('index', 3);
     floorMaterial.setParameter('DiffuseTexture', this.tilesTexture);
-    floorMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
+    floorMaterial.setParameter('spriteDimensions', [numOfSprites, 1.0]);
     floorMaterial.setParameter('repeat', [width, height]);
     floorMaterial.setParameter('', [0, 0, 0, 0]);
     floorMaterial.update();
@@ -302,7 +312,7 @@ LevelController.prototype.createCeiling = function (width, height, ceiling) {
     ceilingMaterial.setShader(this.shader);
     ceilingMaterial.setParameter('index', 4);
     ceilingMaterial.setParameter('DiffuseTexture', this.tilesTexture);
-    ceilingMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
+    ceilingMaterial.setParameter('spriteDimensions', [numOfSprites, 1.0]);
     ceilingMaterial.setParameter('repeat', [width, height]);
     ceilingMaterial.setParameter('tint', [0, 0, 0, 0]);
     ceilingMaterial.update();
@@ -323,8 +333,8 @@ LevelController.prototype.createTarget = function (x, y, floor) {
 
     targetMaterial.setShader(this.shader);
     targetMaterial.setParameter('index', 6);
-    targetMaterial.setParameter('DiffuseTexture', this.resource);
-    targetMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
+    targetMaterial.setParameter('DiffuseTexture', this.tilesTexture);
+    targetMaterial.setParameter('spriteDimensions', [numOfSprites, 1.0]);
     targetMaterial.setParameter('repeat', [1, 1]);
     targetMaterial.setParameter('tint', [0, 0, 0, 0]);
     targetMaterial.update();
@@ -366,7 +376,7 @@ LevelController.prototype.createBox = function (x, y, floor) {
     boxMaterial.setShader(this.shader);
     boxMaterial.setParameter('index', 5);
     boxMaterial.setParameter('DiffuseTexture', this.tilesTexture);
-    boxMaterial.setParameter('spriteDimensions', [16.0, 1.0]);
+    boxMaterial.setParameter('spriteDimensions', [numOfSprites, 1.0]);
     boxMaterial.setParameter('repeat', [0.9, 0.9]);
     boxMaterial.setParameter('tint', [0, 0, 0, 0]);
     boxMaterial.update();
@@ -388,7 +398,6 @@ LevelController.prototype.createBox = function (x, y, floor) {
     boxEntity.script.create('boxController');
 
     boxEntity.tags.add('box');
-    boxEntity.name = 'boxy';
     this.levelGeometry.addChild(boxEntity);
 }
 
@@ -399,6 +408,15 @@ LevelController.prototype.createCube = function (x, y, z, tileIndex) {
     });
     cube.setLocalScale(1, 1, 1);
     cube.translate(x, y + .5, z);
+
+    if ([2, 9, 12, 14, 15].includes(tileIndex - 1)) {
+        cube.addComponent("script");
+        cube.script.create('textureanim', {
+            attributes: {
+                index: indexes[tileIndex - 1]
+            }
+        });
+    }
     cube.render.material = this.material[tileIndex - 1];
 
     this.levelGeometry.addChild(cube);
@@ -444,7 +462,7 @@ LevelController.prototype.onNewTile = function (boxEntity, targetPosition, lastT
 LevelController.prototype.onTarget = function (boxEntity) {
     this.targetsToComplete--;
     if (this.targetsToComplete === 0) {
-        sound.play(1);        
+        sound.play(1);
         setTimeout(async () => {
             await this.app.mainCamera.script.blackness.fadeOut();
             this.currentLevel++;
@@ -457,7 +475,7 @@ LevelController.prototype.onTarget = function (boxEntity) {
 
             await this.app.mainCamera.script.blackness.fadeIn();
 
-        },2000);
+        }, 2000);
     }
 }
 
