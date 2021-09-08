@@ -39,7 +39,7 @@
     let shaderDefinition = {
         attributes: {
             aPosition: pc.gfx.SEMANTIC_POSITION,
-            vertex_texCoord0: pc.gfx.SEMANTIC_TEXCOORD0
+            vertex_texCoord0: pc.gfx.SEMANTIC_TEXCOORD0,            
         },
         vshader: vertShader,
         fshader: fragShader

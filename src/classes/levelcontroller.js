@@ -172,7 +172,7 @@ LevelController.prototype.initialize = function () {
     this.tilesTexture = this.app.assets.find("tiles", "texture").resource;
     this.shader = this.app.assets.find("shader", "shader").resource;
 
-    this.currentLevel = 0;
+    this.currentLevel = 5;
     this.boxMaterial = new pc.Material();
 
     this.debugBox = new pc.Entity();
