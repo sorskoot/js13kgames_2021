@@ -33,8 +33,7 @@ SpaceTexture.prototype.initialize = function () {
     //66, 10, 77
     //41, 17, 69
     //-25*v+41, 7*v+10, -8*v+59
-    c2d.putImageData(imageData, 0, 0);
-    document.body.appendChild(canvas);
+    c2d.putImageData(imageData, 0, 0);    
     const img = new Image();
     img.src = canvas.toDataURL();
     img.width = width;

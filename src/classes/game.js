@@ -1,4 +1,5 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
+
 //import { LevelController } from "./levelcontroller";
 
 const movementSpeed = 1.5; // 1.5 m/s
@@ -17,10 +18,10 @@ var GameController = pc.createScript('game');
 GameController.prototype.initialize = function () {
 
     this.app.game = this;
-
+    
     this.controllers = [];
     this.lastRotateValue = 0;
-
+    this.inVR = false;
     this.app.root.addComponent('script');
     this.app.root.script.create('shapeWorld');
     this.app.root.script.create('spacetexture');
@@ -60,15 +61,15 @@ GameController.prototype.initialize = function () {
     this.restartButton = this.createButton('Restart', .1, 1.2, -3, 0.6, .25);
     this.restartButton.on('button:click', () => {
         sound.play(3);
-        this.gameStateChange('play','restart');
+        this.gameStateChange('play', 'restart');
     })
     this.restartButton.enabled = false;
     this.textgroup.addChild(this.restartButton);
 
     this.continueButton = this.createButton('Continue', -.9, 1.2, -3, 0.6, .25);
-    this.continueButton.on('button:click', () => {        
+    this.continueButton.on('button:click', () => {
         sound.play(3);
-        this.gameStateChange('play','continue');
+        this.gameStateChange('play', 'continue');
     })
     this.continueButton.enabled = false;
     this.textgroup.addChild(this.continueButton);
@@ -77,7 +78,7 @@ GameController.prototype.initialize = function () {
     this.playButton.on('button:click', () => {
         InitAudio();
         sound.play(3);
-        this.gameStateChange('play');        
+        this.gameStateChange('play');
     })
     this.textgroup.addChild(this.playButton);
 
@@ -106,6 +107,22 @@ GameController.prototype.initialize = function () {
             modelEntity: this.locator
         }
     });
+
+    this.desktopPointer = new pc.Entity();
+    this.desktopPointer.addComponent('render',{
+        type: 'box'
+    });
+    const pointerMaterial = new pc.StandardMaterial();
+    pointerMaterial.diffuse = new pc.Color(0.98, 0.98, 0.76);
+    pointerMaterial.depthTest = false;
+    pointerMaterial.depthWrite = false;
+    pointerMaterial.blendType = pc.BLEND_NORMAL;
+    pointerMaterial.update();    
+    this.desktopPointer.setLocalScale(.005, .005, .005);
+    this.desktopPointer.setPosition(0,0,-1);
+    this.desktopPointer.render.material = pointerMaterial;    
+    this.camera.addChild(this.desktopPointer);
+
 
     this.app.root.script.create('controllers', {
         attributes: {
@@ -151,16 +168,25 @@ GameController.prototype.initialize = function () {
 
 }
 GameController.prototype.startXR = function () {
-    InitAudio();
-    this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
-        callback: (err) => {
-                if (err) console.error("WebXR Immersive VR failed to start: " + err.message);
+    InitAudio();    
+    this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {        
+        callback: (err) => {            
+            if (err){
+                console.error("WebXR Immersive VR failed to start: " + err.message);
+                this.inVR = false;
+                this.desktopPointer.enabled = true;
+            }else{
+                this.inVR = true;
+                this.desktopPointer.enabled = false;
+            }
         }
-    });    
-    
+    });
+
 }
 GameController.prototype.endXR = function () {
     this.camera.camera.endXr();
+    this.desktopPointer.enabled = true;
+    this.inVR = false;
 }
 
 GameController.prototype.createButton = function (text, x, y, z, scalex, scaley) {
@@ -189,7 +215,7 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
         case 'play':
             this.textgroup.enabled = false;
             await this.app.mainCamera.script.blackness.fadeOut()
-            if (this.gameState == 'pause' && extraData == 'continue') {                                
+            if (this.gameState == 'pause' && extraData == 'continue') {
                 this.app.levelController.unpause();
             }
             else {
@@ -198,6 +224,10 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
             break;
         case 'pause':
             await this.app.levelController.pause();
+            var pos = this.cameraParent.getPosition();
+            this.textgroup.setPosition(pos.x, 0, pos.z);
+            var rot = this.app.mainCamera.getRotation().getEulerAngles();
+            this.textgroup.setLocalEulerAngles(0, rot.y, 0);
             this.playButton.enabled = false;
             this.restartButton.enabled = true;
             this.continueButton.enabled = true;

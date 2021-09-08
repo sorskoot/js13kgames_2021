@@ -14,10 +14,10 @@ Must have:
     ✔ Remove old teleportion check code. @done(21-09-05 15:39)
     ☐ Be very easy to restart levels    
         ☐ Button on desktop, like VR button
-        ☐ In VR we can show a screen with 2 buttons, "Restart? Yes/No"
+        ✔ In VR we can show a screen with 2 buttons, "Restart? Yes/No" @done(21-09-07 23:31)
     ✔ 5 levels @done(21-09-06 22:38)
     ✔ UI in VR component @done(21-09-06 22:38)
-    ☐ Menu
+    ✔ Menu @done(21-09-07 23:31)
         ~ https://forum.playcanvas.com/t/solved-generating-new-material-in-script/8134
     ✔ Title Screen @done(21-09-04 19:58)
     ✔ Gulp pipeline to better compress @done(21-09-04 19:58)
@@ -66,7 +66,8 @@ Bugs:
         ✔ Make the boxes color individualy @done(21-09-02 22:47)
         ✔ Teleporting does not work all the time... @done(21-09-05 13:03)
         ☐ On desktop you have to first get focus befor you can start the game. This needs to be only one click, or with a differnt button
-
+        ☐ Make sure title is in from of the camera when pausing
+        
     @high:
         ☐ prevent teleportation when moving a box.
         ✔ prevent player from teleporting into walls or over them @done(21-09-02 19:14)

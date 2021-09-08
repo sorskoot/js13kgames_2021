@@ -87,6 +87,7 @@
 
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {
+            app.game.gameStateChange('pause');
             if (evt.key === pc.KEY_ESCAPE && app.xr.active) {
                 app.game.endXR();
                 app.xr.end();

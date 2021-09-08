@@ -32,6 +32,7 @@ Controller.prototype.onSelectStart = function () {
     if (this.teleportableEntity) {
         // teleport
         if (this.app.xr.active) {
+            sound.play(2);
             this.app.fire('teleport:to', this.hoverPoint);
         }
     } else if (this.hoverEntity && !this.holdingEntity) {
@@ -43,6 +44,7 @@ Controller.prototype.onSelectStart = function () {
 Controller.prototype.onSelectEnd = function () {
     if (this.teleportableEntity) {
         if (!this.app.xr.active && this.teleportable) {
+            sound.play(2);
             this.app.fire('teleport:to', this.hoverPoint);
         }
     }

@@ -20,7 +20,11 @@ Button.prototype.initialize = function () {
     this.entity.render.material = material;
     //this.entity.addComponent('script');
     this.entity.name = this.text;
-    this.entity.script.create('shape');
+    this.entity.script.create('shape',{
+        attributes:{
+            keepUpdating:true
+        }
+    });
     this.entity.tags.add("button");
 
     this.entity.on('object:onhover', (e) => {
