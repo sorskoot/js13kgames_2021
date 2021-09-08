@@ -39,6 +39,7 @@ Should have:
 
 Could have:
     2 Bonus level for Coil users:
+        ✔ Add web monitization meta tag @done(21-09-08 22:14)
         ☐ 2 hard levels
         ☐ checks on web monitization
         ☐ Extra button for Coil users
@@ -84,7 +85,7 @@ Bugs:
             ~ when 2 boxes are next to each other, you can't move them
     @low:
         ☐ teleporting next to box should be possible more often
-        ☐ prevent player from walking through walls in VR (maybe add shapes to every block, to block ray)
+        ✔ prevent player from walking through walls in VR (maybe add shapes to every block, to block ray) @done(21-09-08 22:10)
         ☐ Make game work with levels with odd Width and Height
 
 

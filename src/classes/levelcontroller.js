@@ -181,15 +181,6 @@ LevelController.prototype.initialize = function () {
     this.currentLevel = 8;
     this.boxMaterial = new pc.Material();
 
-    this.debugBox = new pc.Entity();
-    this.debugBox.addComponent('render', {
-        type: 'box'
-    });
-    this.debugBox.setLocalScale(0.4, 0.4, 0.4);
-    this.debugBox.setPosition(0, 0, 0);
-    this.debugBox.setName('debugBox');
-
-
     this.material = [];
     this.shapes = [];
 
@@ -225,8 +216,7 @@ LevelController.prototype.createLevel = function () {
     this.shapes = [];
     this.levelGeometry = new pc.Entity();
     this.levelGeometry.enabled = false;
-    this.app.root.addChild(this.levelGeometry);
-    //this.levelGeometry.addChild(this.debugBox);
+    this.app.root.addChild(this.levelGeometry);    
     this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.currentLevel]));
     this.targetsToComplete = 0;
 
@@ -408,9 +398,9 @@ LevelController.prototype.createCube = function (x, y, z, tileIndex) {
     });
     cube.setLocalScale(1, 1, 1);
     cube.translate(x, y + .5, z);
-
-    if ([2, 9, 12, 14, 15].includes(tileIndex - 1)) {
-        cube.addComponent("script");
+    cube.addComponent("script");
+    cube.script.create('shape');
+    if ([2, 9, 12, 14, 15].includes(tileIndex - 1)) {        
         cube.script.create('textureanim', {
             attributes: {
                 index: indexes[tileIndex - 1]
