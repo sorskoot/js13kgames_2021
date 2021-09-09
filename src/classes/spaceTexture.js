@@ -3,7 +3,7 @@ var SpaceTexture = pc.createScript('spacetexture');
 // initialize code called once per entity
 SpaceTexture.prototype.initialize = function () {
     var canvas = document.createElement("canvas");
-    const width = canvas.width = 2048, height= canvas.height = 3000;
+    const width = canvas.width = 2048, height= canvas.height = 1024;
     var c2d = canvas.getContext("2d");
     c2d.fillStyle = "#FF00FF";
     c2d.fillRect(0, 0, canvas.width, canvas.height)
@@ -25,9 +25,9 @@ SpaceTexture.prototype.initialize = function () {
         let y = ~~(Math.random() * canvas.height);
         var i = (y * canvas.width + x) * 4;       
         var v = noise2d(2 * x / canvas.width, 2 * y / canvas.height); 
-        data[i + 0] = 125+v*125;
-        data[i + 1] = 125+v*125;
-        data[i + 2] = 100+v*95;
+        data[i + 0] = 50+v*200;
+        data[i + 1] = 50+v*200;
+        data[i + 2] = 30+v*165;
         data[i + 3] = 0xff;
     }
     //66, 10, 77
@@ -43,6 +43,9 @@ SpaceTexture.prototype.initialize = function () {
         width: width,
         height: height,
         format: pc.PIXELFORMAT_R8_G8_B8,
+        magFilter:pc.FILTER_NEAREST,
+        minFilter:pc.FILTER_NEAREST,
+        
     });
     texture.setSource(img);   
 
