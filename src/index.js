@@ -1,7 +1,7 @@
 /// <reference path="../typings/playcanvas.d.ts" />
 
 (function () {
-    
+
     console.log("Initializing game...");
     const canvas = document.getElementById('application');
     const app = new pc.Application(canvas, {
@@ -15,7 +15,7 @@
     const game = new pc.Entity();
     game.addComponent('script');
     game.script.create('game');
-    app.root.addChild(game);    
+    app.root.addChild(game);
 
     console.log("Loading assets...");
     const texturemap = "data:image/webp;base64,UklGRuwDAABXRUJQVlA4TN8DAAAvD8EDEAfBNADAJGvuAxqNSuIP7naLblm6/sE2sm0l38ncyYkpALqlFW2A2B0y1xmmAQAmWVtygbxM4hEu5Q5ucHeLrvMfAABnvry5k6MmOpq7+85qrQbQSY7B6N5+ZaOZCdo7fvzQagl2xDNeA+R8B7j5WXRxwNNCBO2Nloa+1i8dvweyVrVLXta7FtuduuLAYaBl23bcNjJlhQ5k8SmU1Tw3iDL/YQKvgVhr1fe9Ef2HIEly22YOtyWcDHsRFOAnlPHQVcomwTS+0xiYDoC1UF73sipQ/n+CpKgLYRgdjgQgYTR6nVIgxtMAuU9dLfu5w6JnY0ilWGP8D6Ihrg4SfAEwAejjqNw6XJqlwF3CvNO0/FgVAc+BZYxJdWGRaG9WoMEOBaSyIYaz5VxoZuJP/NC2mF03IcYEYkC8uGgA0MDn6QKybLKronc53S5/5K5SAONaPIAk0TjHezgklUcT37Cco41ZDfFyQAMHYh2JWYy32b5kmLyCzLIkZ4glA5jinDT0eTM+47cfZ5uMxgl4d2fjPhVByToazC+kvK+kGTcmR9u+cbSw8mCClQ4pT2Dn/DbvaR1FJ8B4AxkLCYsGDiafVmKfOzMxfCw7PFp9eegKAdTvu11bRtJwEjPhZ7owgHxH5x1e3BI4ObIvfEvPoVIAsB4MtsUgh7p/1fUJ/MMQPsSR5JSUr/bgaxBicftuiAVjAkw/vy+nhsKSdUgSmN8AL+ThdX84RkhlAatYXIvATnJ4V1qyfEIoHpueRD6YP21x+76VsMnlNFHK7qoZgWDet9bFsZ8TSv33jRJDKZEIByAdWT4hgiXqhIVElpVp2WL3PcTNNZSkc8HcQMETsn/FHErvJIBfeAaG5OcuyVQSsEX54cqP5YHd8ligASQZdk6Xp8qX22wAsJX0EfiOYQW3InsIponUlwcAQvyPThr73K3IyrS4993tpOKTU1gOho2WTfYWwVpQOUqSLJT43IFpIvXlPBAQR5yYNPZ5XZGWRwVOpibZ9x7Dd/38O69SHoumw85jw3ra5mEVAJWDRDlYjnO07LqeKAeGfQyUh8V9L0YkMRXTJwfL54HvPQP3hL419WCi8twIrgx2nCbJImkEDIcDCDrZ9+IBm8RiRjyw7IbKio6JVlZgoBwdEBjgniMoTigFwi4xo/eEXzig14v5A0VderqnuK5ABz4GfJXkCS0vSYz4TL/3AAjEv5UppKCP05F7pJbkiOT3yA0k96l+SYr5A+4e5abaSJcNTGPAl8YoW5vM70Hv6YjPLSJ8nx+BGgeZ3su3kGejcTcI2B1s8H+M3Fe2MFus09MQAA==";
@@ -38,12 +38,12 @@
     colorsTexture.resource = texture2;
     colorsTexture.ready = true;
     app.assets.add(colorsTexture);
-    
+
     console.log("Loading shader...");
     let shaderDefinition = {
         attributes: {
             aPosition: pc.gfx.SEMANTIC_POSITION,
-            vertex_texCoord0: pc.gfx.SEMANTIC_TEXCOORD0,            
+            vertex_texCoord0: pc.gfx.SEMANTIC_TEXCOORD0,
         },
         vshader: vertShader,
         fshader: fragShader
@@ -75,32 +75,34 @@
             }
         });
 
-        if (app.touch) {
-            app.touch.on("touchend", function (evt) {
-                if (!app.xr.active) {
-                    activate();
-                    enterVRButton.style.display = 'none';
-                } else {
-                    app.game.endXR();
-                    enterVRButton.style.display = 'block';
-                }
-                evt.event.preventDefault();
-                evt.event.stopPropagation();
-            });
-        }
+        // if (app.touch) {
+        //     app.touch.on("touchend", function (evt) {
+        //         if (!app.xr.active) {
+        //             activate();
+        //             enterVRButton.style.display = 'none';
+        //         } else {
+        //             app.game.endXR();
+        //             enterVRButton.style.display = 'block';
+        //         }
+        //         evt.event.preventDefault();
+        //         evt.event.stopPropagation();
+        //     });
+        // }
 
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {
-            app.game.gameStateChange('pause');
-            if (evt.key === pc.KEY_ESCAPE && app.xr.active) {
-                app.game.endXR();
-                app.xr.end();
-                enterVRButton.style.display = 'block';
+            if (evt.key === pc.KEY_ESCAPE) {
+                app.game.gameStateChange('pause');
+                if (app.xr.active) {
+                    app.game.endXR();
+                    app.xr.end();
+                    enterVRButton.style.display = 'block';
+                }
             }
         });
 
         app.xr.on('end', function () {
             enterVRButton.style.display = 'block';
-        });        
-    } 
+        });
+    }
 })();

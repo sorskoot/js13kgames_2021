@@ -6,7 +6,7 @@
   "scripts": {
     "startx": "webpack-dev-server --config webpack.dev",
     "start": "live-server ./dist --port=1337 --watch=main.js --verbose",
-    "build": "webpack --config webpack.prod --progress --colors"
+    "buildProd": "gulp prod"
   },
   "repository": {
     "type": "git",

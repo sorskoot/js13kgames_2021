@@ -59,11 +59,11 @@ Controller.prototype.pick = function () {
     if (this.inputSource) {
         this.ray.set(this.inputSource.getOrigin(), this.inputSource.getDirection());
     } else if (!pc.Mouse.isPointerLocked()) {
-        this.app.mainCamera.camera.screenToWorld(this.mouseCoords.x, this.mouseCoords.y, this.app.mainCamera.camera.nearClip, this.vecA);
-        this.app.mainCamera.camera.screenToWorld(this.mouseCoords.x, this.mouseCoords.y, this.app.mainCamera.camera.farClip, this.vecB);
-        this.vecB.sub(this.vecA).normalize();
-        this.ray.set(this.vecA, this.vecB);
-        this.holdingNoOffset = true;
+        // this.app.mainCamera.camera.screenToWorld(this.mouseCoords.x, this.mouseCoords.y, this.app.mainCamera.camera.nearClip, this.vecA);
+        // this.app.mainCamera.camera.screenToWorld(this.mouseCoords.x, this.mouseCoords.y, this.app.mainCamera.camera.farClip, this.vecB);
+        // this.vecB.sub(this.vecA).normalize();
+        // this.ray.set(this.vecA, this.vecB);
+        // this.holdingNoOffset = true;
     } else {
         this.ray.set(this.app.mainCamera.getPosition(), this.app.mainCamera.forward);
     }

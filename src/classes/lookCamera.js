@@ -21,7 +21,7 @@ LookCamera.prototype.initialize = function () {
     
     this.movedMouse = 0;
     this.movedStart = 0;
-    this.touchCoords = new pc.Vec2();
+   // this.touchCoords = new pc.Vec2();
 
     this.app.mouse.on(pc.EVENT_MOUSEDOWN, this._onMouseDown, this);
     this.app.mouse.on(pc.EVENT_MOUSEUP, this._onMouseUp, this);
@@ -29,12 +29,12 @@ LookCamera.prototype.initialize = function () {
     
     this.app.mouse.disableContextMenu();
     
-    if (this.app.touch) {
-        this.app.touch.on(pc.EVENT_TOUCHSTART, this._onTouchStart, this);
-        this.app.touch.on(pc.EVENT_TOUCHEND, this._onTouchEndCancel, this);
-        this.app.touch.on(pc.EVENT_TOUCHCANCEL, this._onTouchStartEndCancel, this);
-        this.app.touch.on(pc.EVENT_TOUCHMOVE, this._onTouchMove, this);
-    }
+    // if (this.app.touch) {
+    //     this.app.touch.on(pc.EVENT_TOUCHSTART, this._onTouchStart, this);
+    //     this.app.touch.on(pc.EVENT_TOUCHEND, this._onTouchEndCancel, this);
+    //     this.app.touch.on(pc.EVENT_TOUCHCANCEL, this._onTouchStartEndCancel, this);
+    //     this.app.touch.on(pc.EVENT_TOUCHMOVE, this._onTouchMove, this);
+    // }
     
     this.app.mainCamera = this.entity;
     
@@ -83,24 +83,24 @@ LookCamera.prototype._onMouseDown = function (event) {
     
 };
 
-LookCamera.prototype._onTouchStart = function (event) {
-    if (this.app.xr.active) return;
+// LookCamera.prototype._onTouchStart = function (event) {
+//     if (this.app.xr.active) return;
     
-    event.event.preventDefault();
+//     event.event.preventDefault();
     
-    if (event.touches.length !== 1) return;
+//     if (event.touches.length !== 1) return;
     
-    this.movedStart = Date.now();
-    this.movedMouse = 0;
+//     this.movedStart = Date.now();
+//     this.movedMouse = 0;
     
-    this.touchCoords.set(event.touches[0].x, event.touches[0].y);
+//     this.touchCoords.set(event.touches[0].x, event.touches[0].y);
     
-    if (this.gazeController) {
-        this.gazeController.script.controller.active = true;
-        this.gazeController.script.controller.mouseCoords.set(event.touches[0].x, event.touches[0].y);
-        this.gazeController.script.controller.onSelectStart();
-    }
-};
+//     if (this.gazeController) {
+//         this.gazeController.script.controller.active = true;
+//         this.gazeController.script.controller.mouseCoords.set(event.touches[0].x, event.touches[0].y);
+//         this.gazeController.script.controller.onSelectStart();
+//     }
+// };
 
 LookCamera.prototype._onMouseUp = function (event) {
     if (this.app.xr.active)
@@ -118,19 +118,19 @@ LookCamera.prototype._onMouseUp = function (event) {
     }
 };
 
-LookCamera.prototype._onTouchEndCancel = function (event) {
-    if (this.app.xr.active) return;
-    if (event.touches.length !== 0) return;
+// LookCamera.prototype._onTouchEndCancel = function (event) {
+//     if (this.app.xr.active) return;
+//     if (event.touches.length !== 0) return;
     
-    if (this.gazeController) {
-        if (this.movedMouse > 30 || (Date.now() - this.movedStart) > 300)
-            this.gazeController.script.controller.teleportable = false;
+//     if (this.gazeController) {
+//         if (this.movedMouse > 30 || (Date.now() - this.movedStart) > 300)
+//             this.gazeController.script.controller.teleportable = false;
         
-        this.gazeController.script.controller.onSelectEnd();
-        this.gazeController.script.controller.teleportable = true;
-        this.gazeController.script.controller.active = false;
-    }
-};
+//         this.gazeController.script.controller.onSelectEnd();
+//         this.gazeController.script.controller.teleportable = true;
+//         this.gazeController.script.controller.active = false;
+//     }
+// };
 
 LookCamera.prototype._onMouseMove = function (event) {
     if (this.app.xr.active)
@@ -149,24 +149,24 @@ LookCamera.prototype._onMouseMove = function (event) {
     }
 };
 
-LookCamera.prototype._onTouchMove = function (event) {
-    if (this.app.xr.active) return;
-    if (event.touches.length !== 1) return;
+// LookCamera.prototype._onTouchMove = function (event) {
+//     if (this.app.xr.active) return;
+//     if (event.touches.length !== 1) return;
     
-    if (this.gazeController)
-        this.gazeController.script.controller.mouseCoords.set(event.touches[0].x, event.touches[0].y);
+//     if (this.gazeController)
+//         this.gazeController.script.controller.mouseCoords.set(event.touches[0].x, event.touches[0].y);
     
-    if (! this.gazeController) {
-        var dx = event.touches[0].x - this.touchCoords.x;
-        var dy = event.touches[0].y - this.touchCoords.y;
-        this.touchCoords.set(event.touches[0].x, event.touches[0].y);
+//     if (! this.gazeController) {
+//         var dx = event.touches[0].x - this.touchCoords.x;
+//         var dy = event.touches[0].y - this.touchCoords.y;
+//         this.touchCoords.set(event.touches[0].x, event.touches[0].y);
         
-        this.pitch = Math.max(-90, Math.min(90, this.pitch - (dy * this.mouseSensivity)));
-        this.yaw -= dx * this.mouseSensivity;
+//         this.pitch = Math.max(-90, Math.min(90, this.pitch - (dy * this.mouseSensivity)));
+//         this.yaw -= dx * this.mouseSensivity;
         
-        this.movedMouse += Math.abs(dy) + Math.abs(dx);
-    }
-};
+//         this.movedMouse += Math.abs(dy) + Math.abs(dx);
+//     }
+// };
 
 LookCamera.prototype.update = function (dt) {
      
