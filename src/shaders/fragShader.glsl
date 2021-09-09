@@ -1,5 +1,5 @@
 precision highp float;
-#define sw 17.
+#define sw 16.
 uniform sampler2D DiffuseTexture;
 uniform float index;
 uniform vec2 spriteDimensions;
@@ -14,7 +14,7 @@ void main(void) {
   float u = clamp(floor(mod(v_texcoord.x, 1.) * sw) / sw, 0., 1.) / spriteDimensions.x + (index * 1. / spriteDimensions.x);//+1.0/128.0;
   float v = clamp(floor(mod(v_texcoord.y, 1.) * sw) / sw, 0., 1.) / spriteDimensions.y;
   vec2 UV = vec2(u, v);
-  vec4 texturedColor = texture2D(DiffuseTexture, vec2(UV.x + 0.0005, UV.y));
+  vec4 texturedColor = texture2D(DiffuseTexture, vec2(UV.x + 0.0005, UV.y+1./64.));
   float a = texturedColor.r + texturedColor.g + texturedColor.b;
   if(a == 0.0) {
     discard;

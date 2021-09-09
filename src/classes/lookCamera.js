@@ -1,17 +1,12 @@
 var LookCamera = pc.createScript('lookCamera');
 
-LookCamera.attributes.add('mouseSensivity', {
-    title: 'Mouse Sensivity',
-    type: 'number',
-    default: 0.3
-});
-
 LookCamera.attributes.add('controllerTemplate', {
     title: 'Controller Template',
     type: 'entity',
 });
 
 LookCamera.prototype.initialize = function () {
+    this.mouseSensivity = 0.3;
     this._offsetParent = this.entity.parent;
     
     // Camera euler angle rotation around x and y axes
@@ -144,7 +139,9 @@ LookCamera.prototype._onMouseMove = function (event) {
         this.gazeController.script.controller.mouseCoords.set(event.x, event.y);
         this.gazeController.script.controller.active = true;
     }
-    
+    console.log(event.dy);
+    if(Math.abs(event.dy) > 25) return;
+    if(Math.abs(event.dx) > 25) return;
     if (pc.Mouse.isPointerLocked() || (this.app.mouse.isPressed(pc.MOUSEBUTTON_LEFT) && ! this.gazeController )) {
         this.pitch = Math.max(-90, Math.min(90, this.pitch - (event.dy * this.mouseSensivity)));
         this.yaw -= event.dx * this.mouseSensivity;
@@ -173,10 +170,10 @@ LookCamera.prototype._onMouseMove = function (event) {
 // };
 
 LookCamera.prototype.update = function (dt) {
-     
+    
     if (! this.app.xr.active) {
         this._offsetParent.setLocalEulerAngles(0, this.yaw, 0);
-        this.entity.setLocalEulerAngles(this.pitch, 0, 0);
+        this.entity.setLocalEulerAngles(this.pitch, 0, 0);        
     }
 };
 

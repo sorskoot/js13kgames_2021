@@ -21,12 +21,13 @@ Must have:
         ~ https://forum.playcanvas.com/t/solved-generating-new-material-in-script/8134
     ✔ Title Screen @done(21-09-04 19:58)
     ✔ Gulp pipeline to better compress @done(21-09-04 19:58)
+    ☐ After last level, show start menu (game state 'Start')
 
 
 Should have:
     ✔ @test Handle multiple boxes, prevent boxes from overlapping @done(21-09-02 19:14)
     Do we really need to support the 'touch' things?
-    ☐ Must have 10 levels.
+    ☐ @today Must have 10 levels.
     ☐ camera must face the center when starting a level.
     ✔ More variation in textures @done(21-09-08 16:56)
     ☐ Some lighting effect in the shader, maybe just add something shading based on the hight or something.
@@ -39,6 +40,7 @@ Should have:
 
 Could have:
     ☐ Better look start screen
+    ☐ Hide the gaze cursor when showing title screen on desktop
     2 Bonus level for Coil users:
         ✔ Add web monitization meta tag @done(21-09-08 22:14)
         ☐ 2 hard levels
@@ -69,6 +71,7 @@ Would like:
 
 Bugs: 
     @critical:
+         ☐ Error when resetting to quickly on dektop : "The user has exited the lock before this request was completed"
         ✔ Make sure title is in front of the camera when pausing @done(21-09-09 19:51)        
         ✔ reset camera after leaving XR @done(21-09-02 22:38)
         ✔ Reposition camera when going to the next level @done(21-09-02 19:14)
