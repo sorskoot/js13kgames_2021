@@ -220,10 +220,11 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
             break;
         case 'pause':
             await this.app.levelController.pause();
-            var pos = this.cameraParent.getPosition();
-            this.textgroup.setPosition(pos.x, 0, pos.z);
-            var rot = this.app.mainCamera.getRotation().getEulerAngles();
+            var pos = this.cameraParent.getPosition();            
+            this.textgroup.setPosition(pos.x, 0, pos.z);                        
+            var rot = this.app.mainCamera.getRotation().getEulerAngles();        
             this.textgroup.setLocalEulerAngles(0, rot.y, 0);
+            this.textgroup.lookAt(this.app.mainCamera);
             this.playButton.enabled = false;
             this.restartButton.enabled = true;
             this.continueButton.enabled = true;

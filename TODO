@@ -12,8 +12,8 @@ Must have:
     ✔ Level generator @done(21-08-27 21:20)
     ✔ rotate with controller @done(21-09-04 23:59)
     ✔ Remove old teleportion check code. @done(21-09-05 15:39)
-    ☐ Be very easy to restart levels    
-        ☐ Button on desktop, like VR button
+    ✔ Be very easy to restart levels @done(21-09-09 17:41)
+        ✔ Button on desktop, like VR button @done(21-09-09 17:41)
         ✔ In VR we can show a screen with 2 buttons, "Restart? Yes/No" @done(21-09-07 23:31)
     ✔ 5 levels @done(21-09-06 22:38)
     ✔ UI in VR component @done(21-09-06 22:38)
@@ -46,9 +46,9 @@ Could have:
         ☐ Extra button for Coil users
     ☐ Spatial Audio
     On desktop:
-        ☐ when pointerlocked, hide VR button.
-        ☐ When not pointerlocked, 'pause' game, disable teleport
-        ☐ When not pointerlocked, show VR button and Reset button
+        ✘ when pointerlocked, hide VR button. @cancelled(21-09-09 17:42)
+        ✔ When not pointerlocked, 'pause' game, disable teleport @done(21-09-09 17:42)
+        ✔ When not pointerlocked, show VR button and Reset button @done(21-09-09 17:43)
     ☐ 'Good boy' moment when level is done
     ☐ turn particles on target off when box is on top.
     ☐ better highlight when targetting a boxx
@@ -69,15 +69,17 @@ Would like:
 
 Bugs: 
     @critical:
+        ✔ Make sure title is in front of the camera when pausing @done(21-09-09 19:51)        
         ✔ reset camera after leaving XR @done(21-09-02 22:38)
         ✔ Reposition camera when going to the next level @done(21-09-02 19:14)
         ✔ Make the boxes color individualy @done(21-09-02 22:47)
         ✔ Teleporting does not work all the time... @done(21-09-05 13:03)
-        ☐ On desktop you have to first get focus befor you can start the game. This needs to be only one click, or with a differnt button
-        ☐ Make sure title is in from of the camera when pausing
-        ☐ Dont make sound if box cant move
+        ✔ On desktop you have to first get focus befor you can start the game. This needs to be only one click, or with a differnt button @done(21-09-09 17:42)                
+
     @high:
+        ☐ Dont make sound if box cant move
         ☐ prevent teleportation when moving a box.
+        ☐ Make sure title is in front of the camera when pausing on Desktop
         ✔ prevent player from teleporting into walls or over them @done(21-09-02 19:14)
             ~ the issue seems to change when after teleporting one time. The first time it works fine, then is it wrong. 
         ✔ prevent player from teleporting into the small space behind the box @done(21-08-29 13:38)
@@ -85,7 +87,7 @@ Bugs:
             ~ maybe add an invisible wall above other blocks to prevent this
             ~ when 2 boxes are next to each other, you can't move them
     @low:
-        ☐ teleporting next to box should be possible more often
+        ✔ teleporting next to box should be possible more often @done(21-09-09 17:42)
         ✔ prevent player from walking through walls in VR (maybe add shapes to every block, to block ray) @done(21-09-08 22:10)
         ☐ Make game work with levels with odd Width and Height
 

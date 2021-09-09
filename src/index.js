@@ -114,12 +114,11 @@
 
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {
-            if (evt.key === pc.KEY_ESCAPE) {
-                console.log("Ending session with Escape");
+            if (evt.key === pc.KEY_ESCAPE) {                
                 if (app.xr.active) {
                     app.game.endXR();
                     app.xr.end();
-                    //app.htmlEnterVRButton.style.display = 'block';
+                    app.htmlEnterVRButton.style.display = 'block';
                 }
             }
         });
