@@ -56,23 +56,46 @@
 
     app.start();
 
-    const enterVRButton = document.getElementById('enter-vr');
+    app.htmlEnterVRButton = document.getElementById('enter-vr');
+    app.htmlPlayButton = document.getElementById('play');    
+    app.htmlRestartButton = document.getElementById('restart');
+    
+    document.addEventListener('pointerlockchange', (e) => {
+        if (!document.pointerLockElement) {
+            app.game.gameStateChange('pause');
+            app.htmlPlayButton.classList.remove('none');
+            app.htmlRestartButton.classList.remove('none');
+        }
+    }, false);
 
     if (app.xr.supported) {
         const activate = function () {
             if (app.xr.isAvailable(pc.XRTYPE_VR)) {
                 app.game.startXR();
-
             } else {
                 console.log("Immersive VR is not available");
             }
         };
 
-        enterVRButton.addEventListener('click', () => {
+        app.htmlEnterVRButton.addEventListener('click', () => {
             if (!app.xr.active) {
-                activate();
-                enterVRButton.style.display = 'none';
+                activate();                
+                app.htmlRestartButton.classList.add('none');
             }
+        });
+        app.htmlPlayButton.addEventListener('click', () => {
+            app.mouse.enablePointerLock();
+            app.htmlEnterVRButton.classList.add('none');
+            app.htmlPlayButton.classList.add('none');
+            app.htmlRestartButton.classList.add('none');            
+            app.game.play();
+        });
+        app.htmlRestartButton.addEventListener('click', () => {
+            app.mouse.enablePointerLock();
+            app.htmlEnterVRButton.classList.add('none');
+            app.htmlPlayButton.classList.add('none');
+            app.htmlRestartButton.classList.add('none');            
+            app.game.restart();
         });
 
         // if (app.touch) {
@@ -92,17 +115,17 @@
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {
             if (evt.key === pc.KEY_ESCAPE) {
-                app.game.gameStateChange('pause');
+                console.log("Ending session with Escape");
                 if (app.xr.active) {
                     app.game.endXR();
                     app.xr.end();
-                    enterVRButton.style.display = 'block';
+                    //app.htmlEnterVRButton.style.display = 'block';
                 }
             }
         });
 
         app.xr.on('end', function () {
-            enterVRButton.style.display = 'block';
+            app.htmlEnterVRButton.style.display = 'block';
         });
     }
 })();

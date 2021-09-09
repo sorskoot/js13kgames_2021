@@ -60,17 +60,21 @@ LookCamera.prototype.initialize = function () {
     }, this);
 };
 
+/**
+ * Handels mouse down events.
+ * @param {Event} event 
+ */
 LookCamera.prototype._onMouseDown = function (event) {
     
     if (this.app.xr.active)
         return;
     
-    //Attempt to lock the pointer
-    if (! pc.Mouse.isPointerLocked()) {
-        if (event.event.target.id && event.event.target.id == 'application') {
-            this.app.mouse.enablePointerLock();
-        }
-    }
+    // //Attempt to lock the pointer
+    // if (! pc.Mouse.isPointerLocked()) {
+    //     if (event.event.target.id && event.event.target.id == 'application') {
+    //         //this.app.mouse.enablePointerLock();
+    //     }
+    // }
     
     if (event.button !== pc.MOUSEBUTTON_LEFT)
         return;
@@ -78,7 +82,7 @@ LookCamera.prototype._onMouseDown = function (event) {
     this.movedStart = Date.now();
     this.movedMouse = 0;
     
-    if (this.gazeController)
+    if (this.gazeController && pc.Mouse.isPointerLocked())
         this.gazeController.script.controller.onSelectStart();
     
 };
@@ -110,7 +114,7 @@ LookCamera.prototype._onMouseUp = function (event) {
         return;
     
     if (this.gazeController) {
-        if (! pc.Mouse.isPointerLocked() && (this.movedMouse > 30 || (Date.now() - this.movedStart) > 300))
+        if (!pc.Mouse.isPointerLocked() && (this.movedMouse > 30 || (Date.now() - this.movedStart) > 300))
             this.gazeController.script.controller.teleportable = false;
         
         this.gazeController.script.controller.onSelectEnd();

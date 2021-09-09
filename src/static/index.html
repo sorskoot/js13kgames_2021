@@ -13,7 +13,7 @@
             overflow: hidden;
         }
 
-        .button-container {
+        #button-container {
             display: flex;
             position: absolute;
             bottom: 0;
@@ -53,8 +53,9 @@
 
 <body>
     <canvas id='application'></canvas>
-    <div class="button-container">
+    <div id="button-container">
         <div class="button" id="enter-vr">Enter VR</div>
+        <div class="button" id="play">Play</div>
         <div class="button none" id="restart">Restart</div>
     </div>
     <script src="main.js"></script>

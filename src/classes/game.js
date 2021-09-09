@@ -18,7 +18,7 @@ var GameController = pc.createScript('game');
 GameController.prototype.initialize = function () {
 
     this.app.game = this;
-    
+
     this.controllers = [];
     this.lastRotateValue = 0;
     this.inVR = false;
@@ -51,36 +51,32 @@ GameController.prototype.initialize = function () {
     this.titleImage.addComponent('render', {
         type: 'plane'
     });
-    this.titleImage.translate(-.5, 1.8, -3.5);
+    this.titleImage.translate(0, 1.8, -2);
     this.titleImage.rotateLocal(90, 0, 0);
     this.titleImage.setLocalScale(3.2, .8, .8);
     this.titleImage.addComponent('script');
     this.titleImage.script.create('titleText',);
     this.textgroup.addChild(this.titleImage);
-
-    this.restartButton = this.createButton('Restart', .1, 1.2, -3, 0.6, .25);
-    this.restartButton.on('button:click', () => {
-        sound.play(3);
-        this.gameStateChange('play', 'restart');
-    })
+    this.buttons = new pc.Entity();
+    this.restartButton = this.createButton('Restart', .5, 1.4, -1.5, 0.6, .25);
+    this.restartButton.on('button:click', this.restart,this);
     this.restartButton.enabled = false;
-    this.textgroup.addChild(this.restartButton);
+    this.buttons.addChild(this.restartButton);
 
-    this.continueButton = this.createButton('Continue', -.9, 1.2, -3, 0.6, .25);
+    this.continueButton = this.createButton('Continue', -.5, 1.4, -1.5, 0.6, .25);
     this.continueButton.on('button:click', () => {
         sound.play(3);
         this.gameStateChange('play', 'continue');
     })
     this.continueButton.enabled = false;
-    this.textgroup.addChild(this.continueButton);
+    this.buttons.addChild(this.continueButton);
 
-    this.playButton = this.createButton('Play', -.4, 1.4, -3, 0.6, .25);
-    this.playButton.on('button:click', () => {
-        InitAudio();
-        sound.play(3);
-        this.gameStateChange('play');
-    })
-    this.textgroup.addChild(this.playButton);
+    this.playButton = this.createButton('Play', 0, 1.4, -1.5, 0.6, .25);
+    this.playButton.on('button:click', this.play, this)
+    this.playButton.enabled = true;
+    this.buttons.enabled = false;
+    this.buttons.addChild(this.playButton);
+    this.textgroup.addChild(this.buttons);
 
     this.app.root.addChild(this.textgroup);
     this.app.scene.ambientLight = new pc.Color(1, 1, 1);
@@ -109,7 +105,7 @@ GameController.prototype.initialize = function () {
     });
 
     this.desktopPointer = new pc.Entity();
-    this.desktopPointer.addComponent('render',{
+    this.desktopPointer.addComponent('render', {
         type: 'box'
     });
     const pointerMaterial = new pc.StandardMaterial();
@@ -117,10 +113,10 @@ GameController.prototype.initialize = function () {
     pointerMaterial.depthTest = false;
     pointerMaterial.depthWrite = false;
     pointerMaterial.blendType = pc.BLEND_NORMAL;
-    pointerMaterial.update();    
+    pointerMaterial.update();
     this.desktopPointer.setLocalScale(.005, .005, .005);
-    this.desktopPointer.setPosition(0,0,-1);
-    this.desktopPointer.render.material = pointerMaterial;    
+    this.desktopPointer.setPosition(0, 0, -1);
+    this.desktopPointer.render.material = pointerMaterial;
     this.camera.addChild(this.desktopPointer);
 
 
@@ -150,11 +146,11 @@ GameController.prototype.initialize = function () {
     this.app.root.addChild(levelController);
 
     this.app.xr.on('start', () => {
-
+        this.buttons.enabled = true;
     });
 
     this.app.xr.on('end', () => {
-
+        this.buttons.enabled = false;
     });
 
     this.on('button4:pressed', () => {
@@ -168,14 +164,14 @@ GameController.prototype.initialize = function () {
 
 }
 GameController.prototype.startXR = function () {
-    InitAudio();    
-    this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {        
-        callback: (err) => {            
-            if (err){
+    InitAudio();
+    this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
+        callback: (err) => {
+            if (err) {
                 console.error("WebXR Immersive VR failed to start: " + err.message);
                 this.inVR = false;
                 this.desktopPointer.enabled = true;
-            }else{
+            } else {
                 this.inVR = true;
                 this.desktopPointer.enabled = false;
             }
@@ -215,7 +211,7 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
         case 'play':
             this.textgroup.enabled = false;
             await this.app.mainCamera.script.blackness.fadeOut()
-            if (this.gameState == 'pause' && extraData == 'continue') {
+            if (this.gameState != 'start' && extraData == 'continue') {
                 this.app.levelController.unpause();
             }
             else {
@@ -238,4 +234,18 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
     };
     this.gameState = state;
     this.app.fire('game:stateChange', state, this);
+}
+
+GameController.prototype.play = function () {
+    InitAudio();
+    sound.play(3);
+    if(this.gameState == 'start')
+        this.gameStateChange('play');
+    else
+        this.gameStateChange('play', 'continue');
+}
+
+GameController.prototype.restart = function () {    
+    sound.play(3);
+    this.gameStateChange('play', 'restart');
 }

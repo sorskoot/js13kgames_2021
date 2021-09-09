@@ -38,6 +38,7 @@ Should have:
     
 
 Could have:
+    ☐ Better look start screen
     2 Bonus level for Coil users:
         ✔ Add web monitization meta tag @done(21-09-08 22:14)
         ☐ 2 hard levels
@@ -123,3 +124,10 @@ Notes:
         - add "data:image/webp;base64," in front of the string
 
 example project:https://developer.playcanvas.com/en/tutorials/webxr-vr-lab/
+
+
+Game states etc:
+    In browser:
+        Visible buttons: Enter VR, Play    
+    In VR:
+        Visible buttons in VR: Play
