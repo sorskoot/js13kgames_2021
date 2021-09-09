@@ -57,16 +57,16 @@
     app.start();
 
     app.htmlEnterVRButton = document.getElementById('enter-vr');
-    app.htmlPlayButton = document.getElementById('play');    
+    app.htmlPlayButton = document.getElementById('play');
     app.htmlRestartButton = document.getElementById('restart');
-    
+
     document.addEventListener('pointerlockchange', (e) => {
         if (!document.pointerLockElement) {
             app.game.gameStateChange('pause');
             app.htmlPlayButton.classList.remove('none');
             app.htmlRestartButton.classList.remove('none');
         }
-    }, false);
+    });
 
     if (app.xr.supported) {
         const activate = function () {
@@ -79,23 +79,25 @@
 
         app.htmlEnterVRButton.addEventListener('click', () => {
             if (!app.xr.active) {
-                activate();                
+                activate();
                 app.htmlRestartButton.classList.add('none');
             }
         });
         app.htmlPlayButton.addEventListener('click', () => {
-            app.mouse.enablePointerLock();
-            app.htmlEnterVRButton.classList.add('none');
-            app.htmlPlayButton.classList.add('none');
-            app.htmlRestartButton.classList.add('none');            
-            app.game.play();
+            app.mouse.enablePointerLock(() => {
+                app.htmlEnterVRButton.classList.add('none');
+                app.htmlPlayButton.classList.add('none');
+                app.htmlRestartButton.classList.add('none');
+                app.game.play();
+            });
         });
         app.htmlRestartButton.addEventListener('click', () => {
-            app.mouse.enablePointerLock();
-            app.htmlEnterVRButton.classList.add('none');
-            app.htmlPlayButton.classList.add('none');
-            app.htmlRestartButton.classList.add('none');            
-            app.game.restart();
+            app.mouse.enablePointerLock(() => {
+                app.htmlEnterVRButton.classList.add('none');
+                app.htmlPlayButton.classList.add('none');
+                app.htmlRestartButton.classList.add('none');
+                app.game.restart();
+            });
         });
 
         // if (app.touch) {
@@ -114,7 +116,7 @@
 
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {
-            if (evt.key === pc.KEY_ESCAPE) {                
+            if (evt.key === pc.KEY_ESCAPE) {
                 if (app.xr.active) {
                     app.game.endXR();
                     app.xr.end();
