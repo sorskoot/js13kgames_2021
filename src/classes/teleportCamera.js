@@ -3,11 +3,13 @@ let TeleportCamera = pc.createScript('teleportCamera');
 
 TeleportCamera.prototype.initialize = function () {
     this.tempVec = new pc.Vec3();
-
+    
     this.app.on('teleport:to', function (position, yrotation = null) {
         let targetPos = new pc.Vec3(Math.floor(position.x) + .5, 0, Math.floor(position.z) + .5);
         this.entity.setPosition(targetPos);
-
+        let temppos = this.entity.children[0].getLocalPosition();
+        this.entity.children[0].setLocalPosition(0, temppos.y, 0);
+    
         if (yrotation != null) {
             this.tempVec.copy(this.app.mainCamera.getLocalPosition());
             this.entity.translateLocal(this.tempVec);

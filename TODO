@@ -75,7 +75,8 @@ Would like:
 
 Bugs: 
     @critical:
-         ☐ Error when resetting to quickly on dektop : "The user has exited the lock before this request was completed"
+        ☐ After last level, the title does not correctly show in VR
+         ☐ Error when resetting to quickly on desktop : "The user has exited the lock before this request was completed"
         ✔ Make sure title is in front of the camera when pausing @done(21-09-09 19:51)        
         ✔ reset camera after leaving XR @done(21-09-02 22:38)
         ✔ Reposition camera when going to the next level @done(21-09-02 19:14)
