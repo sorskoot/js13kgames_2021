@@ -27,7 +27,7 @@ Must have:
 Should have:
     ✔ @test Handle multiple boxes, prevent boxes from overlapping @done(21-09-02 19:14)
     Do we really need to support the 'touch' things?
-    ☐ @today Must have 10 levels.
+    ✔ Must have 10 levels. @done(21-09-10 00:05)
     ☐ camera must face the center when starting a level.
     ✔ More variation in textures @done(21-09-08 16:56)
     ☐ Some lighting effect in the shader, maybe just add something shading based on the hight or something.
