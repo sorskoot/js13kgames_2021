@@ -63,6 +63,7 @@
     document.addEventListener('pointerlockchange', (e) => {
         if (!document.pointerLockElement) {
             app.game.gameStateChange('pause');
+            app.game.desktopPointer.enabled=false;
             app.htmlPlayButton.classList.remove('none');
             app.htmlRestartButton.classList.remove('none');
         }
@@ -87,16 +88,19 @@
             app.mouse.enablePointerLock(() => {
                 app.htmlEnterVRButton.classList.add('none');
                 app.htmlPlayButton.classList.add('none');
-                app.htmlRestartButton.classList.add('none');
+                app.htmlRestartButton.classList.add('none');                
                 app.game.play();
+                setTimeout(()=>{
+                    app.game.desktopPointer.enabled=true},700);
             });
         });
         app.htmlRestartButton.addEventListener('click', () => {
             app.mouse.enablePointerLock(() => {
                 app.htmlEnterVRButton.classList.add('none');
                 app.htmlPlayButton.classList.add('none');
-                app.htmlRestartButton.classList.add('none');
+                app.htmlRestartButton.classList.add('none');                
                 app.game.restart();
+                setTimeout(()=>{app.game.desktopPointer.enabled=true},700);
             });
         });
 

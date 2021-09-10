@@ -108,6 +108,8 @@ GameController.prototype.initialize = function () {
     this.desktopPointer.addComponent('render', {
         type: 'box'
     });
+    this.desktopPointer.enabled = false;
+
     const pointerMaterial = new pc.StandardMaterial();
     pointerMaterial.diffuse = new pc.Color(0.98, 0.98, 0.76);
     pointerMaterial.depthTest = false;
@@ -169,11 +171,9 @@ GameController.prototype.startXR = function () {
         callback: (err) => {
             if (err) {
                 console.error("WebXR Immersive VR failed to start: " + err.message);
-                this.inVR = false;
-                this.desktopPointer.enabled = true;
+                this.inVR = false;                                
             } else {
-                this.inVR = true;
-                this.desktopPointer.enabled = false;
+                this.inVR = true;                
             }
         }
     });
