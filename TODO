@@ -21,7 +21,7 @@ Must have:
         ~ https://forum.playcanvas.com/t/solved-generating-new-material-in-script/8134
     ✔ Title Screen @done(21-09-04 19:58)
     ✔ Gulp pipeline to better compress @done(21-09-04 19:58)
-    ☐ After last level, show start menu (game state 'Start')
+    ✔ After last level, show start menu (game state 'Start') @done(21-09-10 18:00)
 
 
 Should have:
