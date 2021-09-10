@@ -99,8 +99,8 @@ LookCamera.prototype._onMouseMove = function (event) {
         this.gazeController.script.controller.mouseCoords.set(event.x, event.y);
         this.gazeController.script.controller.active = true;
     }
-    if(Math.abs(event.dy) > 25) return;
-    if(Math.abs(event.dx) > 25) return;
+    if(Math.abs(event.dy) > 50) return;
+    if(Math.abs(event.dx) > 50) return;
     if (pc.Mouse.isPointerLocked() || (this.app.mouse.isPressed(pc.MOUSEBUTTON_LEFT) && ! this.gazeController )) {
         this.pitch = Math.max(-90, Math.min(90, this.pitch - (event.dy * this.mouseSensivity)));
         this.yaw -= event.dx * this.mouseSensivity;

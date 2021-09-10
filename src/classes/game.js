@@ -161,10 +161,15 @@ GameController.prototype.initialize = function () {
         }
     }, this);
 
-    this.gameStateChange('start');
+    this.app.on('game:done',()=>{
+        console.log("game done");
+        this.gameStateChange('start');
 
+    }, this);
 
+    this.gameStateChange('start'); 
 }
+
 GameController.prototype.startXR = function () {
     InitAudio();
     this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
@@ -206,7 +211,10 @@ GameController.prototype.createButton = function (text, x, y, z, scalex, scaley)
 GameController.prototype.gameStateChange = async function (state, extraData) {
     switch (state) {
         case 'start':
+            this.playButton.enabled = true;            
             this.textgroup.enabled = true;
+            
+            await this.app.mainCamera.script.blackness.fadeIn()
             break;
         case 'play':
             this.textgroup.enabled = false;
