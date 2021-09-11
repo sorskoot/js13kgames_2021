@@ -60,11 +60,19 @@
     app.htmlPlayButton = document.getElementById('play');
     app.htmlRestartButton = document.getElementById('restart');
 
-    document.addEventListener('pointerlockchange', async (e) => {
-        if (!document.pointerLockElement) {            
+    navigator.xr.isSessionSupported("immersive-vr").then(e =>{
+        if(!e){
+            app.htmlEnterVRButton.classList.add('none');
+        }else{
+            app.htmlPlayButton.classList.add('none');
+        }
+    })
 
-            await app.game.gameStateChange('pause');                      
-            app.game.desktopPointer.enabled=false;
+    document.addEventListener('pointerlockchange', async (e) => {
+        if (!document.pointerLockElement) {
+
+            await app.game.gameStateChange('pause');
+            app.game.desktopPointer.enabled = false;
             app.htmlPlayButton.classList.remove('none');
             app.htmlRestartButton.classList.remove('none');
         }
@@ -87,24 +95,25 @@
         });
         app.htmlPlayButton.addEventListener('click', () => {
             app.mouse.enablePointerLock(() => {
-                app.mainCamera.script.lookCamera.enabled=true;
+                app.mainCamera.script.lookCamera.enabled = true;
                 //app.htmlEnterVRButton.classList.add('none');
                 app.htmlPlayButton.classList.add('none');
-                app.htmlRestartButton.classList.add('none');                
+                app.htmlRestartButton.classList.add('none');
                 app.game.play();
-             
-                setTimeout(()=>{
-                    app.game.desktopPointer.enabled=true},700);
+
+                setTimeout(() => {
+                    app.game.desktopPointer.enabled = true
+                }, 700);
             });
         });
         app.htmlRestartButton.addEventListener('click', () => {
             app.mouse.enablePointerLock(() => {
-                app.mainCamera.script.lookCamera.enabled=true;
+                app.mainCamera.script.lookCamera.enabled = true;
                 //app.htmlEnterVRButton.classList.add('none');
                 app.htmlPlayButton.classList.add('none');
-                app.htmlRestartButton.classList.add('none');                
+                app.htmlRestartButton.classList.add('none');
                 app.game.restart();
-                setTimeout(()=>{app.game.desktopPointer.enabled=true},700);
+                setTimeout(() => { app.game.desktopPointer.enabled = true }, 700);
             });
         });
 

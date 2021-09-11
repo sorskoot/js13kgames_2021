@@ -211,6 +211,7 @@ GameController.prototype.createButton = function (text, x, y, z, scalex, scaley)
 GameController.prototype.gameStateChange = async function (state, extraData) {
     switch (state) {
         case 'start':
+            this.resetCameraForTitle();
             this.playButton.enabled = true;
             this.restartButton.enabled = false;
             this.continueButton.enabled = false;
@@ -229,18 +230,7 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
             break;
         case 'pause':
             await this.app.levelController.pause();
-
-            var pos = this.cameraParent.getPosition();
-            this.textgroup.setPosition(pos.x, 0, pos.z);
-            if (this.app.xr.active) {               
-                var rot = this.app.mainCamera.getRotation().getEulerAngles();
-                this.textgroup.setLocalEulerAngles(0, rot.y, 0);
-                this.textgroup.lookAt(this.app.mainCamera);
-            }else{
-                this.camera.script.lookCamera.enabled=false
-                this.camera.setLocalRotation(0,0,0,1)
-                this.cameraParent.setLocalRotation(0,0,0,1);
-            }
+            this.resetCameraForTitle();
             this.playButton.enabled = false;
             this.restartButton.enabled = true;
             this.continueButton.enabled = true;
@@ -252,7 +242,19 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
     this.gameState = state;
     this.app.fire('game:stateChange', state, this);
 }
-
+GameController.prototype.resetCameraForTitle = function () {
+    var pos = this.cameraParent.getPosition();
+    this.textgroup.setPosition(pos.x, 0, pos.z);
+    if (this.app.xr.active) {               
+        var rot = this.app.mainCamera.getRotation();
+        this.textgroup.setRotation(rot);
+        this.textgroup.lookAt(this.app.mainCamera);                
+    }else{
+        this.camera.script.lookCamera.enabled=false
+        this.camera.setLocalRotation(0,0,0,1)
+        this.cameraParent.setLocalRotation(0,0,0,1);
+    }
+}
 GameController.prototype.play = function () {
     InitAudio();
     sound.play(3);
