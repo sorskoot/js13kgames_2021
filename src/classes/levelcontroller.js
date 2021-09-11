@@ -90,7 +90,7 @@ LevelController.prototype.initialize = function () {
 
     this.shader = this.app.assets.find("shader", "shader").resource;
 
-    this.currentLevel = 12;
+    this.currentLevel = 0;
     this.boxMaterial = new pc.Material();
 
     this.material = [];
