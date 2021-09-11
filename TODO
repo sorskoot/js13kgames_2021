@@ -75,6 +75,7 @@ Would like:
 
 Bugs: 
     @critical:
+        
         ☐ After last level, the title does not correctly show in VR
          ☐ Error when resetting to quickly on desktop : "The user has exited the lock before this request was completed"
         ✔ Make sure title is in front of the camera when pausing @done(21-09-09 19:51)        

@@ -59,7 +59,7 @@ GameController.prototype.initialize = function () {
     this.textgroup.addChild(this.titleImage);
     this.buttons = new pc.Entity();
     this.restartButton = this.createButton('Restart', .5, 1.4, -1.5, 0.6, .25);
-    this.restartButton.on('button:click', this.restart,this);
+    this.restartButton.on('button:click', this.restart, this);
     this.restartButton.enabled = false;
     this.buttons.addChild(this.restartButton);
 
@@ -161,13 +161,13 @@ GameController.prototype.initialize = function () {
         }
     }, this);
 
-    this.app.on('game:done',()=>{
+    this.app.on('game:done', () => {
         console.log("game done");
         this.gameStateChange('start');
 
     }, this);
 
-    this.gameStateChange('start'); 
+    this.gameStateChange('start');
 }
 
 GameController.prototype.startXR = function () {
@@ -176,9 +176,9 @@ GameController.prototype.startXR = function () {
         callback: (err) => {
             if (err) {
                 console.error("WebXR Immersive VR failed to start: " + err.message);
-                this.inVR = false;                                
+                this.inVR = false;
             } else {
-                this.inVR = true;                
+                this.inVR = true;
             }
         }
     });
@@ -211,9 +211,10 @@ GameController.prototype.createButton = function (text, x, y, z, scalex, scaley)
 GameController.prototype.gameStateChange = async function (state, extraData) {
     switch (state) {
         case 'start':
-            this.playButton.enabled = true;            
+            this.playButton.enabled = true;
+            this.restartButton.enabled = false;
+            this.continueButton.enabled = false;
             this.textgroup.enabled = true;
-            
             await this.app.mainCamera.script.blackness.fadeIn()
             break;
         case 'play':
@@ -228,11 +229,18 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
             break;
         case 'pause':
             await this.app.levelController.pause();
-            var pos = this.cameraParent.getPosition();            
-            this.textgroup.setPosition(pos.x, 0, pos.z);                        
-            var rot = this.app.mainCamera.getRotation().getEulerAngles();        
-            this.textgroup.setLocalEulerAngles(0, rot.y, 0);
-            this.textgroup.lookAt(this.app.mainCamera);
+
+            var pos = this.cameraParent.getPosition();
+            this.textgroup.setPosition(pos.x, 0, pos.z);
+            if (this.app.xr.active) {               
+                var rot = this.app.mainCamera.getRotation().getEulerAngles();
+                this.textgroup.setLocalEulerAngles(0, rot.y, 0);
+                this.textgroup.lookAt(this.app.mainCamera);
+            }else{
+                this.camera.script.lookCamera.enabled=false
+                this.camera.setLocalRotation(0,0,0,1)
+                this.cameraParent.setLocalRotation(0,0,0,1);
+            }
             this.playButton.enabled = false;
             this.restartButton.enabled = true;
             this.continueButton.enabled = true;
@@ -248,13 +256,13 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
 GameController.prototype.play = function () {
     InitAudio();
     sound.play(3);
-    if(this.gameState == 'start')
+    if (this.gameState == 'start')
         this.gameStateChange('play');
     else
         this.gameStateChange('play', 'continue');
 }
 
-GameController.prototype.restart = function () {    
+GameController.prototype.restart = function () {
     sound.play(3);
     this.gameStateChange('play', 'restart');
 }

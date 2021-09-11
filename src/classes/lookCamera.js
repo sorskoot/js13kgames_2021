@@ -110,7 +110,6 @@ LookCamera.prototype._onMouseMove = function (event) {
 };
 
 LookCamera.prototype.update = function (dt) {
-    
     if (! this.app.xr.active) {
         this._offsetParent.setLocalEulerAngles(0, this.yaw, 0);
         this.entity.setLocalEulerAngles(this.pitch, 0, 0);        
