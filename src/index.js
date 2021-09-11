@@ -63,6 +63,7 @@
     navigator.xr.isSessionSupported("immersive-vr").then(e =>{
         if(!e){
             app.htmlEnterVRButton.classList.add('none');
+            app.htmlPlayButton.classList.remove('none');
         }else{
             app.htmlPlayButton.classList.add('none');
         }
