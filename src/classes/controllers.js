@@ -29,7 +29,7 @@ Controllers.prototype.initialize = function() {
         // // default to generic-trigger
         // if (! asset) asset = this.controllerAssetsIndex['generic-trigger-' + (inputSource.handedness || 'none')];
         entity.reparent(this.app.root);
-     entity.script.controller.setInputSource(inputSource, asset);
+        entity.script.controller.setInputSource(inputSource, asset);
         entity.enabled = true;
     }, this);
 };

@@ -132,11 +132,11 @@ Controller.prototype.update = function (dt) {
         this.vecA.copy(this.inputSource.getOrigin());
         this.vecB.copy(this.inputSource.getDirection());
         this.vecB.scale(1000).add(this.vecA);
-        if (this.inputSource.selecting) {
-            this.color.set(0, 1, 0);
-        } else {
-            this.color.set(1, 1, 1);
-        }
+       // if (this.inputSource.selecting) {
+            this.color.set(0.47, 0.7, 0.57);
+        // } else {
+        //     this.color.set(1, 1, 1);
+        // }
         this.app.renderLine(this.vecA, this.vecB, this.color);
     }
 
