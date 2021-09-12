@@ -225,7 +225,7 @@ GameController.prototype.gameStateChange = async function (state, extraData) {
                 this.app.levelController.unpause();
             }
             else {
-                this.app.levelController.start(this.app.levelController.currentLevel);
+                this.app.levelController.start(this.app.levelController.cl);
             }
             break;
         case 'pause':

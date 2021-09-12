@@ -16,7 +16,6 @@ module.exports = (options = {}) => {
         const name = fullname.split('.')[0];
 
         content =`window.${name} = ${JSON.stringify(content)};`;
-
         file.contents = Buffer.from(content);
         file.path += '.js';
         

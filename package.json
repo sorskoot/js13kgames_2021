@@ -72,7 +72,8 @@
     "webpack-serve": "^3.2.0"
   },
   "dependencies": {
-    "gulp-wrap-js": "^0.4.1",
+    "gulp-file-inline": "^2.2.3",
+    "gulp-wrap-js": "^0.4.1",    
     "live-server": "^1.2.1",
     "roadroller": "^2.0.0"
   }

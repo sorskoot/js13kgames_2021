@@ -6,7 +6,6 @@
     const canvas = document.getElementById('application');
     const app = new pc.Application(canvas, {
         mouse: new pc.Mouse(canvas),
-        touch: new pc.TouchDevice(canvas),
         keyboard: new pc.Keyboard(window),
     });
     app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
@@ -28,7 +27,7 @@
     tilesTexture.resource = texture;
     tilesTexture.ready = true;
     app.assets.add(tilesTexture);
-    const textureMap2 = "data:image/webp;base64,UklGRnQAAABXRUJQVlA4TGgAAAAvBMACEF+gKADIyFevu64UOlDk2HqoiSRJOVRw4Umgl/AOXy5GihpJYVCECWzzQwzBQC+Z/wAA+2UoK1C5TY/xzY2jNxX2okU8HhTEtg393RLHKCIFgfYKFBUhov+Zus/N3o1l6KkGfw=="
+    const textureMap2 = "data:image/webp;base64,UklGRnAAAABXRUJQVlA4TGMAAAAvBAABAFegFgAQ5s5r60aRQ4lMDzWRJCmHCi48CfQS3uHLxUhRIymMI0xgmx9iLhjoJfMf87WrSIDYpsZ4c+3kJkAvXMziQUFs29Df/xfDKCIFgfYKJI/of+Thpet/qU65TQEA"
     const img2 = new Image(); // SWITCH THESE LINES TO USER WEBP
     img2.src = textureMap2;
     //img2.src = 'colors.webp';
@@ -117,21 +116,6 @@
                 setTimeout(() => { app.game.desktopPointer.enabled = true }, 700);
             });
         });
-
-        // if (app.touch) {
-        //     app.touch.on("touchend", function (evt) {
-        //         if (!app.xr.active) {
-        //             activate();
-        //             enterVRButton.style.display = 'none';
-        //         } else {
-        //             app.game.endXR();
-        //             enterVRButton.style.display = 'block';
-        //         }
-        //         evt.event.preventDefault();
-        //         evt.event.stopPropagation();
-        //     });
-        // }
-
         // end session by keyboard ESC
         app.keyboard.on('keydown', function (evt) {
             if (evt.key === pc.KEY_ESCAPE) {

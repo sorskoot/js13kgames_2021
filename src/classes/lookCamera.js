@@ -16,21 +16,12 @@ LookCamera.prototype.initialize = function () {
     
     this.movedMouse = 0;
     this.movedStart = 0;
-   // this.touchCoords = new pc.Vec2();
 
     this.app.mouse.on(pc.EVENT_MOUSEDOWN, this._onMouseDown, this);
     this.app.mouse.on(pc.EVENT_MOUSEUP, this._onMouseUp, this);
     this.app.mouse.on(pc.EVENT_MOUSEMOVE, this._onMouseMove, this);
     
     this.app.mouse.disableContextMenu();
-    
-    // if (this.app.touch) {
-    //     this.app.touch.on(pc.EVENT_TOUCHSTART, this._onTouchStart, this);
-    //     this.app.touch.on(pc.EVENT_TOUCHEND, this._onTouchEndCancel, this);
-    //     this.app.touch.on(pc.EVENT_TOUCHCANCEL, this._onTouchStartEndCancel, this);
-    //     this.app.touch.on(pc.EVENT_TOUCHMOVE, this._onTouchMove, this);
-    // }
-    
     this.app.mainCamera = this.entity;
     
     this.gazeController = null;

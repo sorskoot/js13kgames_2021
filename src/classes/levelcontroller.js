@@ -78,8 +78,8 @@ const LevelData = [
     { "width": 11, "height": 13, "cam": 0, "layer": [{ "data": [[0, "12", "12", "12", "8", "12", "12", 0, 0, 0, 0, 0, 0], ["12", 0, 0, 0, 0, 0, 0, "12", "10", "12", "10", "12", "12"], ["10", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "12"], ["12", 0, "T", 0, 0, 0, 0, "12", "B", "B", "B", 0, "12"], ["12", "T", "12", "T", 0, 0, 0, "10", 0, 0, 0, 0, "12"], ["12", "12", 0, "12", 0, 0, "S", "12", "12", "10", "12", 0, "12"], ["12", "T", "12", "T", 0, 0, 0, "10", 0, 0, 0, 0, "12"], ["12", 0, "T", 0, 0, 0, 0, "12", "B", "B", "B", 0, "12"], ["10", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "12"], ["12", 0, 0, 0, 0, 0, 0, "12", "10", "12", "10", "12", "12"], [0, "12", "12", "15", "8", "12", "12", 0, 0, 0, 0, 0, 0]] }, { "data": [[0, "1", "11", "1", "9", "13", "11", 0, 0, 0, 0, 0, 0], ["11", 0, 0, 0, 0, 0, 0, "11", "14", "14", "14", "14", "11"], ["2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "14"], ["11", 0, 0, 0, 0, 0, 0, "11", 0, 0, 0, 0, "14"], ["11", 0, "4", 0, 0, 0, 0, "3", 0, 0, 0, 0, "14"], ["11", "4", 0, "4", 0, 0, 0, "16", "16", "16", "11", 0, "14"], ["11", 0, "4", 0, 0, 0, 0, "3", 0, 0, 0, 0, "14"], ["11", 0, 0, 0, 0, 0, 0, "11", 0, 0, 0, 0, "14"], ["2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "14"], ["11", 0, 0, 0, 0, 0, 0, "11", "14", "14", "14", "14", "11"], [0, "1", "11", "1", "9", "11", "11", 0, 0, 0, 0, 0, 0]] }, { "data": [[0, "1", "11", "1", "17", "16", "11", 0, 0, 0, 0, 0, 0], ["11", 0, 0, 0, 0, 0, 0, "11", "4", "4", "4", "4", 0], ["2", 0, 0, 0, 0, 0, 0, "4", "5", "5", "5", "5", "4"], ["11", 0, 0, 0, 0, 0, 0, "4", "5", "5", "5", "5", "4"], ["11", 0, "4", 0, 0, 0, 0, "4", "5", "5", "5", "5", "4"], ["11", "4", 0, "4", 0, 0, 0, "4", "5", "5", "5", "5", "4"], ["11", 0, "4", 0, 0, 0, 0, "4", "5", "5", "5", "5", "4"], ["11", 0, 0, 0, 0, 0, 0, "4", "5", "5", "5", "5", "4"], ["2", 0, 0, 0, 0, 0, 0, "4", "5", "5", "5", "5", "4"], ["11", 0, 0, 0, 0, 0, 0, "11", "4", "4", "4", "4", 0], [0, "1", "11", "1", "17", "16", "11", 0, 0, 0, 0, 0, 0]] }] },
     { "width": 17, "height": 17, "cam": 0, "layer": [{ "data": [[0, 0, 0, 0, 0, 0, 0, "10", "8", "10", 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, "12", 0, 0, 0, "12", 0, 0, 0, 0, 0, 0], [0, 0, 0, "12", "10", "12", "12", 0, "B", 0, "12", "12", "10", "12", 0, 0, 0], [0, 0, "12", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "12", 0, 0], [0, 0, "10", 0, "12", "12", "12", "12", 0, "12", "12", "12", "12", 0, "10", 0, 0], [0, 0, "12", 0, "12", "T", 0, 0, 0, 0, 0, "T", "12", 0, "12", 0, 0], [0, "12", "12", 0, "12", 0, 0, 0, 0, 0, 0, 0, "12", 0, "12", "12", 0], ["10", 0, 0, 0, "12", 0, 0, 0, "4", 0, 0, 0, "12", 0, 0, 0, "10"], ["8", "T", "B", 0, 0, 0, 0, "S", 0, 0, 0, 0, 0, 0, "B", 0, "8"], ["10", 0, 0, 0, "12", 0, "4", 0, 0, 0, "4", 0, "12", 0, 0, 0, "10"], [0, "12", "12", 0, "12", 0, 0, 0, "B", 0, 0, 0, "12", 0, "12", "12", 0], [0, 0, "12", 0, "12", "T", 0, 0, 0, 0, 0, "T", "12", 0, "12", 0, 0], [0, 0, "10", 0, "12", "12", "12", "12", 0, "12", "12", "12", "12", 0, "10", 0, 0], [0, 0, "12", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "12", 0, 0], [0, 0, 0, "12", "10", "12", "12", 0, "B", 0, "12", "12", "10", "12", 0, 0, 0], [0, 0, 0, 0, 0, 0, "12", 0, 0, 0, "12", 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, "10", "8", "10", 0, 0, 0, 0, 0, 0, 0]] }, { "data": [[0, 0, 0, 0, 0, 0, 0, "11", "9", "11", 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, "2", 0, 0, 0, "2", 0, 0, 0, 0, 0, 0], [0, 0, 0, "11", "11", "11", "11", 0, 0, 0, "11", "11", "11", "11", 0, 0, 0], [0, 0, "11", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "11", 0, 0], [0, 0, "11", 0, "11", "11", "3", "11", 0, "11", "3", "11", "11", 0, "11", 0, 0], [0, 0, "11", 0, "11", 0, 0, 0, 0, 0, 0, 0, "11", 0, "11", 0, 0], [0, "2", "11", 0, "3", 0, 0, 0, 0, 0, 0, 0, "3", 0, "11", "2", 0], ["11", 0, 0, 0, "11", 0, 0, 0, "16", 0, 0, 0, "11", 0, 0, 0, "11"], ["9", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "9"], ["11", 0, 0, 0, "11", 0, "16", 0, 0, 0, "16", 0, "11", 0, 0, 0, "11"], [0, "2", "11", 0, "3", 0, 0, 0, 0, 0, 0, 0, "3", 0, "11", "2", 0], [0, 0, "11", 0, "11", 0, 0, 0, 0, 0, 0, 0, "11", 0, "11", 0, 0], [0, 0, "11", 0, "11", "11", "3", "11", 0, "11", "3", "11", "11", 0, "11", 0, 0], [0, 0, "11", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "11", 0, 0], [0, 0, 0, "11", "11", "11", "11", 0, 0, 0, "11", "11", "11", "11", 0, 0, 0], [0, 0, 0, 0, 0, 0, "2", 0, 0, 0, "2", 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, "11", "9", "11", 0, 0, 0, 0, 0, 0, 0]] }, { "data": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, "5", "5", "5", 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, "5", "5", "5", 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, "5", "5", "5", "5", "5", "5", "5", "5", "5", "5", "5", 0, 0, 0], [0, 0, 0, "5", "4", "4", "4", "4", "4", "4", "4", "4", "4", "5", 0, 0, 0], [0, 0, 0, "5", "4", 0, 0, 0, 0, 0, 0, 0, "4", "5", 0, 0, 0], [0, 0, 0, "5", "4", 0, 0, 0, 0, 0, 0, 0, "4", "5", 0, 0, 0], [0, "5", "5", "5", "4", 0, 0, 0, "16", 0, 0, 0, "4", "5", "5", "5", 0], [0, "5", "5", "5", "4", 0, 0, 0, 0, 0, 0, 0, "4", "5", "5", "5", 0], [0, "5", "5", "5", "4", 0, "16", 0, 0, 0, "16", 0, "4", "5", "5", "5", 0], [0, 0, 0, "5", "4", 0, 0, 0, 0, 0, 0, 0, "4", "5", 0, 0, 0], [0, 0, 0, "5", "4", 0, 0, 0, 0, 0, 0, 0, "4", "5", 0, 0, 0], [0, 0, 0, "5", "4", "4", "4", "4", "4", "4", "4", "4", "4", "5", 0, 0, 0], [0, 0, 0, "5", "5", "5", "5", "5", "5", "5", "5", "5", "5", "5", 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, "5", "5", "5", 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, "5", "5", "5", 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }, { "data": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, "11", "14", "14", "14", "14", "14", "14", "14", "11", 0, 0, 0, 0], [0, 0, 0, 0, "14", 0, 0, 0, 0, 0, 0, 0, "14", 0, 0, 0, 0], [0, 0, 0, 0, "14", 0, 0, 0, 0, 0, 0, 0, "14", 0, 0, 0, 0], [0, 0, 0, 0, "14", 0, 0, 0, "16", 0, 0, 0, "14", 0, 0, 0, 0], [0, 0, 0, 0, "14", 0, 0, 0, 0, 0, 0, 0, "14", 0, 0, 0, 0], [0, 0, 0, 0, "14", 0, "16", 0, 0, 0, "16", 0, "14", 0, 0, 0, 0], [0, 0, 0, 0, "14", 0, 0, 0, 0, 0, 0, 0, "14", 0, 0, 0, 0], [0, 0, 0, 0, "14", 0, 0, 0, 0, 0, 0, 0, "14", 0, 0, 0, 0], [0, 0, 0, 0, "11", "14", "14", "14", "14", "14", "14", "14", "11", 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }] }
 ];
-//               1,2, 3,4,5,6,7,8, 9,10,11, 12,13,14,15,16 
-const indexes = [, , 11, , , , , , 8, , , , 12, , 10, 9,];
+//               1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 
+const indexes = [ , ,4, , , , , ,1,  ,  ,  , 5,  , 3, 2,  ];
 
 var LevelController = pc.createScript('levelController');
 
@@ -90,7 +90,7 @@ LevelController.prototype.initialize = function () {
 
     this.shader = this.app.assets.find("shader", "shader").resource;
 
-    this.currentLevel = 0;
+    this.cl = 0;
     this.boxMaterial = new pc.Material();
 
     this.material = [];
@@ -129,23 +129,23 @@ LevelController.prototype.createLevel = function () {
     this.levelGeometry = new pc.Entity();
     this.levelGeometry.enabled = false;
     this.app.root.addChild(this.levelGeometry);
-    this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.currentLevel]));
+    this.currentLevelData = JSON.parse(JSON.stringify(LevelData[this.cl]));
     this.targetsToComplete = 0;
 
     let cameraposition = new pc.Vec3(0, 0, 0);
 
     // create a grid of cubes
-    for (let layer = 0; layer < LevelData[this.currentLevel].layer.length; layer++) {
-        for (let row = 0; row < LevelData[this.currentLevel].layer[layer].data.length; row++) {
-            for (let col = 0; col < LevelData[this.currentLevel].layer[layer].data[row].length; col++) {
-                let tile = LevelData[this.currentLevel].layer[layer].data[row][col];
+    for (let layer = 0; layer < LevelData[this.cl].layer.length; layer++) {
+        for (let row = 0; row < LevelData[this.cl].layer[layer].data.length; row++) {
+            for (let col = 0; col < LevelData[this.cl].layer[layer].data[row].length; col++) {
+                let tile = LevelData[this.cl].layer[layer].data[row][col];
                 if (layer == 0) {
                     if (tile == 'S' || tile == 'B' || tile == 0 || tile == 'T') {
                         let shape = new pc.Entity();
                         shape.addComponent("script");
                         shape.script.create('shape');
                         shape.tags.add("floor");
-                        shape.setLocalPosition(row - LevelData[this.currentLevel].width / 2, 0, col - LevelData[this.currentLevel].height / 2);
+                        shape.setLocalPosition(row - LevelData[this.cl].width / 2, 0, col - LevelData[this.cl].height / 2);
                         shape.setLocalScale(1, .01, 1);
                         this.levelGeometry.addChild(shape);
                         this.shapes.push(shape);
@@ -157,29 +157,29 @@ LevelController.prototype.createLevel = function () {
                 switch (tile) {
                     case 'S':
                         cameraposition = new pc.Vec3(
-                            row - LevelData[this.currentLevel].width / 2,
+                            row - LevelData[this.cl].width / 2,
                             0,
-                            col - LevelData[this.currentLevel].height / 2);
+                            col - LevelData[this.cl].height / 2);
 
                         break;
                     case 'B':
-                        this.createBox(row - LevelData[this.currentLevel].width / 2, col - LevelData[this.currentLevel].height / 2, layer);
+                        this.createBox(row - LevelData[this.cl].width / 2, col - LevelData[this.cl].height / 2, layer);
                         break;
                     case 'T':
-                        this.createTarget(row - LevelData[this.currentLevel].width / 2, col - LevelData[this.currentLevel].height / 2, layer);
+                        this.createTarget(row - LevelData[this.cl].width / 2, col - LevelData[this.cl].height / 2, layer);
                         this.targetsToComplete++;
                         break;
 
                     default:
-                        this.createCube(row - LevelData[this.currentLevel].width / 2, layer, col - LevelData[this.currentLevel].height / 2, tile);
+                        this.createCube(row - LevelData[this.cl].width / 2, layer, col - LevelData[this.cl].height / 2, tile);
                         break;
                 }
             }
         }
     }
-    this.createFloor(LevelData[this.currentLevel].width, LevelData[this.currentLevel].height, 0);
-    this.createCeiling(LevelData[this.currentLevel].width, LevelData[this.currentLevel].height, LevelData[this.currentLevel].layer.length);
-    this.app.fire("teleport:to", cameraposition, LevelData[this.currentLevel].cam);
+    this.createFloor(LevelData[this.cl].width, LevelData[this.cl].height, 0);
+    this.createCeiling(LevelData[this.cl].width, LevelData[this.cl].height, LevelData[this.cl].layer.length);
+    this.app.fire("teleport:to", cameraposition, LevelData[this.cl].cam);
 }
 
 LevelController.prototype.createFloor = function (width, height, floor) {
@@ -333,15 +333,15 @@ LevelController.prototype.createCube = function (x, y, z, tileIndex) {
  * @returns true if the box can move to the destination
  */
 LevelController.prototype.tryMoveBox = function (position, direction, targetPosition) {
-    const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
+    const pos = new pc.Vec2(position.x + LevelData[this.cl].width / 2, position.z + LevelData[this.cl].height / 2);
     const dir = new pc.Vec2(direction.x, direction.z);
     const target = pos.clone().add(dir);
     const targetTile = this.currentLevelData.layer[0].data[target.x][target.y];
     if (targetTile == 0 || targetTile == 'S' || targetTile == 'T') {
         targetPosition.set(
-            target.x - LevelData[this.currentLevel].width / 2,
+            target.x - LevelData[this.cl].width / 2,
             position.y,
-            target.y - LevelData[this.currentLevel].height / 2);
+            target.y - LevelData[this.cl].height / 2);
     }
     return (targetTile == 0 || targetTile == 'S' || targetTile == 'T');
 }
@@ -351,7 +351,7 @@ LevelController.prototype.tryMoveBox = function (position, direction, targetPosi
  * @param {number} layer 
  */
 LevelController.prototype.getTileAt = function (position, layer = 0) {
-    const pos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
+    const pos = new pc.Vec2(position.x + LevelData[this.cl].width / 2, position.z + LevelData[this.cl].height / 2);
     return this.currentLevelData.layer[layer].data[Math.floor(pos.x)][Math.floor(pos.y)];
 }
 
@@ -367,10 +367,10 @@ LevelController.prototype.onTarget = function (boxEntity) {
         sound.play(1);
         setTimeout(async () => {
             await this.app.mainCamera.script.blackness.fadeOut();
-            this.currentLevel++;
+            this.cl++;
             if (this.levelGeometry) this.levelGeometry.destroy();
-            if (this.currentLevel == LevelData.length) {
-                this.currentLevel = 0;
+            if (this.cl == LevelData.length) {
+                this.cl = 0;
                 this.app.fire('game:done');
             } else {
                 this.createLevel();
@@ -390,14 +390,14 @@ LevelController.prototype.offTarget = function (boxEntity, lastTile) {
     this.currentLevelData.layer[0].data[this.calcRowPos(position.x)][this.calcColPos(position.z)] = lastTile;
 }
 
-LevelController.prototype.calcRowPos = function (row) { return row + LevelData[this.currentLevel].width / 2; }
-LevelController.prototype.calcColPos = function (col) { return col + LevelData[this.currentLevel].height / 2; }
+LevelController.prototype.calcRowPos = function (row) { return row + LevelData[this.cl].width / 2; }
+LevelController.prototype.calcColPos = function (col) { return col + LevelData[this.cl].height / 2; }
 
 LevelController.prototype.start = async function (level) {
     console.log('start');
     let q = await this.app.mainCamera.script.blackness.fadeOut();
 
-    this.currentLevel = level;
+    this.cl = level;
     if (this.levelGeometry) this.levelGeometry.destroy();
     this.createLevel();
     this.calculateTargets();
@@ -407,7 +407,7 @@ LevelController.prototype.start = async function (level) {
 }
 
 LevelController.prototype.canTeleportTo = function (position) {
-    const mapPos = new pc.Vec2(position.x + LevelData[this.currentLevel].width / 2, position.z + LevelData[this.currentLevel].height / 2);
+    const mapPos = new pc.Vec2(position.x + LevelData[this.cl].width / 2, position.z + LevelData[this.cl].height / 2);
     return !!this.possibleTargets[Math.floor(mapPos.x)][Math.floor(mapPos.y)];
 }
 
@@ -416,10 +416,10 @@ LevelController.prototype.calculateTargets = function () {
     const pos = this.app.mainCamera.getPosition();
     const mapPos = new pc.Vec2(this.calcRowPos(Math.floor(pos.x) + .5), this.calcColPos(Math.floor(pos.z) + .5));
     const screen = this.currentLevelData.layer[0].data;
-    this.possibleTargets = new Array(LevelData[this.currentLevel].height);
-    for (let i = 0; i < LevelData[this.currentLevel].height; i++) {
-        this.possibleTargets[i] = new Array(LevelData[this.currentLevel].width);
-        for (let j = 0; j < LevelData[this.currentLevel].width; j++) {
+    this.possibleTargets = new Array(LevelData[this.cl].height);
+    for (let i = 0; i < LevelData[this.cl].height; i++) {
+        this.possibleTargets[i] = new Array(LevelData[this.cl].width);
+        for (let j = 0; j < LevelData[this.cl].width; j++) {
             this.possibleTargets[i][j] = 0;
         }
     }
@@ -427,7 +427,7 @@ LevelController.prototype.calculateTargets = function () {
 }
 
 LevelController.prototype.floodFillUtil = function (sourceMap, targetMap, x, y, prevC = 0, newC = 1) {
-    if (x < 0 || x >= LevelData[this.currentLevel].width || y < 0 || y >= LevelData[this.currentLevel].height) return;
+    if (x < 0 || x >= LevelData[this.cl].width || y < 0 || y >= LevelData[this.cl].height) return;
     if (sourceMap[x][y] != prevC && sourceMap[x][y] != 'S' && sourceMap[x][y] != 'T') return;
     if (!!targetMap[x][y]) return;
 

@@ -6,32 +6,10 @@ pc.extend(pc, function () {
             aPosition: pc.SEMANTIC_POSITION
         };
 
-        var passThroughVert = [
-            "attribute vec2 aPosition;",
-            "",
-            "varying vec2 vUv0;",
-            "",
-            "void main(void)",
-            "{",
-            "    gl_Position = vec4(aPosition, 0.0, 1.0);",
-            "    vUv0 = (aPosition.xy + 1.0) * 0.5;",
-            "}"
-        ].join("\n");
+        var passThroughVert =
+            "attribute vec2 aPosition;varying vec2 vUv0;void main(void){gl_Position=vec4(aPosition,0.0,1.0);vUv0=(aPosition.xy+1.0)*0.5;}";
 
-        var luminosityFrag = [
-            "precision " + graphicsDevice.precision + " float;",
-            "",
-            "uniform sampler2D uColorBuffer;",
-            "uniform float uDarkness;",
-            "",
-            "varying vec2 vUv0;",
-            "",
-            "void main() {",
-            "    vec4 texel = texture2D(uColorBuffer, vUv0);",
-            "    vec2 uv = (vUv0 - vec2(0.5)) ;",
-            "    gl_FragColor = vec4(texel.rgb - uDarkness, texel.a);",
-            "}"
-        ].join("\n");
+        var luminosityFrag = `precision ${graphicsDevice.precision} float;uniform sampler2D uColorBuffer;uniform float uDarkness;varying vec2 vUv0;void main(){vec4 texel=texture2D(uColorBuffer,vUv0);vec2 uv=(vUv0-vec2(0.5));gl_FragColor=vec4(texel.rgb-uDarkness,texel.a);}`;
 
         this.blacknessShader = new pc.Shader(graphicsDevice, {
             attributes: attributes,

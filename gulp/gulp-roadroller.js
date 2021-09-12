@@ -3,7 +3,10 @@ const through = require('through2');
 const Packer = require('roadroller');
 
 
-module.exports = (options = {}) => {
+module.exports = (options = {
+    contextBits:12,
+    maxMemoryMB:150
+}) => {
     return through.obj(async function (file, encoding, callback) {
         if (file.isDirectory() || file.isNull() || file.isStream()) {
             return callback(null, file);
@@ -15,11 +18,12 @@ module.exports = (options = {}) => {
                 action: 'eval',
             },
         ];
-
-        const options = {
-            // see the Usage for available options.
-        };        
-        const packer = new Packer.Packer(inputs, options);
+        
+        const packer = new Packer.Packer(inputs, {
+            contextBits: options.contextBits || 3,
+            maxMemoryMB: options.maxMemoryMB || 150,
+            
+        });
         await packer.optimize();
         const { firstLine, secondLine } = packer.makeDecoder();
         file.contents = Buffer.from(firstLine + '\n' + secondLine);
