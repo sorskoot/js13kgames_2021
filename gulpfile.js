@@ -80,7 +80,7 @@ function production() {
         .pipe(concat('main.js'))
         .pipe(roadroller({
             contextBits:24,
-            maxMemoryMB:300
+            maxMemoryMB:500
         }))
         .pipe(gulp.dest('./dist/'));
 };

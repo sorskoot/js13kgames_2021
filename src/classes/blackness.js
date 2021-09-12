@@ -48,25 +48,7 @@ Blackness.prototype.initialize = function() {
     this.speed = .5;
     this.effect = new pc.BlacknessEffect(this.app.graphicsDevice);
     this.effect.darkness = 0;
-
-    this.on('attr', function (name, value) {
-        this.effect[name] = value;
-    }, this);
-
-    var queue = this.entity.camera.postEffects;
-    queue.addEffect(this.effect);
-
-    this.on('state', function (enabled) {
-        if (enabled) {
-            queue.addEffect(this.effect);
-        } else {
-            queue.removeEffect(this.effect);
-        }
-    });
-
-    this.on('destroy', function () {
-        queue.removeEffect(this.effect);
-    });
+    this.entity.camera.postEffects.addEffect(this.effect);
 };
 Blackness.prototype.update=function(dt){
 
@@ -89,13 +71,13 @@ Blackness.prototype.update=function(dt){
 }
 Blackness.prototype.fadeOut = function () {
     this.fadeOutActive = true;
-    return new Promise((resolve, reject) => {
-        this.resove = resolve;
+    return new Promise(r => {
+        this.resove = r;
     });
 }
 Blackness.prototype.fadeIn = function () {
     this.fadeInActive = true;
-    return new Promise((resolve, reject) => {
-        this.resove = resolve;
+    return new Promise(r => {
+        this.resove = r;
     });
 }
