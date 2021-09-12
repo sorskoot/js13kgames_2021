@@ -1,53 +1,48 @@
-<!DOCTYPE html>
-<html>
+<title>Storage Space 13</title>
+<meta name="monetization" content="$ilp.uphold.com/qxZKhgaL7wWJ">
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+    }
 
-<head>
-    <meta charset="utf-8">
-    <title>Storage Space 13</title>
-    <meta name="monetization" content="$ilp.uphold.com/qxZKhgaL7wWJ">
-    <meta name='viewport'
-        content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' />
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
+    #button-container {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        align-content: flex-end;
+        align-items: flex-end;
+        justify-content: space-around;
+    }
 
-        #button-container {
-            display: flex;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;            
-            align-content: flex-end;
-            align-items: flex-end;
-            justify-content: space-around;
-        }
+    .button {
+        width: 250px;
+        background-color: #242b4a;
+        text-align: center;
+        line-height: 70px;
+        font-family: monospace;
+        font-size: 3em;
+        font-weight: 900;
+        margin-bottom: 35px;
+        border-radius: 35px;
+        border: 5px solid #dfeded;
+        color: #dfeded;
+        cursor: default;
+    }
 
-        .button {
-            width: 250px;
-            background-color: #242b4a;
-            text-align: center;
-            line-height: 70px;
-            font-family: monospace;
-            font-size: 3em;
-            font-weight: 900;
-            margin-bottom: 35px;
-            border-radius: 35px;
-            border: 5px solid #dfeded;
-            color:#dfeded;
-            cursor: default;
-        }
-        .button:hover {
-            cursor: pointer;
-            background-color: #4d6a94;
-        }
-        .none{
-            display:none;
-        }
-    </style>
-    <!-- <script src="https://js13kgames.com/webxr-src/2021/playcanvas.js"></script> -->
-    <script src="https://code.playcanvas.com/playcanvas-1.45.3.js"></script>
+    .button:hover {
+        cursor: pointer;
+        background-color: #4d6a94;
+    }
+
+    .none {
+        display: none;
+    }
+</style>
+<!-- <script src="https://js13kgames.com/webxr-src/2021/playcanvas.js"></script> -->
+<script src="https://code.playcanvas.com/playcanvas-1.45.3.js"></script>
 
 </head>
 
@@ -55,7 +50,7 @@
     <canvas id='application'></canvas>
     <div id="button-container">
         <div class="button none" id="play">Play</div>
-        <div class="button" id="enter-vr">Enter VR</div>        
+        <div class="button" id="enter-vr">Enter VR</div>
         <div class="button none" id="restart">Restart</div>
     </div>
     <script src="main.js"></script>

@@ -45,7 +45,7 @@ function copyStatic(cb) {
 
 function doWebp(cb) {
     return gulp.src('./src/static/*.png')
-        .pipe(webp({ lossless: true }))
+        .pipe(webp({ lossless: true, method: 6 }))
         .pipe(gulp.dest('./dist'));
 }
 
