@@ -38,11 +38,7 @@ GameController.prototype.initialize = function () {
         farClip: 1000
     });
     this.camera.addComponent('script');
-    this.camera.script.create('blackness', {
-        attributes: {
-            darkness: 0
-        }
-    });
+    this.camera.script.create('blackness');
 
     this.camera.translate(0, 1.6, 0);
 

@@ -43,18 +43,11 @@ pc.extend(pc, function () {
 //--------------- SCRIPT DEFINITION------------------------//
 var Blackness = pc.createScript('blackness');
 
-Blackness.attributes.add('darkness', {
-    type: 'number',
-    default: 1,
-    precision: 5,
-    title: 'Darkness'
-});
-
 // initialize code called once per entity
 Blackness.prototype.initialize = function() {
     this.speed = .5;
     this.effect = new pc.BlacknessEffect(this.app.graphicsDevice);
-    this.effect.darkness = this.darkness;
+    this.effect.darkness = 0;
 
     this.on('attr', function (name, value) {
         this.effect[name] = value;
