@@ -7,7 +7,7 @@ Controllers.attributes.add('controllerTemplate', {
 Controllers.prototype.initialize = function () {
     this.app.xr.input.on('add', inputSource => {
         const entity = this.controllerTemplate.clone();
-        entity.reparent(this.app.scene.root);
+        entity.reparent(this.app.root);
         entity.script.controller.setInputSource(inputSource, entity);
         entity.enabled = true;
     }, this);
