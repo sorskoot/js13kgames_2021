@@ -1,9 +1,5 @@
 var Controller = pc.createScript('controller');
 
-Controller.attributes.add('modelEntity', {
-    type: 'entity'
-});
-
 Controller.prototype.initialize = function () {
     this.ray = new pc.Ray();
     this.vecA = new pc.Vec3();
@@ -132,23 +128,20 @@ Controller.prototype.update = function (dt) {
         this.vecA.copy(this.inputSource.getOrigin());
         this.vecB.copy(this.inputSource.getDirection());
         this.vecB.scale(1000).add(this.vecA);
-       // if (this.inputSource.selecting) {
-            this.color.set(0.47, 0.7, 0.57);
-        // } else {
-        //     this.color.set(1, 1, 1);
-        // }
+        if(this.onTarget)
+        this.color.set(0.47, 0.7, 0.57);
+        else{
+            this.color.set(0.75, 0.15, 0.32);
+        }
         this.app.renderLine(this.vecA, this.vecB, this.color);
     }
 
     // it is a hand
     if (this.inputSource && this.inputSource.grip) {
         // is can be gripped, enable model and transform it accordingly
-        this.modelEntity.enabled = true;
         this.entity.setPosition(this.inputSource.getPosition());
         this.entity.setRotation(this.inputSource.getRotation());
     } else {
-        this.modelEntity.enabled = false;
-
         if (!this.inputSource || this.inputSource.targetRayMode === 'gaze') {
             this.entity.setPosition(this.app.mainCamera.getPosition());
             this.entity.setRotation(this.app.mainCamera.getRotation());
@@ -162,9 +155,11 @@ Controller.prototype.update = function (dt) {
         this.vecA.copy(this.hoverPoint).add(this.vecB);
         this.app.fire('teleport:transform', this.vecA, this.hoverEntity.getRotation());
         this.app.fire('teleport:show');
-    } else {
-        this.app.fire('teleport:hide');
-    }
+        this.onTarget = true;
+     } else {
+        this.onTarget = false;
+         this.app.fire('teleport:hide');
+     }
 
     if (this.inputSource?.handedness === pc.XRHAND_RIGHT) {
         const rotate = -this.inputSource.gamepad.axes[2];
@@ -191,7 +186,6 @@ Controller.prototype.update = function (dt) {
 
 
 Controller.prototype.setInputSource = function (inputSource, asset) {
-    var self = this;
 
     this.inputSource = inputSource;
     this.inputSource.once('remove', this.onRemove, this);
@@ -206,12 +200,5 @@ Controller.prototype.setInputSource = function (inputSource, asset) {
 };
 
 Controller.prototype.onRemove = function () {
-    // if (this.modelEntity.containerAsset) {
-    //     console.log(this.modelEntity.containerAsset);
-    //     this.modelEntity.containerAsset.unload();
-    //     this.app.assets.remove(this.modelEntity.containerAsset);
-    //     this.modelEntity.containerAsset = null;
-    // }
-
     this.entity.destroy();
 };

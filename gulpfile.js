@@ -79,8 +79,8 @@ function production() {
         .pipe(gulpif(isShader, glslify()))
         .pipe(concat('main.js'))
         .pipe(roadroller({
-            contextBits:12,
-            maxMemoryMB:150
+            contextBits:24,
+            maxMemoryMB:500
         }))
         .pipe(gulp.dest('./dist/'));
 };

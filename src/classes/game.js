@@ -94,12 +94,7 @@ GameController.prototype.initialize = function () {
 
     controller.enabled = false;
     controller.addComponent('script');
-    controller.script.create('controller', {
-        attributes: {
-            modelEntity: this.locator
-        }
-    });
-
+    controller.script.create('controller');
     this.desktopPointer = new pc.Entity();
     this.desktopPointer.addComponent('render', {
         type: 'box'
