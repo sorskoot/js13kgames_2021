@@ -59,8 +59,10 @@ You can play the game [here](https://ss13.sorskoot.com)
 - Gulp for the build pipeline
 - Unity3D for designing the levels with a very basic 'exporter' to create the JSON needed for the game
 - Microsoft Edge for debugging local and remote
-- Roadroller for compressing the JavaScript as much as possible
+- [SpectorJS](https://spector.babylonjs.com/) for debugging the shaders and graphics 
+- [Roadroller](https://lifthrasiir.github.io/roadroller/) for compressing the JavaScript as much as possible
 - AdvZip for creating the zip file
+- [My Twitch community](https://twitch.tv/sorskoot) <3 
 
 
 
