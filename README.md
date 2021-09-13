@@ -3,7 +3,7 @@
 ---
 
 ### Story
-You are a janitor on space ship. After flying through a meteor shower, the ship is a mess. 
+You are a janitor on freight space ship, Storage Space 13. After flying through a meteor shower, the ship is a mess. 
 Boxes are all over the place and vents are leaking.
 You need to clean up the mess of boxes and place them onto the leaking vents in the floor.
 The gravitiy system of the ship broken and is only working on your boots.
