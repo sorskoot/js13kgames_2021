@@ -59,14 +59,16 @@
     app.htmlPlayButton = document.getElementById('play');
     app.htmlRestartButton = document.getElementById('restart');
 
-    navigator.xr.isSessionSupported("immersive-vr").then(e =>{
-        if(!e){
-            app.htmlEnterVRButton.classList.add('none');
-            app.htmlPlayButton.classList.remove('none');
-        }else{
-            app.htmlPlayButton.classList.add('none');
-        }
-    })
+    if (navigator.xr)
+        navigator.xr.isSessionSupported("immersive-vr").then(e => {
+            if (!e) {
+                app.htmlEnterVRButton.classList.add('none');
+                app.htmlPlayButton.classList.remove('none');
+            } else app.htmlPlayButton.classList.add('none');
+        })
+    else app.htmlPlayButton.classList.add('none');
+
+
 
     document.addEventListener('pointerlockchange', async (e) => {
         if (!document.pointerLockElement) {
