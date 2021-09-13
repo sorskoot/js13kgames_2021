@@ -102,11 +102,22 @@ Bugs:
 
 
 Story:
-    ~ Janitor on space ship. The ship is a mess, boxes all over the place.
-    ~ You need to clean up the mess of boxes and place then into the right spots.
-    ~ Gravitiy is only working on your boots. The boxes slide forward and only stop when hitting 
-    ~ a wall or column. You can't jump over the boxes. 
-    ~ But, we can jump on the walls.    
+    ~ You are a janitor on space ship. After flying through a meteor shower, the ship is a mess. 
+    ~ Boxes are all over the place and vents are leaking.
+    ~ You need to clean up the mess of boxes and place them onto the leaking vents in the floor.
+    ~ The gravitiy system of the ship broken and is only working on your boots.
+    ~ This means the boxes can only slide forward and only stop when hitting a wall or another box.     
+    ~ Controls: 
+        - Teleport or push box:  
+            Left mouse button (desktop)
+            Controller Trigger (VR)
+        - Menu:
+            Escape (desktop)
+            Controller X or A (VR)
+    ~ Notes:
+        - You can only teleport to places that are accessable, boxes can block the way.
+        - You need to be close to a box to push it.
+          
 
 Levels:
     S = Start
