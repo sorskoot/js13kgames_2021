@@ -6,7 +6,8 @@
   "scripts": {
     "startx": "webpack-dev-server --config webpack.dev",
     "start": "live-server ./dist --port=1337 --watch=main.js --verbose",
-    "buildProd": "gulp prod"
+    "buildProd": "gulp prod",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
