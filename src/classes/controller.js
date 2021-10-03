@@ -1,3 +1,5 @@
+import { sound } from './sound';
+
 var Controller = pc.createScript('controller');
 
 Controller.prototype.initialize = function () {

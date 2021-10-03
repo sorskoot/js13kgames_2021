@@ -448,7 +448,7 @@ function SfxrParams() {
   var synth = new SfxrSynth();
   // added export to use as module 
 
-const jsfxr = function(settings) {
+export const jsfxr = function(settings) {
     // Initialize SfxrParams
     synth._params.setSettings(settings);
     // Synthesize Wave

@@ -1,4 +1,5 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
+import { sound } from './sound';
 
 var BoxController = pc.createScript('boxController');
 

@@ -1,8 +1,12 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
+
+import { sound } from './sound';
+import { LevelData } from './levelData';
+
 const numOfSprites = 17.0;
 
 //               1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 
-const indexes = [ , ,4, , , , , ,1,  ,  ,  , 5,  , 3, 2,  ];
+const indexes = [, , 4, , , , , , 1, , , , 5, , 3, 2,];
 
 var LevelController = pc.createScript('levelController');
 
@@ -42,7 +46,6 @@ LevelController.prototype.initialize = function () {
         mat.update();
         this.material.push(mat);
     }
-
 }
 
 

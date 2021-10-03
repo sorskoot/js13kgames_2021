@@ -1,4 +1,4 @@
-const LevelData = [
+export const LevelData = [
     {
         cam: 0,
         width: 7,

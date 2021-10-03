@@ -1,3 +1,5 @@
+import {jsfxr} from './jsfxr';
+
 let audiopool = [];
 let pannerNodes = [];
 
@@ -5,11 +7,12 @@ let pannerNodes = [];
 // when the game actually starts.
 let audioContext;
 let soundinitialized = false;
+
 function InitAudio() {
     if(soundinitialized) return;
     soundinitialized = true;    
     audioContext = new AudioContext();
-    audioContext.sampleRate = 11025;
+    //audioContext.sampleRate = 11025;
     let gain = audioContext.createGain();
     gain.connect(audioContext.destination);
     for (let i = 0; i < 25; i++) {
@@ -27,7 +30,8 @@ jsfxr([3, 0.24, 0.12, 0, 0.073, 0.92, 0, -0.195, -0.257, 0, 0, 0, 0, 0, 0, 0, 0,
 jsfxr([1, 0.03, 0.08, -0.02, 0.04, 0.59, 0, -0.62, 0.041, 0.002, -0.02, 0.792, 0.38, 1.004, -0.23, 0, -0.08, -0.10, 0.54, -0.41, 0.13, 0.08, -0.083, 0.25])
 ];
 
-const sound = {
+export const sound = {
+    InitAudio,
     play: function (params) {
         if(!soundinitialized) return;       
         audiopool[currentSfxIndex].src = soundfx[params];

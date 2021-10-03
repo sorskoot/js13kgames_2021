@@ -1,6 +1,7 @@
 /// <reference path="../../typings/playcanvas.d.ts" />
 
 //import { LevelController } from "./levelcontroller";
+import { sound } from './sound';
 
 const movementSpeed = 1.5; // 1.5 m/s
 const rotateSpeed = 45;
@@ -47,6 +48,7 @@ GameController.prototype.initialize = function () {
     this.titleImage.addComponent('render', {
         type: 'plane'
     });
+    
     this.titleImage.translate(0, 1.8, -2);
     this.titleImage.rotateLocal(90, 0, 0);
     this.titleImage.setLocalScale(3.2, .8, .8);
@@ -162,7 +164,7 @@ GameController.prototype.initialize = function () {
 }
 
 GameController.prototype.startXR = function () {
-    InitAudio();
+    sound.InitAudio();
     this.camera.camera.startXr(pc.XRTYPE_VR, pc.XRSPACE_LOCALFLOOR, {
         callback: (err) => {
             if (err) {
@@ -247,7 +249,7 @@ GameController.prototype.resetCameraForTitle = function () {
     }
 }
 GameController.prototype.play = function () {
-    InitAudio();
+    sound.InitAudio();
     sound.play(3);
     if (this.gameState == 'start')
         this.gameStateChange('play');

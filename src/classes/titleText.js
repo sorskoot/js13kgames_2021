@@ -17,7 +17,8 @@ TitleText.prototype.diffuseMap = function () {
     var canvas = document.createElement("canvas");
     canvas.width = this.width;
     canvas.height = this.height;
-
+    canvas.style.imageRendering = 'pixelated';
+    
     var ctx = canvas.getContext("2d");
     var gradient = ctx.createLinearGradient(0, 8, 0, 118);
     gradient.addColorStop(0, '#524a63');
